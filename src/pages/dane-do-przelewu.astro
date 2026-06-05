@@ -46,11 +46,9 @@ const { accounts, zrzutka, recipient, address } = site.bank;
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 bg-cream-100 dark:bg-navy-900/40 rounded-2xl px-5 py-4 border border-white/10 mb-5 text-center sm:text-left">
-              <div class="overflow-x-auto">
-                <p class="font-mono text-base sm:text-2xl text-salmon-900 dark:text-white tracking-wider whitespace-nowrap">
-                  {acc.number}
-                </p>
-              </div>
+              <p class="font-mono text-xl sm:text-2xl text-salmon-900 dark:text-white tracking-wider break-words">
+                {acc.number}
+              </p>
               <button
                 type="button"
                 data-copy={acc.number.replace(/\s+/g, "")}
