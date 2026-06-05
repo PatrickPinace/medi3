@@ -4,6 +4,8 @@ import PageHero from "../components/PageHero.astro";
 import { team } from "../data/team";
 import { site } from "../data/site";
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const initials = (name: string) =>
   name
     .split(/\s+/)
@@ -29,7 +31,7 @@ const initials = (name: string) =>
         <article class="group relative overflow-hidden rounded-3xl border border-salmon-100 bg-blush-100 transition hover:shadow-xl hover:-translate-y-0.5">
           <div class="aspect-[4/5] relative overflow-hidden bg-cream-100">
             {m.photo ? (
-              <img src={m.photo} alt={`${m.name} — ${m.role}`} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+              <img src={`${base}${m.photo}`} alt={`${m.name} — ${m.role}`} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
             ) : (
               <div class="absolute inset-0 flex items-center justify-center">
                 <span class="font-serif text-6xl text-salmon-400/70 select-none">{initials(m.name)}</span>
