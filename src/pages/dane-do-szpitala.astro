@@ -15,9 +15,9 @@ import { site } from "../data/site";
     subtitle="Komplet danych Fundacji Medi3 — przyda się przy rejestracji w szpitalu lub w razie kontaktu z personelem medycznym. Każde pole możesz skopiować jednym kliknięciem."
   />
 
-  <section class="container-x py-12">
+  <section class="container-x py-10 sm:py-12">
     <!-- Ostrzeżenie / wskazówka -->
-    <div class="rounded-3xl bg-gradient-to-br from-salmon-50 to-blush-100 border border-salmon-100 p-6 sm:p-7 flex items-start gap-4 mb-10">
+    <div class="rounded-3xl bg-gradient-to-br from-salmon-50 to-blush-100 border border-salmon-100 p-6 sm:p-7 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 mb-10">
       <div class="shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-salmon-600">
         <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
       </div>
@@ -39,13 +39,13 @@ import { site } from "../data/site";
       <CopyField label="Numer księgi rejestrowej (NZOZ)" value="000000212438" mono />
     </div>
 
-    <h2 class="mt-12 mb-4 font-serif text-2xl text-salmon-900">Umowy z NFZ</h2>
+    <h2 class="mt-12 mb-4 font-serif text-2xl text-salmon-900 text-center md:text-left">Umowy z NFZ</h2>
     <div class="grid sm:grid-cols-2 gap-4">
       <CopyField label="Świętokrzyski OW NFZ" value="13-POZ01-19-04929-333" mono />
       <CopyField label="Podkarpacki OW NFZ" value="0903138101202013" mono />
     </div>
 
-    <h2 class="mt-12 mb-4 font-serif text-2xl text-salmon-900">Kontakt</h2>
+    <h2 class="mt-12 mb-4 font-serif text-2xl text-salmon-900 text-center md:text-left">Kontakt</h2>
     <div class="grid sm:grid-cols-3 gap-4">
       <CopyField label="Telefon" value={site.phone} />
       <CopyField label="E-mail" value={site.email} />
@@ -53,14 +53,14 @@ import { site } from "../data/site";
     </div>
   </section>
 
-  <section class="container-x pb-20">
-    <div class="rounded-[2rem] bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600 px-8 py-12 sm:px-12 sm:py-14 text-white relative overflow-hidden">
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="rounded-[2rem] bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600 px-6 py-10 sm:px-12 sm:py-14 text-white relative overflow-hidden">
       <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
-      <div class="relative max-w-2xl">
+      <div class="relative max-w-2xl mx-auto md:mx-0 text-center md:text-left">
         <h2 class="font-serif text-3xl tracking-tight">Pytania okołoporodowe?</h2>
         <p class="mt-3 text-white/85">Zadzwoń do swojej położnej — jesteśmy do Twojej dyspozycji.</p>
         <div class="mt-6">
-          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50">
             ☎ {site.phone}
           </a>
         </div>

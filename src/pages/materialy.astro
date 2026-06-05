@@ -52,19 +52,19 @@ const materialy = [
     subtitle="Narzędzia, dokumenty i materiały, które mogą Ci pomóc — od kalkulatora tygodnia ciąży po wzór planu porodu."
   />
 
-  <section class="container-x py-16">
+  <section class="container-x py-12 sm:py-16">
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {materialy.map((m) => (
         <a
           href={m.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="group relative overflow-hidden rounded-3xl border border-salmon-100 bg-white p-7 transition hover:shadow-xl hover:-translate-y-0.5 hover:border-salmon-200"
+          class="group relative overflow-hidden rounded-3xl border border-salmon-100 bg-white p-6 sm:p-7 transition hover:shadow-xl hover:-translate-y-0.5 hover:border-salmon-200 text-center sm:text-left"
         >
           <div class="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-salmon-100/50 blur-2xl transition group-hover:bg-salmon-200/60"></div>
 
           <div class="relative">
-            <div class="flex items-center justify-between mb-5">
+            <div class="flex items-center justify-center sm:justify-between gap-3 mb-5">
               <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-salmon-100 text-salmon-600 group-hover:bg-salmon-500 group-hover:text-white transition">
                 {m.ikona === "calendar" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>}
                 {m.ikona === "scale" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 21h12M12 3v18M12 3l-5 8h10z"/></svg>}
@@ -88,9 +88,9 @@ const materialy = [
   </section>
 
   <!-- Info box -->
-  <section class="container-x pb-20">
-    <div class="rounded-3xl bg-gradient-to-br from-cream-100 to-blush-100 border border-salmon-100 p-8 sm:p-10">
-      <div class="flex flex-col sm:flex-row items-start gap-6">
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="rounded-3xl bg-gradient-to-br from-cream-100 to-blush-100 border border-salmon-100 p-6 sm:p-10">
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
         <div class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-salmon-600">
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>
         </div>

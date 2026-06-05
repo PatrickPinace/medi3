@@ -8,16 +8,16 @@ interface Props {
 const { label, value, mono = false, big = false } = Astro.props;
 ---
 
-<div class="group rounded-2xl border border-salmon-100 bg-white p-5 transition hover:border-salmon-200">
+<div class="group rounded-2xl border border-salmon-100 bg-white p-5 transition hover:border-salmon-200 text-center sm:text-left">
   <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/60">{label}</p>
-  <div class="mt-2 flex items-center justify-between gap-3">
+  <div class="mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
     <p class={`text-salmon-900 ${big ? "text-2xl font-serif" : ""} ${mono ? "font-mono tracking-wide" : ""} break-all`}>
       {value}
     </p>
     <button
       type="button"
       data-copy={value}
-      class="copy-btn shrink-0 inline-flex items-center gap-1.5 rounded-full border border-salmon-200 bg-salmon-50 text-salmon-700 px-3 py-1.5 text-xs font-medium hover:bg-salmon-100 transition"
+      class="copy-btn shrink-0 mx-auto sm:mx-0 inline-flex items-center justify-center gap-1.5 rounded-full border border-salmon-200 bg-salmon-50 text-salmon-700 px-3 py-1.5 text-xs font-medium hover:bg-salmon-100 transition"
       aria-label={`Skopiuj ${label}`}
     >
       <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">

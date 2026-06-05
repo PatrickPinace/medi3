@@ -3,17 +3,17 @@ import { site } from "../data/site";
 import { url } from "../utils/url";
 ---
 
-<footer class="mt-24 border-t border-salmon-100 bg-gradient-to-b from-cream-50 to-cream-100">
-  <div class="container-x py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+<footer class="mt-20 sm:mt-24 border-t border-salmon-100 bg-gradient-to-b from-cream-50 to-cream-100">
+  <div class="container-x py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 text-center sm:text-left">
 
     <!-- Logo + opis (2 kolumny na desktop) -->
     <div class="lg:col-span-2">
       <p class="font-serif text-2xl text-salmon-700 tracking-tight">medi<span class="text-salmon-500">3</span></p>
-      <p class="mt-2 text-sm text-salmon-900/70 max-w-xs leading-relaxed">
+      <p class="mt-2 text-sm text-salmon-900/70 max-w-xs mx-auto sm:mx-0 leading-relaxed">
         Kompleksowa opieka okołoporodowa — położne, szkoła rodzenia, fizjoterapia, neurologopedia.
         Mielec · Rzeszów.
       </p>
-      <div class="mt-5 flex gap-3">
+      <div class="mt-5 flex justify-center sm:justify-start gap-3">
         <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"
            class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-salmon-200 text-salmon-700 hover:bg-white transition">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
@@ -62,7 +62,7 @@ import { url } from "../utils/url";
   </div>
 
   <div class="border-t border-salmon-100">
-    <div class="container-x py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-xs text-salmon-900/55">
+    <div class="container-x py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-xs text-salmon-900/55 text-center sm:text-left">
       <p>© {new Date().getFullYear()} {site.foundation.name} · NIP {site.foundation.nip} · KRS {site.foundation.krs}</p>
       <p>{site.foundation.seat}</p>
     </div>

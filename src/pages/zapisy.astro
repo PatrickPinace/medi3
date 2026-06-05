@@ -51,29 +51,29 @@ const grupy = [
     subtitle="Wybierz interesujące Cię świadczenie — przekierujemy do odpowiedniego formularza. W razie pytań zadzwoń."
   />
 
-  <section class="container-x py-12">
-    <div class="rounded-3xl bg-gradient-to-br from-salmon-500 to-peach-600 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+  <section class="container-x py-10 sm:py-12">
+    <div class="rounded-3xl bg-gradient-to-br from-salmon-500 to-peach-600 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between text-center sm:text-left">
       <div>
         <p class="font-serif text-2xl">Wolisz porozmawiać?</p>
         <p class="text-white/85 text-sm mt-1">Zadzwoń, a pomożemy wybrać odpowiednią formę opieki.</p>
       </div>
-      <div class="flex gap-3 flex-wrap">
-        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-5 py-2.5 text-sm font-medium hover:bg-cream-50">
+      <div class="flex flex-col sm:flex-row gap-3 flex-wrap justify-center">
+        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-5 py-2.5 text-sm font-medium hover:bg-cream-50">
           ☎ {site.phone}
         </a>
-        <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-medium hover:bg-white/10">
+        <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-medium hover:bg-white/10">
           {site.email}
         </a>
       </div>
     </div>
   </section>
 
-  <section class="container-x pb-20">
+  <section class="container-x pb-16 sm:pb-20">
     <div class="space-y-12">
       {grupy.map((g, idx) => (
         <div>
-          <div class="flex items-baseline justify-between gap-4 mb-6">
-            <div>
+          <div class="flex items-baseline justify-between gap-4 mb-6 text-center md:text-left">
+            <div class="mx-auto md:mx-0">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Grupa {idx + 1}</p>
               <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 tracking-tight">{g.nazwa}</h2>
               <p class="mt-2 text-sm text-salmon-900/70 max-w-2xl">{g.opis}</p>
@@ -86,13 +86,13 @@ const grupy = [
                 href={p.href}
                 target={p.internal ? undefined : "_blank"}
                 rel={p.internal ? undefined : "noopener noreferrer"}
-                class="group relative overflow-hidden rounded-2xl border border-salmon-100 bg-white p-6 transition hover:shadow-lg hover:-translate-y-0.5 hover:border-salmon-200"
+                class="group relative overflow-hidden rounded-2xl border border-salmon-100 bg-white p-6 transition hover:shadow-lg hover:-translate-y-0.5 hover:border-salmon-200 text-center sm:text-left"
               >
                 <div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-salmon-100/40 blur-2xl transition group-hover:bg-salmon-200/60"></div>
 
                 {p.nfz && <NfzBadge class="absolute top-4 right-4" />}
 
-                <div class="relative pr-12">
+                <div class="relative sm:pr-12">
                   <h3 class="font-serif text-lg text-salmon-900 leading-snug">{p.tytul}</h3>
                   <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-salmon-700 group-hover:text-salmon-800">
                     {p.internal ? "Zadzwoń" : "Wypełnij formularz"}

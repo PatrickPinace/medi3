@@ -10,32 +10,32 @@ import { site, forms } from "../data/site";
     <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-blush-200/70 blur-3xl"></div>
   </div>
 
-  <div class="container-x pt-12 md:pt-20 pb-20 md:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-    <div class="lg:col-span-7">
+  <div class="container-x pt-10 md:pt-20 pb-16 md:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <div class="lg:col-span-7 text-center lg:text-left">
       <span class="inline-flex items-center gap-2 rounded-full border border-salmon-200/70 bg-white/60 px-4 py-1.5 text-xs font-medium text-salmon-700">
         <span class="h-1.5 w-1.5 rounded-full bg-salmon-500 animate-pulse"></span>
         Świadczenia na NFZ i prywatnie
       </span>
 
-      <h1 class="mt-6 font-serif text-5xl sm:text-6xl lg:text-[5.25rem] leading-[1.08] text-salmon-900 tracking-tight">
+      <h1 class="mt-5 sm:mt-6 font-serif text-4xl sm:text-6xl lg:text-[5.25rem] leading-[1.1] sm:leading-[1.08] text-salmon-900 tracking-tight">
         Kompleksowa<br />
         <span class="italic text-salmon-600">opieka</span> okołoporodowa
       </h1>
 
-      <p class="mt-7 max-w-xl text-lg text-salmon-900/75 leading-relaxed">
+      <p class="mt-5 sm:mt-7 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-salmon-900/75 leading-relaxed">
         Położne · Szkoła Rodzenia · Fizjoterapeuci · Neurologopedzi.<br/>
         Towarzyszymy w ciąży, podczas porodu i pierwszych miesiącach życia dziecka.
       </p>
 
-      <div id="zapisz-sie" class="mt-9 flex flex-wrap gap-3" style="scroll-margin-top: -218px">
-        <a href={forms.ciaza} target="_blank" rel="noopener" class="btn-primary">
+      <div id="zapisz-sie" class="mt-7 sm:mt-9 flex flex-wrap justify-center lg:justify-start gap-3" style="scroll-margin-top: -218px">
+        <a href={forms.ciaza} target="_blank" rel="noopener" class="btn-primary w-full sm:w-auto">
           <span>Zapisz się — jestem w ciąży</span>
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#uslugi" class="btn-ghost">Zobacz usługi</a>
+        <a href="#uslugi" class="btn-ghost w-full sm:w-auto">Zobacz usługi</a>
       </div>
 
-      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-salmon-900/70">
+      <div class="mt-8 sm:mt-10 flex flex-wrap justify-center lg:justify-start items-center gap-x-6 sm:gap-x-8 gap-y-3 text-sm text-salmon-900/70">
         <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 hover:text-salmon-700">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
           {site.phone}
@@ -48,7 +48,7 @@ import { site, forms } from "../data/site";
     </div>
 
     <!-- Placeholder na zdjęcie: split layout prawa kolumna -->
-    <div class="lg:col-span-5">
+    <div class="lg:col-span-5 max-w-sm mx-auto lg:max-w-none w-full">
       <div class="relative aspect-[4/5] w-full rounded-[2rem] bg-gradient-to-br from-salmon-100 via-blush-100 to-peach-100 ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)] overflow-hidden">
         <!-- Delikatne organiczne kształty: róż + łosoś -->
         <svg class="absolute inset-0 w-full h-full opacity-70" viewBox="0 0 400 500" fill="none" aria-hidden="true">
