@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { site } from "../data/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout
@@ -64,7 +65,7 @@ import { site } from "../data/site";
     <figure class="container-x mt-8">
       <div class="overflow-hidden rounded-[2rem] border border-white/10 bg-navy-900/30 shadow-sm">
         <img
-          src={`${import.meta.env.BASE_URL}assets/libra-dojazd.jpg`}
+          src={`${base}/assets/libra-dojazd.jpg`}
           alt="Dojazd do gabinetu Korczaka (LIBRA) — mapa z oznaczeniami i widok ulicy"
           class="block w-full h-auto"
           loading="lazy"
