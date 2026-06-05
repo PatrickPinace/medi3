@@ -4,6 +4,6 @@ interface Props {
 }
 const { class: className = "" } = Astro.props;
 ---
-<span class={`inline-flex items-center gap-2 rounded-full bg-white border border-sage-500/30 px-3 py-1.5 shadow-sm ${className}`}>
+<span class={`inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-3 py-1.5 shadow-sm ${className}`}>
   <img src={`${import.meta.env.BASE_URL}assets/nfz-logo.jpg`} alt="NFZ" class="h-5 w-auto" />
 </span>

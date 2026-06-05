@@ -13,38 +13,38 @@ const nav = [
 ];
 ---
 
-<header class="sticky top-0 z-40 border-b border-salmon-100/80 bg-cream-50/85 backdrop-blur supports-[backdrop-filter]:bg-cream-50/70">
+<header class="sticky top-0 z-40 border-b border-white/10 bg-navy-800/80 backdrop-blur supports-[backdrop-filter]:bg-navy-800/70">
   <div class="container-x flex h-16 items-center justify-between gap-6">
     <Logo />
 
     <nav class="hidden lg:flex items-center gap-1">
       {nav.map((item) => (
-        <a href={item.href} class="rounded-full px-3.5 py-2 text-sm text-salmon-900/75 transition hover:bg-salmon-100/70 hover:text-salmon-800">
+        <a href={item.href} class="rounded-full px-3.5 py-2 text-sm text-navy-200 transition hover:bg-white/10 hover:text-white">
           {item.label}
         </a>
       ))}
     </nav>
 
     <div class="hidden md:flex items-center gap-3">
-      <a href={`tel:${site.phoneTel}`} class="text-sm text-salmon-800/80 hover:text-salmon-700">
+      <a href={`tel:${site.phoneTel}`} class="text-sm text-navy-300 hover:text-white transition">
         {site.phone}
       </a>
       <a href={url("/#zapisz-sie")} class="btn-primary !py-2 !px-4 text-xs">Umów wizytę</a>
     </div>
 
-    <button id="menu-btn" class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-salmon-200 text-salmon-700" aria-label="Menu">
+    <button id="menu-btn" class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white" aria-label="Menu">
       <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 
-  <div id="mobile-menu" class="lg:hidden hidden border-t border-salmon-100 bg-cream-50">
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-white/10 bg-navy-800">
     <nav class="container-x py-3 flex flex-col">
       {nav.map((item) => (
-        <a href={item.href} class="rounded-xl px-3 py-2.5 text-sm text-salmon-900/80 hover:bg-salmon-100/60">
+        <a href={item.href} class="rounded-xl px-3 py-2.5 text-sm text-navy-200 hover:bg-white/10 hover:text-white transition">
           {item.label}
         </a>
       ))}
-      <a href={`tel:${site.phoneTel}`} class="mt-2 rounded-xl px-3 py-2.5 text-sm font-medium text-salmon-700">
+      <a href={`tel:${site.phoneTel}`} class="mt-2 rounded-xl px-3 py-2.5 text-sm font-medium text-salmon-400">
         ☎ {site.phone}
       </a>
     </nav>

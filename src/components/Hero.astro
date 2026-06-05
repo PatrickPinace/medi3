@@ -3,26 +3,26 @@ import { site, forms } from "../data/site";
 ---
 
 <section class="relative overflow-hidden">
-  <!-- Tło: różowo-łososiowe plamy -->
+  <!-- Delikatne dekoracje na ciemnym tle -->
   <div class="pointer-events-none absolute inset-0 -z-10">
-    <div class="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-salmon-200/60 blur-3xl"></div>
-    <div class="absolute top-20 -right-32 h-[28rem] w-[28rem] rounded-full bg-peach-200/55 blur-3xl"></div>
-    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-blush-200/70 blur-3xl"></div>
+    <div class="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-purple-700/40 blur-3xl"></div>
+    <div class="absolute top-20 -right-32 h-[28rem] w-[28rem] rounded-full bg-navy-600/50 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-salmon-500/10 blur-3xl"></div>
   </div>
 
   <div class="container-x pt-10 md:pt-20 pb-16 md:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
     <div class="lg:col-span-7 text-center lg:text-left">
-      <span class="inline-flex items-center gap-2 rounded-full border border-salmon-200/70 bg-white/60 px-4 py-1.5 text-xs font-medium text-salmon-700">
-        <span class="h-1.5 w-1.5 rounded-full bg-salmon-500 animate-pulse"></span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80">
+        <span class="h-1.5 w-1.5 rounded-full bg-salmon-400 animate-pulse"></span>
         Świadczenia na NFZ i prywatnie
       </span>
 
-      <h1 class="mt-5 sm:mt-6 font-serif text-4xl sm:text-6xl lg:text-[5.25rem] leading-[1.1] sm:leading-[1.08] text-salmon-900 tracking-tight">
+      <h1 class="mt-5 sm:mt-6 font-serif text-4xl sm:text-6xl lg:text-[5.25rem] leading-[1.1] sm:leading-[1.08] text-white tracking-tight">
         Kompleksowa<br />
-        <span class="italic text-salmon-600">opieka</span> okołoporodowa
+        <span class="italic text-salmon-400">opieka</span> okołoporodowa
       </h1>
 
-      <p class="mt-5 sm:mt-7 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-salmon-900/75 leading-relaxed">
+      <p class="mt-5 sm:mt-7 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg text-navy-200 leading-relaxed">
         Położne · Szkoła Rodzenia · Fizjoterapeuci · Neurologopedzi.<br/>
         Towarzyszymy w ciąży, podczas porodu i pierwszych miesiącach życia dziecka.
       </p>
@@ -35,48 +35,47 @@ import { site, forms } from "../data/site";
         <a href="#uslugi" class="btn-ghost w-full sm:w-auto">Zobacz usługi</a>
       </div>
 
-      <div class="mt-8 sm:mt-10 flex flex-wrap justify-center lg:justify-start items-center gap-x-6 sm:gap-x-8 gap-y-3 text-sm text-salmon-900/70">
-        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 hover:text-salmon-700">
+      <div class="mt-8 sm:mt-10 flex flex-wrap justify-center lg:justify-start items-center gap-x-6 sm:gap-x-8 gap-y-3 text-sm text-navy-300">
+        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
           {site.phone}
         </a>
-        <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 hover:text-salmon-700">
+        <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
           {site.email}
         </a>
       </div>
     </div>
 
-    <!-- Placeholder na zdjęcie: split layout prawa kolumna -->
+    <!-- Placeholder zdjęcia -->
     <div class="lg:col-span-5 max-w-sm mx-auto lg:max-w-none w-full">
-      <div class="relative aspect-[4/5] w-full rounded-[2rem] bg-gradient-to-br from-salmon-100 via-blush-100 to-peach-100 ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)] overflow-hidden">
-        <!-- Delikatne organiczne kształty: róż + łosoś -->
-        <svg class="absolute inset-0 w-full h-full opacity-70" viewBox="0 0 400 500" fill="none" aria-hidden="true">
+      <div class="relative aspect-[4/5] w-full rounded-[2rem] bg-gradient-to-br from-purple-700/60 via-navy-700/70 to-navy-600/60 ring-1 ring-white/20 shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)] overflow-hidden">
+        <svg class="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 400 500" fill="none" aria-hidden="true">
           <circle cx="300" cy="120" r="80" fill="url(#g1)" />
           <circle cx="80"  cy="380" r="110" fill="url(#g2)" />
           <defs>
-            <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f996bd" stop-opacity=".75"/><stop offset="100%" stop-color="#f996bd" stop-opacity="0"/></radialGradient>
-            <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffac8e" stop-opacity=".8"/><stop offset="100%" stop-color="#ffac8e" stop-opacity="0"/></radialGradient>
+            <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f43b84" stop-opacity=".5"/><stop offset="100%" stop-color="#f43b84" stop-opacity="0"/></radialGradient>
+            <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3b57b5" stop-opacity=".6"/><stop offset="100%" stop-color="#3b57b5" stop-opacity="0"/></radialGradient>
           </defs>
         </svg>
 
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-          <svg viewBox="0 0 24 24" class="h-16 w-16 text-salmon-400/70 mb-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" class="h-16 w-16 text-white/30 mb-4" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" opacity=".4"/>
             <circle cx="12" cy="10" r="3"/>
             <path d="M12 13v3"/>
           </svg>
-          <p class="font-serif text-salmon-700/70 text-lg">Tu pojawi się zdjęcie</p>
-          <p class="mt-1 text-xs uppercase tracking-wider text-salmon-700/50">placeholder · 4:5</p>
+          <p class="font-serif text-white/50 text-lg">Tu pojawi się zdjęcie</p>
+          <p class="mt-1 text-xs uppercase tracking-wider text-white/30">placeholder · 4:5</p>
         </div>
 
         <!-- Pływające etykietki -->
-        <div class="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full bg-white/85 backdrop-blur px-3 py-1.5 text-xs font-medium text-salmon-700 shadow-sm">
-          <span class="h-1.5 w-1.5 rounded-full bg-sage-500"></span> NFZ · bez skierowania
+        <div class="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs font-medium text-white shadow-sm">
+          <span class="h-1.5 w-1.5 rounded-full bg-green-400"></span> NFZ · bez skierowania
         </div>
-        <div class="absolute bottom-6 right-6 rounded-2xl bg-white/85 backdrop-blur px-4 py-3 shadow-sm">
-          <p class="text-[10px] uppercase tracking-wider text-salmon-700/60">Mielec</p>
-          <p class="text-sm font-medium text-salmon-900">2 gabinety · Smoczka i Korczaka</p>
+        <div class="absolute bottom-6 right-6 rounded-2xl bg-navy-900/70 backdrop-blur px-4 py-3 shadow-sm border border-white/10">
+          <p class="text-[10px] uppercase tracking-wider text-white/50">Mielec</p>
+          <p class="text-sm font-medium text-white">2 gabinety · Smoczka i Korczaka</p>
         </div>
       </div>
     </div>

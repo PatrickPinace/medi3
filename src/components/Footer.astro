@@ -3,23 +3,23 @@ import { site } from "../data/site";
 import { url } from "../utils/url";
 ---
 
-<footer class="mt-20 sm:mt-24 border-t border-salmon-100 bg-gradient-to-b from-cream-50 to-cream-100">
+<footer class="mt-20 sm:mt-24 border-t border-white/10 bg-navy-900/50">
   <div class="container-x py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 text-center sm:text-left">
 
-    <!-- Logo + opis (2 kolumny na desktop) -->
+    <!-- Logo + opis -->
     <div class="lg:col-span-2">
-      <p class="font-serif text-2xl text-salmon-700 tracking-tight">medi<span class="text-salmon-500">3</span></p>
-      <p class="mt-2 text-sm text-salmon-900/70 max-w-xs mx-auto sm:mx-0 leading-relaxed">
+      <p class="font-serif text-2xl text-white tracking-tight">medi<span class="text-salmon-400">3</span></p>
+      <p class="mt-2 text-sm text-navy-300 max-w-xs mx-auto sm:mx-0 leading-relaxed">
         Kompleksowa opieka okołoporodowa — położne, szkoła rodzenia, fizjoterapia, neurologopedia.
         Mielec · Rzeszów.
       </p>
       <div class="mt-5 flex justify-center sm:justify-start gap-3">
         <a href={site.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-salmon-200 text-salmon-700 hover:bg-white transition">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-navy-300 hover:bg-white/10 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
         </a>
         <a href={site.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"
-           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-salmon-200 text-salmon-700 hover:bg-white transition">
+           class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-navy-300 hover:bg-white/10 hover:text-white transition">
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true"><path d="M13.5 3h-3A4.5 4.5 0 0 0 6 7.5V10H4v3h2v8h3v-8h2.5l.5-3H9V7.5A1.5 1.5 0 0 1 10.5 6H13.5V3z"/></svg>
         </a>
       </div>
@@ -27,42 +27,42 @@ import { url } from "../utils/url";
 
     <!-- Kontakt -->
     <div>
-      <h4 class="text-xs font-semibold uppercase tracking-wider text-salmon-700/80">Kontakt</h4>
-      <ul class="mt-3 space-y-2 text-sm text-salmon-900/80">
-        <li><a href={`tel:${site.phoneTel}`} class="hover:text-salmon-700">{site.phone}</a></li>
-        <li><a href={`mailto:${site.email}`} class="hover:text-salmon-700">{site.email}</a></li>
-        <li class="text-salmon-900/60 text-xs leading-snug">Mielec / Rzeszów<br/>Podkarpackie</li>
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-white/50">Kontakt</h4>
+      <ul class="mt-3 space-y-2 text-sm text-navy-300">
+        <li><a href={`tel:${site.phoneTel}`} class="hover:text-white transition">{site.phone}</a></li>
+        <li><a href={`mailto:${site.email}`} class="hover:text-white transition">{site.email}</a></li>
+        <li class="text-white/40 text-xs leading-snug">Mielec / Rzeszów<br/>Podkarpackie</li>
       </ul>
     </div>
 
     <!-- Usługi -->
     <div>
-      <h4 class="text-xs font-semibold uppercase tracking-wider text-salmon-700/80">Usługi</h4>
-      <ul class="mt-3 space-y-2 text-sm text-salmon-900/80">
-        <li><a href={url("/zapisy")} class="hover:text-salmon-700">Zapisy</a></li>
-        <li><a href={url("/cennik")} class="hover:text-salmon-700">Cennik</a></li>
-        <li><a href={url("/zespol")} class="hover:text-salmon-700">Zespół</a></li>
-        <li><a href={url("/dojazd")} class="hover:text-salmon-700">Dojazd</a></li>
-        <li><a href={url("/polozna-na-swoim")} class="hover:text-salmon-700">Położna na swoim</a></li>
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-white/50">Usługi</h4>
+      <ul class="mt-3 space-y-2 text-sm text-navy-300">
+        <li><a href={url("/zapisy")} class="hover:text-white transition">Zapisy</a></li>
+        <li><a href={url("/cennik")} class="hover:text-white transition">Cennik</a></li>
+        <li><a href={url("/zespol")} class="hover:text-white transition">Zespół</a></li>
+        <li><a href={url("/dojazd")} class="hover:text-white transition">Dojazd</a></li>
+        <li><a href={url("/polozna-na-swoim")} class="hover:text-white transition">Położna na swoim</a></li>
       </ul>
     </div>
 
     <!-- Dokumenty -->
     <div>
-      <h4 class="text-xs font-semibold uppercase tracking-wider text-salmon-700/80">Dokumenty</h4>
-      <ul class="mt-3 space-y-2 text-sm text-salmon-900/80">
-        <li><a href={url("/materialy")} class="hover:text-salmon-700">Materiały</a></li>
-        <li><a href={url("/dane-do-szpitala")} class="hover:text-salmon-700">Dane do szpitala</a></li>
-        <li><a href={url("/dane-do-przelewu")} class="hover:text-salmon-700">Dane do przelewu</a></li>
-        <li><a href={url("/rodo")} class="hover:text-salmon-700">RODO</a></li>
-        <li><a href={url("/regulamin")} class="hover:text-salmon-700">Regulamin</a></li>
+      <h4 class="text-xs font-semibold uppercase tracking-wider text-white/50">Dokumenty</h4>
+      <ul class="mt-3 space-y-2 text-sm text-navy-300">
+        <li><a href={url("/materialy")} class="hover:text-white transition">Materiały</a></li>
+        <li><a href={url("/dane-do-szpitala")} class="hover:text-white transition">Dane do szpitala</a></li>
+        <li><a href={url("/dane-do-przelewu")} class="hover:text-white transition">Dane do przelewu</a></li>
+        <li><a href={url("/rodo")} class="hover:text-white transition">RODO</a></li>
+        <li><a href={url("/regulamin")} class="hover:text-white transition">Regulamin</a></li>
       </ul>
     </div>
 
   </div>
 
-  <div class="border-t border-salmon-100">
-    <div class="container-x py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-xs text-salmon-900/55 text-center sm:text-left">
+  <div class="border-t border-white/10">
+    <div class="container-x py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 text-xs text-white/30 text-center sm:text-left">
       <p>© {new Date().getFullYear()} {site.foundation.name} · NIP {site.foundation.nip} · KRS {site.foundation.krs}</p>
       <p>{site.foundation.seat}</p>
     </div>

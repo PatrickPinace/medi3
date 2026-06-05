@@ -28,20 +28,20 @@ const formatPrice = (price: number, nfz?: boolean) => {
     <div class="space-y-10">
       {kategorie.map((kat) => (
         <div>
-          <h2 class="font-serif text-2xl text-salmon-900 tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
-          <div class="mt-4 rounded-3xl border border-salmon-100 overflow-hidden bg-white">
-            <ul class="divide-y divide-salmon-100">
+          <h2 class="font-serif text-2xl text-white tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
+          <div class="mt-4 rounded-3xl border border-white/10 overflow-hidden bg-white/5">
+            <ul class="divide-y divide-white/10">
               {kat.pozycje.map((p) => {
                 const priceStr = formatPrice(p.price, p.nfz);
                 return (
-                  <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 px-5 sm:px-6 py-4 hover:bg-salmon-50/40 transition group text-center sm:text-left">
-                    <span class="text-salmon-900">{p.name}</span>
+                  <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 px-5 sm:px-6 py-4 hover:bg-white/5 transition group text-center sm:text-left">
+                    <span class="text-navy-100">{p.name}</span>
                     <div class="flex items-center justify-center sm:justify-end gap-3 shrink-0">
                       {p.nfz && <NfzBadge />}
                       {priceStr ? (
-                        <span class="font-serif text-lg sm:text-xl text-salmon-700 tabular-nums">{priceStr}</span>
+                        <span class="font-serif text-lg sm:text-xl text-salmon-400 tabular-nums">{priceStr}</span>
                       ) : (
-                        <span class="text-xs text-sage-600 font-medium">bezpłatnie</span>
+                        <span class="text-xs text-green-400 font-medium">bezpłatnie</span>
                       )}
                     </div>
                   </li>
@@ -53,8 +53,8 @@ const formatPrice = (price: number, nfz?: boolean) => {
       ))}
     </div>
 
-    <p class="mt-8 text-sm text-salmon-900/55 text-center md:text-left">
-      Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="underline decoration-salmon-200 underline-offset-4 hover:text-salmon-700">{site.phone}</a>
+    <p class="mt-8 text-sm text-navy-400 text-center md:text-left">
+      Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="text-salmon-400 hover:text-salmon-300 underline underline-offset-4 transition">{site.phone}</a>
     </p>
   </section>
 
@@ -65,10 +65,10 @@ const formatPrice = (price: number, nfz?: boolean) => {
         <h2 class="font-serif text-3xl tracking-tight">Pytania o ceny lub NFZ?</h2>
         <p class="mt-3 text-white/85">Chętnie wyjaśnimy co przysługuje bezpłatnie i co jest odpłatne w Twojej sytuacji.</p>
         <div class="mt-7 flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-3">
-          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-navy-100 transition">
             ☎ {site.phone}
           </a>
-          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10">
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition">
             {site.email}
           </a>
         </div>
