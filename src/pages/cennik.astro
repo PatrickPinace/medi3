@@ -36,7 +36,7 @@ const formatPrice = (price: number, nfz?: boolean) => {
                 const priceStr = formatPrice(p.price, p.nfz);
                 return (
                   <li class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 px-5 sm:px-6 py-4 hover:bg-white/5 transition group text-center sm:text-left">
-                    <span class="text-navy-100">{p.name}</span>
+                    <span class="text-salmon-900 dark:text-navy-100">{p.name}</span>
                     <div class="flex items-center justify-center sm:justify-end gap-3 shrink-0">
                       {p.nfz && <NfzBadge />}
                       {priceStr ? (

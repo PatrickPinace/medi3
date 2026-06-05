@@ -8,16 +8,22 @@ interface Props {
 const { label, value, mono = false, big = false } = Astro.props;
 ---
 
-<div class="group rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/10 text-center sm:text-left">
-  <p class="text-xs font-semibold uppercase tracking-wider text-white/40">{label}</p>
+<div class="group rounded-2xl border p-5 transition text-center sm:text-left
+  border-salmon-100 bg-white hover:border-salmon-200
+  dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10">
+  <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/60 dark:text-white/40">{label}</p>
   <div class="mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-    <p class={`text-white ${big ? "text-2xl font-serif" : ""} ${mono ? "font-mono tracking-wide" : ""} break-all`}>
+    <p class={`${big ? "text-2xl font-serif" : ""} ${mono ? "font-mono tracking-wide" : ""} break-all
+      text-salmon-900 dark:text-white`}>
       {value}
     </p>
     <button
       type="button"
       data-copy={value}
-      class="copy-btn shrink-0 mx-auto sm:mx-0 inline-flex items-center justify-center gap-1.5 rounded-full border border-white/20 bg-white/10 text-navy-200 px-3 py-1.5 text-xs font-medium hover:bg-white/20 hover:text-white transition"
+      class="copy-btn shrink-0 mx-auto sm:mx-0 inline-flex items-center justify-center gap-1.5 rounded-full text-xs font-medium transition
+        border border-salmon-200 bg-salmon-50 text-salmon-700 hover:bg-salmon-100
+        dark:border-white/20 dark:bg-white/10 dark:text-navy-200 dark:hover:bg-white/20 dark:hover:text-white
+        px-3 py-1.5"
       aria-label={`Skopiuj ${label}`}
     >
       <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -41,9 +47,7 @@ const { label, value, mono = false, big = false } = Astro.props;
           label.textContent = "Skopiowano";
           setTimeout(() => { if (prev) label.textContent = prev; }, 1500);
         }
-      } catch {
-        /* no-op */
-      }
+      } catch { /* no-op */ }
     });
   });
 </script>

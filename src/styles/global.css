@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+/* Tailwind 4: dark mode oparty na klasie .dark na <html> */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
-  /* AKCENT: różowy #f43b84 — CTA, highlights, badges */
+  /* AKCENT: różowy #f43b84 */
   --color-salmon-50:  #fff1f7;
   --color-salmon-100: #ffe0ee;
   --color-salmon-200: #fcc1da;
@@ -13,7 +16,7 @@
   --color-salmon-800: #8a1146;
   --color-salmon-900: #5e0d31;
 
-  /* ACCENT łososiowy — zachowany */
+  /* ACCENT łososiowy */
   --color-peach-50:  #fff5f1;
   --color-peach-100: #ffe6dc;
   --color-peach-200: #ffcdb9;
@@ -23,9 +26,9 @@
   --color-peach-600: #e85630;
   --color-peach-700: #c14223;
 
-  /* NAVY — granatowe tło (prawa strona gradientu z astro73) */
+  /* NAVY */
   --color-navy-900: #0f1a3a;
-  --color-navy-800: #1e2e61;   /* #1e2e61 — kolor bazowy */
+  --color-navy-800: #1e2e61;
   --color-navy-700: #253876;
   --color-navy-600: #2d4490;
   --color-navy-500: #3b57b5;
@@ -35,9 +38,9 @@
   --color-navy-100: #e4eaf6;
   --color-navy-50:  #f0f4fc;
 
-  /* PURPLE — fioletowe tło (lewa strona gradientu z astro73) */
+  /* PURPLE */
   --color-purple-900: #1a0a30;
-  --color-purple-800: #382052;   /* #382052 — kolor bazowy */
+  --color-purple-800: #382052;
   --color-purple-700: #4a2a6e;
   --color-purple-600: #5d3589;
   --color-purple-500: #7548a8;
@@ -47,7 +50,12 @@
   --color-purple-100: #ede4f5;
   --color-purple-50:  #f6f1fb;
 
-  /* Pudrowy róż — subtelne akcenty */
+  /* Ciepły krem */
+  --color-cream-50:  #fffaf5;
+  --color-cream-100: #fdeef3;
+  --color-cream-200: #fbe0eb;
+
+  /* Pudrowy róż */
   --color-blush-100: #fde2eb;
   --color-blush-200: #f9c8d8;
 
@@ -66,14 +74,25 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
+
+  /* JASNY tryb (domyślny) */
   body {
+    background-color: var(--color-cream-50);
+    background-image: none;
+    color: #2a1326;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* CIEMNY tryb */
+  .dark body {
     background-color: var(--color-navy-800);
     background-image: linear-gradient(135deg, var(--color-purple-800) 0%, var(--color-navy-800) 100%);
     background-attachment: fixed;
     color: #e8eef8;
-    font-family: var(--font-sans);
-    -webkit-font-smoothing: antialiased;
   }
+
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
     font-weight: 500;
@@ -86,43 +105,52 @@
   .container-x {
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
-  /* Kafelki / sekcje na ciemnym tle */
-  .card-dark {
-    @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm;
-  }
-  .card-mid {
-    @apply rounded-3xl border border-white/15 bg-navy-700/60;
-  }
-  /* Przyciski */
+
+  /* Przyciski — salmon zawsze */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
   }
+
+  /* Ghost: jasny tryb = border salmon, ciemny = border white */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/20 hover:border-white/50;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition;
+    @apply border-salmon-200 bg-white/60 text-salmon-700 hover:bg-white hover:border-salmon-300;
+    @apply dark:border-white/30 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 dark:hover:border-white/50;
   }
+
   .btn-peach {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-peach-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-peach-600;
   }
-  /* Prose — artykuły na ciemnym tle */
+
+  /* Prose */
   .prose-medi h2 {
-    @apply font-serif text-3xl text-white mt-12 mb-4;
+    @apply font-serif text-3xl mt-12 mb-4;
+    @apply text-salmon-900 dark:text-white;
   }
   .prose-medi h3 {
-    @apply font-serif text-xl text-navy-200 mt-8 mb-3;
+    @apply font-serif text-xl mt-8 mb-3;
+    @apply text-salmon-800 dark:text-navy-200;
   }
   .prose-medi p {
-    @apply text-navy-200 leading-relaxed mb-4;
+    @apply leading-relaxed mb-4;
+    @apply text-salmon-900/80 dark:text-navy-200;
   }
   .prose-medi ul {
-    @apply space-y-2 mb-6 text-navy-200;
+    @apply space-y-2 mb-6;
+    @apply text-salmon-900/80 dark:text-navy-200;
   }
-  .prose-medi li {
-    @apply pl-6 relative;
-  }
+  .prose-medi li { @apply pl-6 relative; }
   .prose-medi li::before {
     content: "";
     @apply absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-salmon-500;
   }
-  .prose-medi strong { @apply text-white font-semibold; }
-  .prose-medi a { @apply text-salmon-400 underline decoration-salmon-500/50 underline-offset-4 hover:text-salmon-300; }
+  .prose-medi strong {
+    @apply font-semibold;
+    @apply text-salmon-900 dark:text-white;
+  }
+  .prose-medi a {
+    @apply underline underline-offset-4;
+    @apply text-salmon-700 decoration-salmon-300 hover:text-salmon-800;
+    @apply dark:text-salmon-400 dark:decoration-salmon-500/50 dark:hover:text-salmon-300;
+  }
 }
