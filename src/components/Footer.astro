@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import { url } from "../utils/url";
 ---
 
 <footer class="mt-24 border-t border-salmon-100 bg-gradient-to-b from-cream-50 to-cream-100">
@@ -38,11 +39,11 @@ import { site } from "../data/site";
     <div>
       <h4 class="text-xs font-semibold uppercase tracking-wider text-salmon-700/80">Usługi</h4>
       <ul class="mt-3 space-y-2 text-sm text-salmon-900/80">
-        <li><a href="/zapisy" class="hover:text-salmon-700">Zapisy</a></li>
-        <li><a href="/cennik" class="hover:text-salmon-700">Cennik</a></li>
-        <li><a href="/zespol" class="hover:text-salmon-700">Zespół</a></li>
-        <li><a href="/dojazd" class="hover:text-salmon-700">Dojazd</a></li>
-        <li><a href="/polozna-na-swoim" class="hover:text-salmon-700">Położna na swoim</a></li>
+        <li><a href={url("/zapisy")} class="hover:text-salmon-700">Zapisy</a></li>
+        <li><a href={url("/cennik")} class="hover:text-salmon-700">Cennik</a></li>
+        <li><a href={url("/zespol")} class="hover:text-salmon-700">Zespół</a></li>
+        <li><a href={url("/dojazd")} class="hover:text-salmon-700">Dojazd</a></li>
+        <li><a href={url("/polozna-na-swoim")} class="hover:text-salmon-700">Położna na swoim</a></li>
       </ul>
     </div>
 
@@ -50,11 +51,11 @@ import { site } from "../data/site";
     <div>
       <h4 class="text-xs font-semibold uppercase tracking-wider text-salmon-700/80">Dokumenty</h4>
       <ul class="mt-3 space-y-2 text-sm text-salmon-900/80">
-        <li><a href="/materialy" class="hover:text-salmon-700">Materiały</a></li>
-        <li><a href="/dane-do-szpitala" class="hover:text-salmon-700">Dane do szpitala</a></li>
-        <li><a href="/dane-do-przelewu" class="hover:text-salmon-700">Dane do przelewu</a></li>
-        <li><a href="/rodo" class="hover:text-salmon-700">RODO</a></li>
-        <li><a href="/regulamin" class="hover:text-salmon-700">Regulamin</a></li>
+        <li><a href={url("/materialy")} class="hover:text-salmon-700">Materiały</a></li>
+        <li><a href={url("/dane-do-szpitala")} class="hover:text-salmon-700">Dane do szpitala</a></li>
+        <li><a href={url("/dane-do-przelewu")} class="hover:text-salmon-700">Dane do przelewu</a></li>
+        <li><a href={url("/rodo")} class="hover:text-salmon-700">RODO</a></li>
+        <li><a href={url("/regulamin")} class="hover:text-salmon-700">Regulamin</a></li>
       </ul>
     </div>
 

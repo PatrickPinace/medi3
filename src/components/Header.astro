@@ -1,14 +1,15 @@
 ---
 import Logo from "./Logo.astro";
 import { site } from "../data/site";
+import { url } from "../utils/url";
 
 const nav = [
-  { href: "/#uslugi", label: "Usługi" },
-  { href: "/zapisy", label: "Zapisy" },
-  { href: "/cennik", label: "Cennik" },
-  { href: "/polozna-na-swoim", label: "Położna na swoim" },
-  { href: "/zespol", label: "Zespół" },
-  { href: "/dojazd", label: "Dojazd" },
+  { href: url("/#uslugi"), label: "Usługi" },
+  { href: url("/zapisy"), label: "Zapisy" },
+  { href: url("/cennik"), label: "Cennik" },
+  { href: url("/polozna-na-swoim"), label: "Położna na swoim" },
+  { href: url("/zespol"), label: "Zespół" },
+  { href: url("/dojazd"), label: "Dojazd" },
 ];
 ---
 
@@ -28,7 +29,7 @@ const nav = [
       <a href={`tel:${site.phoneTel}`} class="text-sm text-salmon-800/80 hover:text-salmon-700">
         {site.phone}
       </a>
-      <a href="/#zapisz-sie" class="btn-primary !py-2 !px-4 text-xs">Umów wizytę</a>
+      <a href={url("/#zapisz-sie")} class="btn-primary !py-2 !px-4 text-xs">Umów wizytę</a>
     </div>
 
     <button id="menu-btn" class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full border border-salmon-200 text-salmon-700" aria-label="Menu">

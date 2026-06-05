@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import { url } from "../utils/url";
 ---
 
 <section id="dojazd" class="container-x py-20">
@@ -8,7 +9,7 @@ import { site } from "../data/site";
       <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Lokalizacje</p>
       <h2 class="mt-2 font-serif text-4xl sm:text-5xl text-salmon-900 tracking-tight">Jak do nas trafić</h2>
     </div>
-    <a href="/dojazd" class="text-sm font-medium text-salmon-700 hover:text-salmon-800 inline-flex items-center gap-2">
+    <a href={url("/dojazd")} class="text-sm font-medium text-salmon-700 hover:text-salmon-800 inline-flex items-center gap-2">
       Pełna informacja o dojeździe
       <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -34,7 +35,7 @@ import { site } from "../data/site";
                 <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10z"/><circle cx="12" cy="11" r="2"/></svg>
                 Otwórz w mapach
               </a>
-              <a href="/dojazd" class="text-sm text-salmon-700/80 hover:text-salmon-700 inline-flex items-center gap-1 px-2 py-2.5">
+              <a href={url("/dojazd")} class="text-sm text-salmon-700/80 hover:text-salmon-700 inline-flex items-center gap-1 px-2 py-2.5">
                 kliknij → szczegóły dojazdu
               </a>
             </div>

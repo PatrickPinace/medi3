@@ -1,8 +1,9 @@
 ---
+import { url } from "../utils/url";
 interface Props { class?: string }
 const { class: className = "" } = Astro.props;
 ---
-<a href="/" class={`group inline-flex items-center gap-2.5 ${className}`} aria-label="Medi3 — strona główna">
+<a href={url("/")} class={`group inline-flex items-center gap-2.5 ${className}`} aria-label="Medi3 — strona główna">
   <span class="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-peach-300 via-salmon-400 to-salmon-600 text-white shadow-sm">
     <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z" opacity=".25"/>
