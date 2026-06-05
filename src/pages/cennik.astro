@@ -29,7 +29,7 @@ const formatPrice = (price: number, nfz?: boolean) => {
     <div class="space-y-10">
       {kategorie.map((kat) => (
         <div>
-          <h2 class="font-serif text-2xl text-white tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
+          <h2 class="font-serif text-2xl text-salmon-900 dark:text-white tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
           <div class="mt-4 rounded-3xl border border-white/10 overflow-hidden bg-white/5">
             <ul class="divide-y divide-white/10">
               {kat.pozycje.map((p) => {
@@ -55,10 +55,10 @@ const formatPrice = (price: number, nfz?: boolean) => {
     </div>
 
     <div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-center md:text-left">
-      <p class="text-sm text-navy-400">
+      <p class="text-sm text-salmon-900/40 dark:text-navy-400">
         Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="text-salmon-400 hover:text-salmon-300 underline underline-offset-4 transition">{site.phone}</a>
       </p>
-      <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1.5 text-xs text-navy-400 hover:text-white transition shrink-0 justify-center sm:justify-start">
+      <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1.5 text-xs text-salmon-900/50 hover:text-salmon-700 dark:text-navy-400 dark:hover:text-white transition shrink-0 justify-center sm:justify-start">
         <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
         Dane do przelewu →
       </a>

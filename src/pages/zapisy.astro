@@ -76,7 +76,7 @@ const grupy = [
           <div class="flex items-baseline justify-between gap-4 mb-6 text-center md:text-left">
             <div class="mx-auto md:mx-0">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/70">Grupa {idx + 1}</p>
-              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-white tracking-tight">{g.nazwa}</h2>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 dark:text-white tracking-tight">{g.nazwa}</h2>
               <p class="mt-2 text-sm text-navy-300 max-w-2xl">{g.opis}</p>
             </div>
           </div>
@@ -94,7 +94,7 @@ const grupy = [
                 {p.nfz && <NfzBadge class="absolute top-4 right-4" />}
 
                 <div class="relative sm:pr-12">
-                  <h3 class="font-serif text-lg text-white leading-snug">{p.tytul}</h3>
+                  <h3 class="font-serif text-lg text-salmon-900 dark:text-white leading-snug">{p.tytul}</h3>
                   <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-salmon-400 group-hover:text-salmon-300 transition">
                     {p.internal ? "Zadzwoń" : "Wypełnij formularz"}
                     <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -107,8 +107,8 @@ const grupy = [
       ))}
     </div>
 
-    <p class="mt-10 text-center text-xs text-navy-400">
-      Świadczenia odpłatne · <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1 text-navy-400 hover:text-white transition underline underline-offset-4 decoration-white/20">
+    <p class="mt-10 text-center text-xs text-salmon-900/40 dark:text-navy-400">
+      Świadczenia odpłatne · <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1 text-salmon-900/50 dark:text-navy-400 hover:text-salmon-700 dark:hover:text-white transition underline underline-offset-4 decoration-white/20">
         <svg viewBox="0 0 24 24" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
         dane do przelewu
       </a>
