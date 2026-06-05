@@ -103,6 +103,7 @@ const nav = [
 <script>
   function initTheme() {
     const stored = localStorage.getItem("theme");
+    // Jasny tryb domyślny — ciemny tylko gdy user sam wybrał
     const isDark = stored === "dark";
     document.documentElement.classList.toggle("dark", isDark);
     updateIcons(isDark);

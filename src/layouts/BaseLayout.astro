@@ -24,6 +24,16 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <title>{title}</title>
+    <!-- Ustawia tryb PRZED renderowaniem, bez flashowania. Domyślnie jasny. -->
+    <script is:inline>
+      (function() {
+        var stored = localStorage.getItem("theme");
+        if (stored === "dark") {
+          document.documentElement.classList.add("dark");
+        }
+        // Celowo ignorujemy prefers-color-scheme — domyślny tryb to jasny
+      })();
+    </script>
   </head>
   <body class="min-h-screen flex flex-col">
     <Header />
