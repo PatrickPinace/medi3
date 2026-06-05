@@ -4,10 +4,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 interface Props { class?: string }
 const { class: className = "" } = Astro.props;
 ---
-<a href={url("/")} class={`group inline-flex items-center ${className}`} aria-label="Medi3 — strona główna">
+<a href={url("/")} class={`group inline-flex items-center gap-2.5 ${className}`} aria-label="Medi3 — strona główna">
   <img
-    src={`${base}/assets/logo-medi3.png`}
-    alt="Fundacja Medi3"
-    class="h-10 w-auto"
+    src={`${base}/assets/logo-icon.png`}
+    alt=""
+    class="h-9 w-auto"
+    aria-hidden="true"
   />
+  <span class="flex flex-col leading-none">
+    <span class="font-serif text-xl tracking-tight
+      text-salmon-700 dark:text-white">medi<span class="text-salmon-500 dark:text-salmon-400">3</span></span>
+    <span class="text-[10px] uppercase tracking-[0.18em]
+      text-salmon-700/60 dark:text-navy-300">poradnie · położne</span>
+  </span>
 </a>
