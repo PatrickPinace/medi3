@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import NfzBadge from "../components/NfzBadge.astro";
 import { forms, site } from "../data/site";
+import { url } from "../utils/url";
 
 const grupy = [
   {
@@ -105,5 +106,12 @@ const grupy = [
         </div>
       ))}
     </div>
+
+    <p class="mt-10 text-center text-xs text-navy-400">
+      Świadczenia odpłatne · <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1 text-navy-400 hover:text-white transition underline underline-offset-4 decoration-white/20">
+        <svg viewBox="0 0 24 24" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        dane do przelewu
+      </a>
+    </p>
   </section>
 </BaseLayout>

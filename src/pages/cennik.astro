@@ -4,6 +4,7 @@ import PageHero from "../components/PageHero.astro";
 import NfzBadge from "../components/NfzBadge.astro";
 import { getEntry } from "astro:content";
 import { site } from "../data/site";
+import { url } from "../utils/url";
 
 const data = await getEntry("cennik", "uslugi");
 const { kategorie } = data.data;
@@ -53,9 +54,15 @@ const formatPrice = (price: number, nfz?: boolean) => {
       ))}
     </div>
 
-    <p class="mt-8 text-sm text-navy-400 text-center md:text-left">
-      Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="text-salmon-400 hover:text-salmon-300 underline underline-offset-4 transition">{site.phone}</a>
-    </p>
+    <div class="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-center md:text-left">
+      <p class="text-sm text-navy-400">
+        Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="text-salmon-400 hover:text-salmon-300 underline underline-offset-4 transition">{site.phone}</a>
+      </p>
+      <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1.5 text-xs text-navy-400 hover:text-white transition shrink-0 justify-center sm:justify-start">
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Dane do przelewu →
+      </a>
+    </div>
   </section>
 
   <section class="container-x pb-16 sm:pb-20">

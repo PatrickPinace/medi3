@@ -9,10 +9,16 @@ import { url } from "../utils/url";
       <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/80">Lokalizacje</p>
       <h2 class="mt-2 font-serif text-3xl sm:text-5xl text-white tracking-tight leading-[1.15] sm:leading-tight">Jak do nas trafić</h2>
     </div>
-    <a href={url("/dojazd")} class="text-sm font-medium text-salmon-400 hover:text-salmon-300 transition inline-flex items-center justify-center gap-2">
-      Pełna informacja o dojeździe
-      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+    <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
+      <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1.5 text-xs text-navy-400 hover:text-white transition">
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Dane do przelewu
+      </a>
+      <a href={url("/dojazd")} class="text-sm font-medium text-salmon-400 hover:text-salmon-300 transition inline-flex items-center justify-center gap-2">
+        Pełna informacja o dojeździe
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
   </div>
 
   <div class="grid gap-6 md:grid-cols-2">
