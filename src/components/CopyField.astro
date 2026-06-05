@@ -1,0 +1,49 @@
+---
+interface Props {
+  label: string;
+  value: string;
+  mono?: boolean;
+  big?: boolean;
+}
+const { label, value, mono = false, big = false } = Astro.props;
+---
+
+<div class="group rounded-2xl border border-salmon-100 bg-white p-5 transition hover:border-salmon-200">
+  <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/60">{label}</p>
+  <div class="mt-2 flex items-center justify-between gap-3">
+    <p class={`text-salmon-900 ${big ? "text-2xl font-serif" : ""} ${mono ? "font-mono tracking-wide" : ""} break-all`}>
+      {value}
+    </p>
+    <button
+      type="button"
+      data-copy={value}
+      class="copy-btn shrink-0 inline-flex items-center gap-1.5 rounded-full border border-salmon-200 bg-salmon-50 text-salmon-700 px-3 py-1.5 text-xs font-medium hover:bg-salmon-100 transition"
+      aria-label={`Skopiuj ${label}`}
+    >
+      <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15V5a2 2 0 0 1 2-2h10"/>
+      </svg>
+      <span class="copy-label">Kopiuj</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const value = btn.dataset.copy ?? "";
+      const label = btn.querySelector<HTMLElement>(".copy-label");
+      try {
+        await navigator.clipboard.writeText(value);
+        if (label) {
+          const prev = label.textContent;
+          label.textContent = "Skopiowano";
+          setTimeout(() => { if (prev) label.textContent = prev; }, 1500);
+        }
+      } catch {
+        /* no-op */
+      }
+    });
+  });
+</script>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site, forms } from "../data/site";
+
+const dlaKogo = [
+  { tytul: "Kobietom w ciąży", opis: "Wsparcie merytoryczne i emocjonalne od pierwszego trymestru — przygotowanie do porodu i pierwszych tygodni z dzieckiem." },
+  { tytul: "Świeżo upieczonym mamom", opis: "Opieka po porodzie, wsparcie laktacyjne, pielęgnacja noworodka, kontrola połogu w warunkach domowych." },
+  { tytul: "Rodzinom", opis: "Partner, dziadkowie, rodzeństwo — wszyscy są mile widziani podczas zajęć w szkole rodzenia i edukacji okołoporodowej." },
+  { tytul: "Położnym", opis: "Wsparcie zawodowe, mentoring i szkolenia dla położnych chcących pracować w modelu opieki ciągłej." },
+];
+
+const wartosci = [
+  { ikona: "heart", tytul: "Ciągłość opieki", opis: "Jedna położna prowadzi Cię przez ciążę, poród i połóg — znacie się, ufacie sobie, działacie zgrane." },
+  { ikona: "respect", tytul: "Szacunek i wybór", opis: "Twoje decyzje są najważniejsze. Naszym zadaniem jest dać Ci wiedzę i wsparcie — nie narzucać." },
+  { ikona: "evidence", tytul: "Wiedza oparta na faktach", opis: "Pracujemy zgodnie z aktualnymi wytycznymi WHO, PTGiP i standardami opieki okołoporodowej." },
+  { ikona: "community", tytul: "Sieć wsparcia", opis: "Współpracujemy z fizjoterapeutami, neurologopedami, doulami i konsultantkami laktacyjnymi." },
+];
+---
+
+<BaseLayout
+  title="Położna na swoim · Medi3"
+  description="Projekt 'Położna na swoim' — opieka położnicza w modelu ciągłej współpracy. Ciąża, poród, połóg z jedną zaufaną położną."
+>
+  <PageHero
+    eyebrow="Projekt"
+    title="Położna na swoim"
+    subtitle="Opieka położnicza w modelu ciągłej współpracy — jedna położna prowadzi Cię przez ciążę, poród i pierwsze tygodnie macierzyństwa."
+  />
+
+  <!-- Intro split -->
+  <section class="container-x py-16">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">O projekcie</p>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 tracking-tight">
+          Bliska, indywidualna opieka <span class="italic text-salmon-600">od początku do końca</span>
+        </h2>
+        <p class="mt-5 text-salmon-900/80 leading-relaxed">
+          "Położna na swoim" to inicjatywa Fundacji Medi3 promująca model opieki okołoporodowej,
+          w którym kobieta przez cały czas ciąży, porodu i połogu pozostaje pod opieką tej samej,
+          zaufanej położnej. Bez przekazywania pacjentki z rąk do rąk, bez tłumaczenia historii
+          po raz piąty, bez stresu związanego z poznawaniem nowych ludzi w najważniejszym momencie.
+        </p>
+        <p class="mt-4 text-salmon-900/80 leading-relaxed">
+          Wierzymy, że ciągłość opieki przekłada się na lepsze doświadczenia rodzących,
+          rzadsze interwencje medyczne i bardziej satysfakcjonujący początek macierzyństwa.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={forms.ciaza} target="_blank" rel="noopener" class="btn-primary">Zapisz się do programu</a>
+          <a href={`tel:${site.phoneTel}`} class="btn-ghost">Porozmawiajmy</a>
+        </div>
+      </div>
+
+      <!-- Placeholder zdjęcia -->
+      <div class="relative aspect-square w-full rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-peach-100 via-blush-100 to-salmon-100 ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.3)]">
+        <svg class="absolute inset-0 w-full h-full opacity-60" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+          <circle cx="100" cy="120" r="90" fill="#f996bd" fill-opacity=".4"/>
+          <circle cx="300" cy="280" r="100" fill="#ffac8e" fill-opacity=".5"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="h-20 w-20 text-salmon-400/70" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+            <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z"/>
+          </svg>
+        </div>
+        <div class="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/85 backdrop-blur px-4 py-3 shadow-sm">
+          <p class="font-serif text-salmon-700 text-sm italic leading-relaxed">"Myślałam, że potrzebuję cudownej rady. A potrzebowałam kogoś, kto bez pośpiechu odpowie na wszystkie moje 'a co jeśli?' i zrobi to tak, że uwierzę. One tak mają."</p>
+          <p class="mt-1 text-xs text-salmon-700/60">— jedna z naszych mam</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dla kogo -->
+  <section class="bg-cream-100 py-20">
+    <div class="container-x">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Dla kogo</p>
+      <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 tracking-tight">Komu dedykujemy program?</h2>
+
+      <div class="mt-10 grid sm:grid-cols-2 gap-6">
+        {dlaKogo.map((d, i) => (
+          <div class="relative overflow-hidden rounded-3xl border border-salmon-100 bg-white p-7">
+            <span class="absolute top-5 right-6 font-serif text-5xl text-salmon-100">0{i + 1}</span>
+            <h3 class="font-serif text-xl text-salmon-900">{d.tytul}</h3>
+            <p class="mt-3 text-salmon-900/75 leading-relaxed">{d.opis}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Wartości -->
+  <section class="container-x py-20">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Nasze podejście</p>
+    <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 tracking-tight max-w-2xl">
+      Cztery filary, na których stoi nasza opieka
+    </h2>
+
+    <div class="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {wartosci.map((w) => (
+        <div class="rounded-3xl bg-gradient-to-br from-white to-cream-100 border border-salmon-100 p-6">
+          <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-salmon-100 text-salmon-600 mb-4">
+            {w.ikona === "heart" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z"/></svg>}
+            {w.ikona === "respect" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>}
+            {w.ikona === "evidence" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>}
+            {w.ikona === "community" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="11" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M15 20a4 4 0 0 1 7 0"/></svg>}
+          </div>
+          <h3 class="font-serif text-lg text-salmon-900">{w.tytul}</h3>
+          <p class="mt-2 text-sm text-salmon-900/75 leading-relaxed">{w.opis}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA końcowe -->
+  <section class="container-x pb-20">
+    <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600 px-8 py-14 sm:px-14 sm:py-16 text-white">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="relative max-w-2xl">
+        <h2 class="font-serif text-3xl sm:text-4xl tracking-tight">Chcesz dołączyć do programu?</h2>
+        <p class="mt-4 text-white/85">
+          Wypełnij krótki formularz lub zadzwoń — opowiemy o szczegółach i pomożemy wybrać formę opieki.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href={forms.ciaza} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50">
+            Wypełnij formularz
+          </a>
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10">
+            ☎ {site.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

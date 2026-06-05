@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import NfzBadge from "../components/NfzBadge.astro";
+import { forms, site } from "../data/site";
+
+const grupy = [
+  {
+    nazwa: "Opieka okołoporodowa",
+    opis: "Dla kobiet w ciąży, świeżo upieczonych mam i niemowląt — świadczenia NFZ bez skierowania.",
+    pozycje: [
+      { tytul: "Zapisy dla kobiet w ciąży (w tym Szkoła Rodzenia)", href: forms.ciaza, nfz: true },
+      { tytul: "Wizyty patronażowe", href: forms.ciaza, nfz: true },
+      { tytul: "Porada laktacyjna", href: forms.laktacyjna, nfz: false },
+    ],
+  },
+  {
+    nazwa: "Profilaktyka i badania",
+    opis: "Badania profilaktyczne, programy NFZ i badania ginekologiczne.",
+    pozycje: [
+      { tytul: "Moje Zdrowie — badania profilaktyczne", href: forms.ogolny, nfz: true },
+      { tytul: "Program wczesnego wykrywania raka szyjki", href: forms.ogolny, nfz: true },
+      { tytul: "Badania ginekologiczne", href: forms.ogolny, nfz: false },
+    ],
+  },
+  {
+    nazwa: "Fizjoterapia i terapia",
+    opis: "Diagnostyka i terapia dla niemowląt, dzieci, kobiet w okresie okołoporodowym i dorosłych.",
+    pozycje: [
+      { tytul: "Fizjoterapia", href: forms.ogolny, nfz: false },
+      { tytul: "Neurologopeda — zadzwoń", href: `tel:${site.phoneTel}`, nfz: false, internal: true },
+    ],
+  },
+  {
+    nazwa: "Szkolenia i wydarzenia",
+    opis: "Otwarte kursy i szkolenia dla rodziców i opiekunów.",
+    pozycje: [
+      { tytul: "Pierwsza Pomoc Noworodka i Niemowlęcia · 11.06.2026", href: forms.pierwszaPomoc, nfz: false },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Zapisy · Medi3"
+  description="Wszystkie formularze zapisów do poradni Medi3 w jednym miejscu — ciąża, szkoła rodzenia, laktacja, profilaktyka, fizjoterapia, szkolenia."
+>
+  <PageHero
+    eyebrow="Rejestracja"
+    title="Zapisz się do Medi3"
+    subtitle="Wybierz interesujące Cię świadczenie — przekierujemy do odpowiedniego formularza. W razie pytań zadzwoń."
+  />
+
+  <section class="container-x py-12">
+    <div class="rounded-3xl bg-gradient-to-br from-salmon-500 to-peach-600 text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between">
+      <div>
+        <p class="font-serif text-2xl">Wolisz porozmawiać?</p>
+        <p class="text-white/85 text-sm mt-1">Zadzwoń, a pomożemy wybrać odpowiednią formę opieki.</p>
+      </div>
+      <div class="flex gap-3 flex-wrap">
+        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-5 py-2.5 text-sm font-medium hover:bg-cream-50">
+          ☎ {site.phone}
+        </a>
+        <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-medium hover:bg-white/10">
+          {site.email}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-x pb-20">
+    <div class="space-y-12">
+      {grupy.map((g, idx) => (
+        <div>
+          <div class="flex items-baseline justify-between gap-4 mb-6">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Grupa {idx + 1}</p>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 tracking-tight">{g.nazwa}</h2>
+              <p class="mt-2 text-sm text-salmon-900/70 max-w-2xl">{g.opis}</p>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {g.pozycje.map((p) => (
+              <a
+                href={p.href}
+                target={p.internal ? undefined : "_blank"}
+                rel={p.internal ? undefined : "noopener noreferrer"}
+                class="group relative overflow-hidden rounded-2xl border border-salmon-100 bg-white p-6 transition hover:shadow-lg hover:-translate-y-0.5 hover:border-salmon-200"
+              >
+                <div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-salmon-100/40 blur-2xl transition group-hover:bg-salmon-200/60"></div>
+
+                {p.nfz && <NfzBadge class="absolute top-4 right-4" />}
+
+                <div class="relative pr-12">
+                  <h3 class="font-serif text-lg text-salmon-900 leading-snug">{p.tytul}</h3>
+                  <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-salmon-700 group-hover:text-salmon-800">
+                    {p.internal ? "Zadzwoń" : "Wypełnij formularz"}
+                    <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

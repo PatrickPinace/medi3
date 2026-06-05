@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  /* PRIMARY: różowa paleta zbudowana wokół #f43b84 */
+  --color-salmon-50:  #fff1f7;
+  --color-salmon-100: #ffe0ee;
+  --color-salmon-200: #fcc1da;
+  --color-salmon-300: #f996bd;
+  --color-salmon-400: #f76aa1;
+  --color-salmon-500: #f43b84;   /* główny */
+  --color-salmon-600: #db1f6a;
+  --color-salmon-700: #b21557;
+  --color-salmon-800: #8a1146;
+  --color-salmon-900: #5e0d31;
+
+  /* ACCENT: łososiowy / brzoskwiniowy (zachowany z poprzedniej palety) */
+  --color-peach-50:  #fff5f1;
+  --color-peach-100: #ffe6dc;
+  --color-peach-200: #ffcdb9;
+  --color-peach-300: #ffac8e;
+  --color-peach-400: #ff8a66;
+  --color-peach-500: #f9704a;
+  --color-peach-600: #e85630;
+  --color-peach-700: #c14223;
+
+  /* Ciepły krem dla tła */
+  --color-cream-50:  #fffaf5;
+  --color-cream-100: #fdeef3;
+  --color-cream-200: #fbe0eb;
+
+  /* Pudrowy róż */
+  --color-blush-100: #fde2eb;
+  --color-blush-200: #f9c8d8;
+
+  /* Stłumiona zieleń — chip NFZ */
+  --color-sage-100: #e7eee4;
+  --color-sage-500: #6b8e64;
+  --color-sage-700: #4a6644;
+
+  /* Typografia */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-cream-50);
+    color: #2a1326;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  ::selection { background: var(--color-salmon-200); color: var(--color-salmon-900); }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-salmon-200 bg-white/60 px-6 py-3 text-sm font-medium text-salmon-700 transition hover:bg-white hover:border-salmon-300;
+  }
+  .btn-peach {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-peach-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-peach-600;
+  }
+  .prose-medi h2 {
+    @apply font-serif text-3xl text-salmon-900 mt-12 mb-4;
+  }
+  .prose-medi h3 {
+    @apply font-serif text-xl text-salmon-800 mt-8 mb-3;
+  }
+  .prose-medi p {
+    @apply text-salmon-900/80 leading-relaxed mb-4;
+  }
+  .prose-medi ul {
+    @apply space-y-2 mb-6 text-salmon-900/80;
+  }
+  .prose-medi li {
+    @apply pl-6 relative;
+  }
+  .prose-medi li::before {
+    content: "";
+    @apply absolute left-0 top-2.5 h-1.5 w-1.5 rounded-full bg-salmon-500;
+  }
+  .prose-medi strong { @apply text-salmon-900 font-semibold; }
+  .prose-medi a { @apply text-salmon-700 underline decoration-salmon-300 underline-offset-4 hover:text-salmon-800; }
+}

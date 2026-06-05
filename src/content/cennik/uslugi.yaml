@@ -1,0 +1,25 @@
+# Cennik usług Medi3
+# Edytuj ten plik żeby zmienić ceny lub dodać pozycje.
+# Pola: name (nazwa), price (cena jako liczba), unit (opcjonalnie np. "wizyta"), nfz (true/false), note (opcjonalny drobny dopis)
+
+kategorie:
+
+  - nazwa: Położnictwo i opieka okołoporodowa
+    pozycje:
+      - name: Badanie KTG
+        price: 130
+      - name: Porada laktacyjna — pierwsza wizyta
+        price: 230
+      - name: Porada laktacyjna — wizyta kontrolna (do 45 min)
+        price: 150
+      - name: Wizyty patronażowe (NFZ)
+        price: 0
+        nfz: true
+      - name: Prowadzenie ciąży fizjologicznej (NFZ)
+        price: 0
+        nfz: true
+
+  - nazwa: Fizjoterapia
+    pozycje:
+      - name: Konsultacja fizjoterapeutyczna
+        price: 150

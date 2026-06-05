@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import NfzBadge from "../components/NfzBadge.astro";
+import { getEntry } from "astro:content";
+import { site } from "../data/site";
+
+const data = await getEntry("cennik", "uslugi");
+const { kategorie } = data.data;
+
+const formatPrice = (price: number, nfz?: boolean) => {
+  if (nfz && price === 0) return null;
+  return `${price} zł`;
+};
+---
+
+<BaseLayout
+  title="Cennik · Medi3"
+  description="Cennik usług poradni Medi3 — badanie KTG, porada laktacyjna, fizjoterapia. Świadczenia NFZ i komercyjne."
+>
+  <PageHero
+    eyebrow="Usługi i ceny"
+    title="Cennik"
+    subtitle="Poniżej aktualne ceny usług komercyjnych. Większość świadczeń dla kobiet w ciąży realizujemy bezpłatnie w ramach NFZ."
+  />
+
+  <section class="container-x py-14 max-w-3xl">
+    <div class="space-y-10">
+      {kategorie.map((kat) => (
+        <div>
+          <h2 class="font-serif text-2xl text-salmon-900 tracking-tight mb-1">{kat.nazwa}</h2>
+          <div class="mt-4 rounded-3xl border border-salmon-100 overflow-hidden bg-white">
+            <ul class="divide-y divide-salmon-100">
+              {kat.pozycje.map((p) => {
+                const priceStr = formatPrice(p.price, p.nfz);
+                return (
+                  <li class="flex items-center justify-between gap-4 px-6 py-4 hover:bg-salmon-50/40 transition group">
+                    <span class="text-salmon-900">{p.name}</span>
+                    <div class="flex items-center gap-3 shrink-0">
+                      {p.nfz && <NfzBadge />}
+                      {priceStr ? (
+                        <span class="font-serif text-xl text-salmon-700 tabular-nums">{priceStr}</span>
+                      ) : (
+                        <span class="text-xs text-sage-600 font-medium">bezpłatnie</span>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-8 text-sm text-salmon-900/55">
+      Ceny obowiązują od 2025 r. W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`} class="underline decoration-salmon-200 underline-offset-4 hover:text-salmon-700">{site.phone}</a>
+    </p>
+  </section>
+
+  <section class="container-x pb-20">
+    <div class="rounded-[2rem] bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600 px-8 py-12 sm:px-12 sm:py-14 text-white relative overflow-hidden">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="relative max-w-2xl">
+        <h2 class="font-serif text-3xl tracking-tight">Pytania o ceny lub NFZ?</h2>
+        <p class="mt-3 text-white/85">Chętnie wyjaśnimy co przysługuje bezpłatnie i co jest odpłatne w Twojej sytuacji.</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50">
+            ☎ {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10">
+            {site.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

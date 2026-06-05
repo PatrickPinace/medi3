@@ -1,0 +1,133 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import CopyField from "../components/CopyField.astro";
+import { site } from "../data/site";
+
+const { accounts, zrzutka, recipient, address } = site.bank;
+---
+
+<BaseLayout
+  title="Dane do przelewu · Medi3"
+  description="Numery kont Fundacji Medi3 — Szkoła Rodzenia, szkolenia Medykalni, konto ogólne Nest Bank. Szybka płatność przez Zrzutka.pl."
+>
+  <PageHero
+    eyebrow="Płatności"
+    title="Dane do przelewu"
+    subtitle="Każde konto służy innemu celowi — wybierz właściwe. Numer skopiujesz jednym kliknięciem."
+  />
+
+  <section class="container-x py-12">
+
+    <!-- Wskazówka -->
+    <div class="rounded-3xl bg-gradient-to-br from-cream-100 to-blush-100 border border-salmon-100 p-6 sm:p-7 mb-10 flex items-start gap-4">
+      <div class="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-salmon-600">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      </div>
+      <p class="text-sm text-salmon-900/80 leading-relaxed">
+        Dotknij <strong class="text-salmon-800">„Kopiuj numer"</strong> i wklej w aplikacji bankowej.
+        Przy realizacji przelewu podaj w tytule swoje imię, nazwisko i cel wpłaty.
+      </p>
+    </div>
+
+    <!-- Konta bankowe -->
+    <div class="space-y-6">
+      {accounts.map((acc) => (
+        <div class="rounded-3xl border-2 border-salmon-100 bg-white p-6 sm:p-8 relative overflow-hidden hover:border-salmon-200 transition">
+          <div class="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-salmon-100/40 blur-3xl pointer-events-none"></div>
+          <div class="relative">
+
+            <!-- Nagłówek konta -->
+            <div class="flex items-start justify-between gap-4 flex-wrap mb-5">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/70">
+                  {acc.bankName ?? "Konto bankowe"}
+                </p>
+                <h2 class="mt-1 font-serif text-xl sm:text-2xl text-salmon-900 tracking-tight">{acc.label}</h2>
+                <p class="mt-1 text-sm text-salmon-900/65">{acc.description}</p>
+              </div>
+            </div>
+
+            <!-- Numer konta — duży z przyciskiem -->
+            <div class="flex items-center justify-between gap-4 flex-wrap bg-cream-50 rounded-2xl px-5 py-4 border border-salmon-100 mb-5">
+              <p class="font-mono text-xl sm:text-2xl text-salmon-900 tracking-wider break-all">
+                {acc.number}
+              </p>
+              <button
+                type="button"
+                data-copy={acc.number.replace(/\s+/g, "")}
+                class="copy-btn shrink-0 inline-flex items-center gap-2 rounded-full bg-salmon-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-salmon-600 transition"
+                aria-label={`Skopiuj numer konta — ${acc.label}`}
+              >
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15V5a2 2 0 0 1 2-2h10"/>
+                </svg>
+                <span class="copy-label">Kopiuj numer</span>
+              </button>
+            </div>
+
+            <!-- Dane odbiorcy + SWIFT/IBAN jeśli są -->
+            <div class="grid sm:grid-cols-2 gap-3">
+              <CopyField label="Odbiorca" value={recipient} />
+              <CopyField label="Adres" value={address} />
+              {"swift" in acc && acc.swift && (
+                <CopyField label="SWIFT / BIC" value={acc.swift} mono />
+              )}
+              {"iban" in acc && acc.iban && (
+                <CopyField label="IBAN" value={acc.iban} mono />
+              )}
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Zrzutka -->
+    <div class="mt-8 rounded-3xl border border-salmon-200 bg-white p-6 sm:p-8 relative overflow-hidden">
+      <div class="absolute -left-16 -bottom-16 h-48 w-48 rounded-full bg-blush-100/60 blur-3xl pointer-events-none"></div>
+      <div class="relative">
+        <div class="flex items-start gap-4 flex-wrap sm:flex-nowrap">
+          <div class="shrink-0 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-salmon-100 text-salmon-600">
+            <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z"/></svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/70">Alternatywna płatność</p>
+            <h2 class="mt-1 font-serif text-xl text-salmon-900 tracking-tight">Szybki przelew przez Zrzutka.pl</h2>
+            <p class="mt-3 text-sm text-salmon-900/70 leading-relaxed max-w-2xl">
+              {zrzutka.note}
+            </p>
+            <a
+              href={zrzutka.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-5 btn-primary inline-flex !py-2.5 !px-5 text-sm"
+            >
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              Otwórz Zrzutka.pl
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    document.querySelectorAll<HTMLButtonElement>(".copy-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const value = btn.dataset.copy ?? "";
+        const label = btn.querySelector<HTMLElement>(".copy-label");
+        try {
+          await navigator.clipboard.writeText(value);
+          if (label) {
+            const prev = label.textContent;
+            label.textContent = "Skopiowano ✓";
+            setTimeout(() => { if (prev) label.textContent = prev; }, 1800);
+          }
+        } catch { /* no-op */ }
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,154 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Addresses from "../components/Addresses.astro";
+import { forms, site } from "../data/site";
+
+const primary = [
+  {
+    title: "Położne · ciąża i połóg",
+    description: "Opieka położnej w czasie ciąży i po porodzie. Świadczenia w ramach NFZ — bez skierowania.",
+    href: forms.ciaza,
+    cta: "Zarejestruj się",
+    nfz: true,
+    icon: "stork",
+    external: true,
+  },
+  {
+    title: "Szkoła Rodzenia",
+    description: "Przygotowanie do porodu i pierwszych tygodni z dzieckiem — grupowe i indywidualne zajęcia.",
+    href: forms.ciaza,
+    cta: "Zapisz się",
+    nfz: true,
+    icon: "book",
+    external: true,
+  },
+  {
+    title: "Wizyty patronażowe",
+    description: "Po porodzie odwiedzamy mamę i dziecko w domu — wsparcie laktacyjne, pielęgnacja, badania.",
+    href: forms.ciaza,
+    cta: "Umów wizytę",
+    nfz: true,
+    icon: "home",
+    external: true,
+  },
+];
+
+const secondary = [
+  {
+    title: "Moje Zdrowie",
+    description: "Badania profilaktyczne — morfologia, mocz, lipidogram i inne.",
+    href: forms.ogolny,
+    nfz: true,
+    icon: "shield",
+    external: true,
+  },
+  {
+    title: "Profilaktyka raka szyjki",
+    description: "Program wczesnego wykrywania (HPV) — dla kobiet w wieku 25–64 lata.",
+    href: forms.ogolny,
+    nfz: true,
+    icon: "ribbon",
+    external: true,
+  },
+  {
+    title: "Porada laktacyjna",
+    description: "Pomoc, gdy karmienie piersią nie idzie tak, jak byś chciała.",
+    href: forms.laktacyjna,
+    icon: "drop",
+    external: true,
+  },
+  {
+    title: "Fizjoterapia",
+    description: "Diagnostyka i terapia — okres okołoporodowy, niemowlęta, dorośli.",
+    href: forms.ogolny,
+    icon: "activity",
+    external: true,
+  },
+  {
+    title: "Pierwsza Pomoc Noworodka",
+    description: "Szkolenie z pierwszej pomocy dla rodziców i opiekunów — 11.06.2026.",
+    href: forms.pierwszaPomoc,
+    cta: "Rejestracja",
+    icon: "alert",
+    external: true,
+  },
+  {
+    title: "Neurologopeda",
+    description: "Wczesna diagnoza rozwoju mowy i karmienia — niemowlęta i dzieci.",
+    href: `tel:${site.phoneTel}`,
+    cta: "Zadzwoń",
+    icon: "speech",
+  },
+];
+---
+
+<BaseLayout>
+  <Hero />
+
+  <!-- SEKCJA 1: 3 duże kafelki -->
+  <section id="uslugi" class="container-x py-12 md:py-20">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Opieka okołoporodowa</p>
+      <h2 class="mt-2 font-serif text-4xl sm:text-5xl text-salmon-900 tracking-tight">
+        Od pierwszego trymestru<br/> po pierwsze tygodnie życia
+      </h2>
+      <p class="mt-4 text-salmon-900/70">
+        Wszystkie świadczenia w ramach NFZ — bez skierowania, bez kolejek.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {primary.map((s) => <ServiceCard {...s} size="lg" />)}
+    </div>
+  </section>
+
+  <!-- Falowane przejście -->
+  <div class="relative">
+    <svg class="block w-full h-12 -mb-1" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,40 C240,10 480,60 720,40 C960,20 1200,55 1440,30 L1440,60 L0,60 Z" fill="#faf3ea"/>
+    </svg>
+  </div>
+
+  <!-- SEKCJA 2: 6 kafelków -->
+  <section class="bg-cream-100 py-20">
+    <div class="container-x">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-700/70">Pozostałe usługi</p>
+        <h2 class="mt-2 font-serif text-4xl sm:text-5xl text-salmon-900 tracking-tight">Profilaktyka, fizjoterapia, edukacja</h2>
+      </div>
+
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {secondary.map((s) => <ServiceCard {...s} />)}
+      </div>
+    </div>
+  </section>
+
+  <Addresses />
+
+  <!-- Mini-CTA przed stopką -->
+  <section class="container-x pb-10">
+    <div class="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600 px-8 py-14 sm:px-14 sm:py-20 text-white">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="absolute -left-16 -bottom-24 h-80 w-80 rounded-full bg-blush-200/20 blur-3xl"></div>
+      <div class="relative max-w-2xl">
+        <h2 class="font-serif text-4xl sm:text-5xl tracking-tight leading-tight">
+          Masz pytanie? <span class="italic">Zadzwoń</span> — odpowiemy.
+        </h2>
+        <p class="mt-4 text-white/85 text-lg">
+          Pomożemy wybrać formę opieki i wytłumaczymy, co przysługuje w ramach NFZ.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+            {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition">
+            {site.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
