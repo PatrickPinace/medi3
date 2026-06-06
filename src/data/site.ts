@@ -38,7 +38,7 @@ export const site = {
     accounts: [
       {
         key: "szkola-rodzenia",
-        label: "Szkoła Rodzenia — osoba towarzysząca",
+        label: "Szkoła Rodzenia - osoba towarzysząca",
         description: "Wpłaty za uczestnictwo osoby towarzyszącej w Szkole Rodzenia",
         number: "62 1750 1312 6887 6097 2424 6830",
         bankName: null,
@@ -62,7 +62,7 @@ export const site = {
     ],
     zrzutka: {
       url: "https://zrzutka.pl/6ze4nt",
-      note: "Zrzutka.pl będzie prosiła o darowiznę na koszt obsługi (ok. 10–20%) — nie jest obowiązkowa. Można odznaczyć opcję dodatkowych opłat. Opcja \"ukryj moje dane\" działa — jako organizator i tak widzimy dane wpłacającego.",
+      note: "Zrzutka.pl będzie prosiła o darowiznę na koszt obsługi (ok. 10–20%) - nie jest obowiązkowa. Można odznaczyć opcję dodatkowych opłat. Opcja \"ukryj moje dane\" działa - jako organizator i tak widzimy dane wpłacającego.",
     },
   },
 } as const;

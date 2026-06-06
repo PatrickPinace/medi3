@@ -11,7 +11,7 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     slug: "anna-plaskota-gladosz",
-    name: "Anna Płaskota-Gładosz",
+    name: "Anna Plaskota-Gładosz",
     role: "Położna · CDL",
     specs: ["Prowadzenie ciąży fizjologicznej", "Szkoła Rodzenia", "Wsparcie laktacyjne", "Doula"],
     bio: "Położna z ponad 10-letnim doświadczeniem, specjalistka w prowadzeniu ciąży fizjologicznej. Certyfikowana doula. Prowadzi konsultacje kliniczne i edukację przedporodową.",
@@ -39,7 +39,7 @@ export const team: TeamMember[] = [
     name: "Artur Gładosz",
     role: "Fizjoterapeuta · MBA",
     specs: ["Fizjoterapia", "Zarządzanie placówką", "Kierownik placówki"],
-    bio: "Kierownik placówki NZOZ Medi3. Fizjoterapeuta z doświadczeniem menedżerskim — odpowiada za organizację i rozwój poradni.",
+    bio: "Kierownik placówki NZOZ Medi3. Fizjoterapeuta z doświadczeniem menedżerskim - odpowiada za organizację i rozwój poradni.",
     photo: "/team/artur-gladosz2.png",
   },
   {
@@ -47,7 +47,7 @@ export const team: TeamMember[] = [
     name: "dr Barbara Piekło",
     role: "Dietetyk kliniczny",
     specs: ["Dietetyka kliniczna", "Psychodietetyka", "Suplementacja w ciąży", "Interpretacja badań"],
-    bio: "Dietetyk kliniczny i psychodietetyk — specjalizuje się w suplementacji oraz interpretacji badań laboratoryjnych w ciąży.",
+    bio: "Dietetyk kliniczny i psychodietetyk - specjalizuje się w suplementacji oraz interpretacji badań laboratoryjnych w ciąży.",
     photo: "/team/barbara-pieklo.jpg",
   },
   {
@@ -55,7 +55,7 @@ export const team: TeamMember[] = [
     name: "mgr Katarzyna Soja-Chydzińska",
     role: "Fizjoterapeutka",
     specs: ["Fizjoterapia uroginekologiczna", "Kinesiotaping w ciąży"],
-    bio: "Fizjoterapeutka uroginekologiczna — ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
+    bio: "Fizjoterapeutka uroginekologiczna - ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
     photo: "/team/katarzyna-soja-chydzinska.jpg",
   },
   {
