@@ -33,7 +33,7 @@ const wartosci = [
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
       <div class="text-center lg:text-left">
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/80">O projekcie</p>
-        <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white tracking-tight">
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white/80 tracking-tight">
           Bliska, indywidualna opieka <span class="italic text-salmon-400">od początku do końca</span>
         </h2>
         <p class="mt-5 leading-relaxed text-justify text-salmon-900/80 dark:text-navy-200">
@@ -77,14 +77,14 @@ const wartosci = [
     <div class="container-x">
       <div class="text-center md:text-left">
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/80">Dla kogo</p>
-        <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white tracking-tight">Komu dedykujemy program?</h2>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white/80 tracking-tight">Komu dedykujemy program?</h2>
       </div>
 
       <div class="mt-10 grid sm:grid-cols-2 gap-6">
         {dlaKogo.map((d, i) => (
           <div class="relative overflow-hidden rounded-3xl border p-6 sm:p-7 text-center sm:text-left border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5">
             <span class="absolute top-5 right-6 font-serif text-5xl text-salmon-100 dark:text-white/5">0{i + 1}</span>
-            <h3 class="font-serif text-xl text-salmon-900 dark:text-white">{d.tytul}</h3>
+            <h3 class="font-serif text-xl text-salmon-900 dark:text-white/80">{d.tytul}</h3>
             <p class="mt-3 leading-relaxed text-justify text-salmon-900/75 dark:text-navy-300">{d.opis}</p>
           </div>
         ))}
@@ -96,7 +96,7 @@ const wartosci = [
   <section class="container-x py-16 sm:py-20">
     <div class="text-center md:text-left">
       <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/80">Nasze podejście</p>
-      <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white tracking-tight max-w-2xl mx-auto md:mx-0">
+      <h2 class="mt-3 font-serif text-3xl sm:text-4xl text-salmon-900 dark:text-white/80 tracking-tight max-w-2xl mx-auto md:mx-0">
         Cztery filary, na których stoi nasza opieka
       </h2>
     </div>
@@ -110,7 +110,7 @@ const wartosci = [
             {w.ikona === "evidence" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>}
             {w.ikona === "community" && <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="11" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M15 20a4 4 0 0 1 7 0"/></svg>}
           </div>
-          <h3 class="font-serif text-lg text-salmon-900 dark:text-white">{w.tytul}</h3>
+          <h3 class="font-serif text-lg text-salmon-900 dark:text-white/80">{w.tytul}</h3>
           <p class="mt-2 text-sm leading-relaxed text-justify text-salmon-900/75 dark:text-navy-300">{w.opis}</p>
         </div>
       ))}
@@ -119,7 +119,7 @@ const wartosci = [
 
   <!-- CTA końcowe -->
   <section class="container-x pb-16 sm:pb-20">
-    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-10 sm:px-14 sm:py-16 text-white">
+    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-10 sm:px-14 sm:py-16 text-white dark:text-white/80">
       <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
       <div class="relative max-w-2xl mx-auto md:mx-0 text-center md:text-left">
         <h2 class="font-serif text-3xl sm:text-4xl tracking-tight">Chcesz dołączyć do programu?</h2>

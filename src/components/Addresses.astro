@@ -9,7 +9,7 @@ import { url } from "../utils/url";
       <p class="text-xs font-semibold uppercase tracking-[0.18em]
         text-salmon-700/70 dark:text-salmon-300/70">Lokalizacje</p>
       <h2 class="mt-2 font-serif text-3xl sm:text-5xl tracking-tight leading-[1.15] sm:leading-tight
-        text-salmon-900 dark:text-white">Jak do nas trafić</h2>
+        text-salmon-900 dark:text-white/80">Jak do nas trafić</h2>
     </div>
     <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-5">
       <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1.5 text-xs transition
@@ -44,7 +44,7 @@ import { url } from "../utils/url";
               text-salmon-700/70 dark:text-salmon-300/70">
               {o.key === "smoczka" ? "Główny gabinet" : "Nowy gabinet"}
             </p>
-            <h3 class="mt-1 font-serif text-2xl text-salmon-900 dark:text-white">{o.name}</h3>
+            <h3 class="mt-1 font-serif text-2xl text-salmon-900 dark:text-white/80">{o.name}</h3>
             <p class="mt-3 text-salmon-900/80 dark:text-navy-200">{o.address}</p>
             <p class="mt-1 text-sm text-salmon-900/60 dark:text-white/50">{o.hint}</p>
 

@@ -53,13 +53,13 @@ const grupy = [
   />
 
   <section class="container-x py-10 sm:py-12">
-    <div class="rounded-3xl cta-gradient text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between text-center sm:text-left">
+    <div class="rounded-3xl cta-gradient text-white dark:text-white/80 p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5 justify-between text-center sm:text-left">
       <div>
         <p class="font-serif text-2xl">Wolisz porozmawiać?</p>
-        <p class="text-white/85 text-sm mt-1">Zadzwoń, a pomożemy wybrać odpowiednią formę opieki.</p>
+        <p class="text-white/85 dark:text-white/50 text-sm mt-1">Zadzwoń, a pomożemy wybrać odpowiednią formę opieki.</p>
       </div>
       <div class="flex flex-col sm:flex-row gap-3 flex-wrap justify-center">
-        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-5 py-2.5 text-sm font-medium hover:bg-navy-100 transition">
+        <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-5 py-2.5 text-sm font-medium hover:bg-navy-100 transition dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
           ☎ {site.phone}
         </a>
         <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-medium hover:bg-white/10 transition">
@@ -76,7 +76,7 @@ const grupy = [
           <div class="flex items-baseline justify-between gap-4 mb-6 text-center md:text-left">
             <div class="mx-auto md:mx-0">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/70">Grupa {idx + 1}</p>
-              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 dark:text-white tracking-tight">{g.nazwa}</h2>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 dark:text-white/80 tracking-tight">{g.nazwa}</h2>
               <p class="mt-2 text-sm text-salmon-900/65 dark:text-navy-300 max-w-2xl">{g.opis}</p>
             </div>
           </div>
@@ -106,7 +106,7 @@ const grupy = [
                       <NfzBadge />
                     </div>
                   )}
-                  <h3 class={`font-serif text-xl text-salmon-900 dark:text-white leading-snug ${p.nfz ? "mt-auto" : groupHasNfz ? "sm:mt-auto" : ""}`}>{p.tytul}</h3>
+                  <h3 class={`font-serif text-xl text-salmon-900 dark:text-white/80 leading-snug ${p.nfz ? "mt-auto" : groupHasNfz ? "sm:mt-auto" : ""}`}>{p.tytul}</h3>
                   <div class="mt-4 flex justify-center sm:justify-start">
                     <span class="inline-flex items-center gap-2 text-sm font-medium transition
                       text-salmon-400 group-hover:text-salmon-500

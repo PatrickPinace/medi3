@@ -99,6 +99,8 @@
     letter-spacing: -0.01em;
   }
   ::selection { background: var(--color-salmon-500); color: white; }
+
+  .dark img { filter: brightness(0.80); }
 }
 
 @layer components {

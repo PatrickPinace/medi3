@@ -30,7 +30,7 @@ const formatPrice = (price: number | string, nfz?: boolean) => {
     <div class="space-y-10">
       {kategorie.map((kat) => (
         <div>
-          <h2 class="font-serif text-2xl text-salmon-900 dark:text-white tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
+          <h2 class="font-serif text-2xl text-salmon-900 dark:text-white/80 tracking-tight mb-1 text-center md:text-left">{kat.nazwa}</h2>
           <div class="mt-4 rounded-3xl overflow-hidden border bg-white border-salmon-100 dark:border-white/10 dark:bg-white/5">
             <ul class="divide-y divide-salmon-100 dark:divide-white/10">
               {kat.pozycje.map((p) => {
@@ -67,18 +67,18 @@ const formatPrice = (price: number | string, nfz?: boolean) => {
   </section>
 
   <section class="container-x pb-16 sm:pb-20">
-    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-12 sm:px-14 sm:py-20 text-white">
+    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-12 sm:px-14 sm:py-20 text-white dark:text-white/80">
       <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
       <div class="absolute -left-16 -bottom-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
       <div class="relative max-w-3xl mx-auto text-center">
         <h2 class="font-serif text-3xl sm:text-5xl tracking-tight leading-tight">Pytania o ceny lub NFZ?</h2>
-        <p class="mt-4 text-white/85 text-base sm:text-lg">Chętnie wyjaśnimy co przysługuje bezpłatnie i co jest odpłatne w Twojej sytuacji.</p>
+        <p class="mt-4 text-white/85 dark:text-white/50 text-base sm:text-lg">Chętnie wyjaśnimy co przysługuje bezpłatnie i co jest odpłatne w Twojej sytuacji.</p>
         <div class="mt-7 sm:mt-8 flex flex-wrap justify-center gap-3">
-          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition w-full sm:w-auto">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition w-full sm:w-auto dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
             {site.phone}
           </a>
-          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition w-full sm:w-auto">
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition w-full sm:w-auto dark:border-white/20 dark:text-white/60">
             {site.email}
           </a>
         </div>
