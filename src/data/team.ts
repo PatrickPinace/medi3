@@ -11,7 +11,7 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     slug: "anna-plaskota-gladosz",
-    name: "Anna Plaskota-Gładosz",
+    name: "Anna Plaskowa-Gładosz",
     role: "Położna · CDL",
     specs: ["Prowadzenie ciąży fizjologicznej", "Szkoła Rodzenia", "Wsparcie laktacyjne"],
     bio: "Położna z ponad 10-letnim doświadczeniem, specjalistka w prowadzeniu ciąży fizjologicznej. Prowadzi konsultacje kliniczne i edukację przedporodową.",
