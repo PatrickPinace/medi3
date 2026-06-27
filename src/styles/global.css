@@ -109,7 +109,7 @@
   /* Przyciski- salmon zawsze */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-400 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
-    @apply dark:bg-salmon-500 dark:hover:bg-salmon-600;
+    @apply dark:bg-salmon-600 dark:hover:bg-salmon-500;
   }
 
   /* Ghost: jasny tryb = border salmon, ciemny = border white */
@@ -125,7 +125,7 @@
 
   .cta-gradient {
     @apply bg-gradient-to-br from-salmon-300 via-salmon-400 to-peach-400;
-    @apply dark:from-salmon-800 dark:via-salmon-700 dark:to-salmon-800;
+    @apply dark:from-salmon-900 dark:via-salmon-800 dark:to-navy-800;
   }
 
   /* Prose */
@@ -157,6 +157,6 @@
   .prose-medi a {
     @apply underline underline-offset-4;
     @apply text-salmon-700 decoration-salmon-300 hover:text-salmon-800;
-    @apply dark:text-salmon-400 dark:decoration-salmon-500/50 dark:hover:text-salmon-300;
+    @apply dark:text-salmon-300/80 dark:decoration-salmon-400/40 dark:hover:text-salmon-300;
   }
 }

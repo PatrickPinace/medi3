@@ -7,7 +7,7 @@ import { url } from "../utils/url";
   <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 text-center md:text-left">
     <div>
       <p class="text-xs font-semibold uppercase tracking-[0.18em]
-        text-salmon-700/70 dark:text-salmon-400/80">Lokalizacje</p>
+        text-salmon-700/70 dark:text-salmon-300/70">Lokalizacje</p>
       <h2 class="mt-2 font-serif text-3xl sm:text-5xl tracking-tight leading-[1.15] sm:leading-tight
         text-salmon-900 dark:text-white">Jak do nas trafić</h2>
     </div>
@@ -20,7 +20,7 @@ import { url } from "../utils/url";
       </a>
       <a href={url("/dojazd")} class="text-sm font-medium transition inline-flex items-center justify-center gap-2
         text-salmon-700 hover:text-salmon-800
-        dark:text-salmon-400 dark:hover:text-salmon-300">
+        dark:text-salmon-300/80 dark:hover:text-salmon-300">
         Pełna informacja o dojeździe
         <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -41,7 +41,7 @@ import { url } from "../utils/url";
           </div>
           <div class="flex-1">
             <p class="text-xs font-semibold uppercase tracking-wider
-              text-salmon-700/70 dark:text-salmon-400/70">
+              text-salmon-700/70 dark:text-salmon-300/70">
               {o.key === "smoczka" ? "Główny gabinet" : "Nowy gabinet"}
             </p>
             <h3 class="mt-1 font-serif text-2xl text-salmon-900 dark:text-white">{o.name}</h3>
