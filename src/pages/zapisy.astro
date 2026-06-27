@@ -76,8 +76,8 @@ const grupy = [
           <div class="flex items-baseline justify-between gap-4 mb-6 text-center md:text-left">
             <div class="mx-auto md:mx-0">
               <p class="text-xs font-semibold uppercase tracking-[0.18em] text-salmon-400/70">Grupa {idx + 1}</p>
-              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-900 dark:text-white/80 tracking-tight">{g.nazwa}</h2>
-              <p class="mt-2 text-sm text-salmon-900/65 dark:text-navy-300 max-w-2xl">{g.opis}</p>
+              <h2 class="mt-1 font-serif text-2xl sm:text-3xl text-salmon-800 dark:text-white/80 tracking-tight">{g.nazwa}</h2>
+              <p class="mt-2 text-sm text-salmon-800/65 dark:text-navy-300 max-w-2xl">{g.opis}</p>
             </div>
           </div>
 
@@ -90,7 +90,7 @@ const grupy = [
                 target={p.internal ? undefined : "_blank"}
                 rel={p.internal ? undefined : "noopener noreferrer"}
                 class={`group relative overflow-hidden rounded-3xl border p-4 sm:p-6 transition hover:-translate-y-0.5 hover:shadow-xl text-center sm:text-left
-                  border-salmon-100 bg-white shadow-[0_2px_0_rgba(232,86,48,0.04)] hover:border-salmon-200
+                  border-salmon-100/60 bg-white/70 backdrop-blur-sm shadow-[0_8px_30px_-12px_rgba(94,13,49,0.12)] hover:border-salmon-200
                   dark:border-white/10 dark:bg-white/5 dark:backdrop-blur-sm dark:hover:bg-white/10 dark:hover:border-white/20
                   flex flex-col ${p.nfz ? "min-h-[10rem] sm:min-h-[12rem]" : groupHasNfz ? "sm:min-h-[12rem]" : ""}`}
               >
@@ -106,10 +106,10 @@ const grupy = [
                       <NfzBadge />
                     </div>
                   )}
-                  <h3 class={`font-serif text-xl text-salmon-900 dark:text-white/80 leading-snug ${p.nfz ? "mt-auto" : groupHasNfz ? "sm:mt-auto" : ""}`}>{p.tytul}</h3>
+                  <h3 class={`font-serif text-xl text-salmon-800 dark:text-white/80 leading-snug ${p.nfz ? "mt-auto" : groupHasNfz ? "sm:mt-auto" : ""}`}>{p.tytul}</h3>
                   <div class="mt-4 flex justify-center sm:justify-start">
                     <span class="inline-flex items-center gap-2 text-sm font-medium transition
-                      text-salmon-400 group-hover:text-salmon-500
+                      text-salmon-600 group-hover:text-salmon-700
                       dark:text-salmon-300/80 dark:group-hover:text-salmon-300">
                       {p.internal ? "Zadzwoń" : "Wypełnij formularz"}
                       <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -124,8 +124,8 @@ const grupy = [
       ))}
     </div>
 
-    <p class="mt-10 text-center text-xs text-salmon-900/40 dark:text-navy-400">
-      Świadczenia odpłatne · <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1 text-salmon-900/50 dark:text-navy-400 hover:text-salmon-700 dark:hover:text-white transition underline underline-offset-4 decoration-white/20">
+    <p class="mt-10 text-center text-xs text-salmon-800/40 dark:text-navy-400">
+      Świadczenia odpłatne · <a href={url("/dane-do-przelewu")} class="inline-flex items-center gap-1 text-salmon-800/50 dark:text-navy-400 hover:text-salmon-700 dark:hover:text-white transition underline underline-offset-4 decoration-white/20">
         <svg viewBox="0 0 24 24" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
         dane do przelewu
       </a>

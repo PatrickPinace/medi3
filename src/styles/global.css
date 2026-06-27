@@ -79,7 +79,7 @@
   body {
     background-color: var(--color-cream-50);
     background-image: none;
-    color: #2a1326;
+    color: #3a1f30;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -110,7 +110,7 @@
 
   /* Przyciski- salmon zawsze */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-400 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
     @apply dark:bg-salmon-400/70 dark:hover:bg-salmon-400/90;
   }
 
@@ -126,7 +126,7 @@
   }
 
   .cta-gradient {
-    @apply bg-gradient-to-br from-salmon-300 via-salmon-400 to-peach-400;
+    @apply bg-gradient-to-br from-salmon-500 via-salmon-400 to-peach-500;
     @apply dark:from-salmon-300/20 dark:via-salmon-300/15 dark:to-salmon-300/10;
   }
 
