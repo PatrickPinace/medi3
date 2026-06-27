@@ -1,43 +1,148 @@
-# Astro Starter Kit: Minimal
+# medi3
 
-```sh
-npm create astro@latest -- --template minimal
+Projekt frontendowy oparty na [Astro](https://astro.build) + Tailwind CSS 4.
+
+---
+
+## Krok 1 — Zainstaluj potrzebne programy
+
+Instaluj po kolei. Każdy instalator pobierasz, klikasz dwukrotnie i przechodzisz przez kreatora (domyślne opcje są ok).
+
+### Node.js
+
+Pobierz z [nodejs.org](https://nodejs.org) — wersja LTS (zielony przycisk). Plik ma rozszerzenie `.msi`.
+
+> **Ważne:** instalator zapyta o uprawnienia administratora — kliknij Tak, inaczej instalacja się nie powiedzie.
+
+### Git
+
+Pobierz z [git-scm.com/download/win](https://git-scm.com/download/win). Domyślne opcje w kreatorze są ok — po prostu klikaj Next i Install.
+
+### Visual Studio Code
+
+Pobierz z [code.visualstudio.com](https://code.visualstudio.com).
+
+---
+
+## Krok 2 — Sprawdź czy Node.js i Git działają
+
+Po instalacji otwórz **nowe** okno PowerShell:
+
+- Kliknij przycisk Start → wpisz `PowerShell` → Enter.
+
+Wpisz kolejno i naciśnij Enter po każdej linii:
+
+```powershell
+node -v
+npm -v
+git --version
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Każda komenda powinna wyświetlić numer wersji. Jeśli wyświetla błąd — wróć do kroku 1 i zainstaluj jeszcze raz.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## Krok 3 — Skonfiguruj Git (tylko raz, na początku)
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+W tym samym oknie PowerShell wpisz kolejno — **zastąp `Twoje Imię` i `twoj@email.com` swoimi prawdziwymi danymi** (tymi których używasz na GitHubie):
+
+```powershell
+git config --global user.name "Twoje Imię"
+git config --global user.email "twoj@email.com"
+git config --global core.autocrlf input
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+> To ustawienie robi się tylko raz — nie musisz tego powtarzać przy kolejnych projektach.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+---
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Krok 4 — Pobierz projekt na swój komputer
 
-## 🧞 Commands
+Zdecyduj, w którym folderze chcesz trzymać projekt, np. `C:\Projekty`. Możesz go utworzyć ręcznie w Eksploratorze plików.
 
-All commands are run from the root of the project, from a terminal:
+Następnie w PowerShell przejdź do tego folderu i sklonuj repo:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```powershell
+cd C:\Projekty
+git clone https://github.com/PatrickPinace/medi3.git
+cd medi3
+npm install
+```
 
-## 👀 Want to learn more?
+> `npm install` pobiera wszystkie zależności projektu — może to chwilę potrwać, poczekaj aż się skończy.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+## Krok 5 — Otwórz projekt w VS Code
+
+```powershell
+code .
+```
+
+> Kropka na końcu oznacza "otwórz bieżący folder". VS Code otworzy się z projektem.
+
+VS Code zaproponuje instalację rekomendowanych rozszerzeń — kliknij **Install All**. Jeśli nie zaproponuje, zainstaluj ręcznie każde z listy poniżej: Extensions (ikona po lewej stronie) → wpisz nazwę → Install.
+
+| Rozszerzenie | ID | Do czego służy |
+| :----------- | :- | :------------- |
+| Astro | `astro-build.astro-vscode` | obsługa plików `.astro` — wymagane |
+| Tailwind CSS IntelliSense | `bradlc.vscode-tailwindcss` | autocomplete klas Tailwind |
+| Prettier | `esbenp.prettier-vscode` | automatyczne formatowanie kodu |
+| Error Lens | `usernamehehe.errorlens` | błędy widoczne od razu w kodzie |
+| Git Graph | `mhutchie.git-graph` | wizualny podgląd historii git |
+
+---
+
+## Krok 6 — Uruchom serwer deweloperski
+
+W terminalu wewnątrz VS Code (menu Terminal → New Terminal) wpisz:
+
+```powershell
+npm run dev
+```
+
+Zobaczysz coś takiego:
+
+```
+ astro  v5.x.x ready in ...ms
+
+ ┃ Local    http://localhost:4321/
+```
+
+Otwórz przeglądarkę i wejdź na [http://localhost:4321](http://localhost:4321) — powinna się pokazać strona projektu.
+
+> Serwer działa dopóki nie zamkniesz terminala. Zmiany w kodzie odświeżają się automatycznie w przeglądarce.
+
+Aby zatrzymać serwer: kliknij w terminal i naciśnij **Ctrl+C**.
+
+---
+
+## Krok 7 — Wgrywanie zmian do repo (git)
+
+Gdy zmodyfikujesz pliki i chcesz zapisać zmiany w repozytorium, wykonaj w terminalu kolejno:
+
+```powershell
+git add .
+git commit -m "Opis co zmieniłem"
+git push
+```
+
+- `git add .` — zaznacza wszystkie zmienione pliki do zapisania
+- `git commit -m "..."` — zapisuje zmiany lokalnie z opisem co zrobiłeś
+- `git push` — wysyła zmiany na GitHub
+
+> Przy pierwszym `git push` GitHub może poprosić o logowanie — zaloguj się przez przeglądarkę, która się otworzy.
+
+---
+
+## Komendy do codziennej pracy
+
+| Komenda           | Co robi                                         |
+| :---------------- | :---------------------------------------------- |
+| `npm run dev`     | Uruchamia serwer deweloperski (localhost:4321)  |
+| `npm run build`   | Buduje wersję produkcyjną do folderu `./dist/`  |
+| `npm run preview` | Podgląd zbudowanej wersji lokalnie              |
+| `git add .`       | Zaznacza zmiany do commita                      |
+| `git commit -m ""` | Zapisuje zmiany z opisem                       |
+| `git push`        | Wysyła zmiany na GitHub                         |
+| `git pull`        | Pobiera najnowsze zmiany z GitHub               |
