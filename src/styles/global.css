@@ -16,6 +16,9 @@
   --color-salmon-800: #8a1146;
   --color-salmon-900: #5e0d31;
 
+  /* Kolor serduszka z logo medi3 (logo-icon.png) */
+  --color-heart: #f487ae;
+
   /* ACCENT łososiowy */
   --color-peach-50:  #fff5f1;
   --color-peach-100: #ffe6dc;
@@ -110,8 +113,8 @@
 
   /* Przyciski- salmon zawsze */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
-    @apply dark:bg-salmon-400/70 dark:hover:bg-salmon-400/90;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-heart px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-400 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
+    @apply dark:bg-heart/70 dark:hover:bg-heart/90;
   }
 
   /* Ghost: jasny tryb = border salmon, ciemny = border white */
@@ -126,7 +129,7 @@
   }
 
   .cta-gradient {
-    @apply bg-gradient-to-br from-salmon-500 via-salmon-400 to-peach-500;
+    @apply bg-gradient-to-br from-heart via-salmon-400 to-peach-400;
     @apply dark:from-salmon-300/20 dark:via-salmon-300/15 dark:to-salmon-300/10;
   }
 
