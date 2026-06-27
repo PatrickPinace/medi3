@@ -51,19 +51,19 @@ export const team: TeamMember[] = [
     photo: "/team/barbara-pieklo.jpg",
   },
   {
-    slug: "katarzyna-soja-chydzinska",
-    name: "mgr Katarzyna Soja-Chydzińska",
-    role: "Fizjoterapeutka",
-    specs: ["Fizjoterapia uroginekologiczna", "Kinesiotaping w ciąży"],
-    bio: "Fizjoterapeutka uroginekologiczna - ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
-    photo: "/team/katarzyna-soja-chydzinska.jpg",
-  },
-  {
     slug: "kinga-niecko",
     name: "mgr Kinga Niećko",
     role: "Położna · NFZ",
     specs: ["Prowadzenie ciąży fizjologicznej", "Opieka w ramach NFZ"],
     bio: "Jedna z pierwszych w Małopolsce położnych prowadzących ciążę fizjologiczną w ramach umowy z NFZ.",
     photo: "/team/kinga-niecko.jpg",
+  },
+  {
+    slug: "katarzyna-soja-chydzinska",
+    name: "mgr Katarzyna Soja-Chydzińska",
+    role: "Fizjoterapeutka",
+    specs: ["Fizjoterapia uroginekologiczna", "Kinesiotaping w ciąży"],
+    bio: "Fizjoterapeutka uroginekologiczna - ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
+    photo: "/team/katarzyna-soja-chydzinska.jpg",
   },
 ];
