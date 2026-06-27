@@ -146,3 +146,25 @@ git push
 | `git commit -m ""` | Zapisuje zmiany z opisem                       |
 | `git push`        | Wysyła zmiany na GitHub                         |
 | `git pull`        | Pobiera najnowsze zmiany z GitHub               |
+
+---
+
+## Typowe błędy i rozwiązania
+
+### `'astro' is not recognized...` po wpisaniu `npm run dev`
+
+Nie masz zainstalowanych zależności projektu. Wpisz:
+
+```powershell
+npm install
+```
+
+Poczekaj aż się skończy, potem ponownie `npm run dev`.
+
+### `npm: command not found` lub `node: command not found`
+
+Node.js nie jest zainstalowany lub trzeba otworzyć **nowy** terminal po instalacji (stary terminal nie widzi nowo zainstalowanych programów). Zamknij terminal, otwórz nowy i spróbuj ponownie.
+
+### `git: command not found`
+
+Git nie jest zainstalowany lub trzeba otworzyć nowy terminal. Wróć do Kroku 1.
