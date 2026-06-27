@@ -81,15 +81,18 @@ import { site, forms } from "../data/site";
             );
           })}
 
-          <!-- Nakładki UI -->
-          <div class="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
-            bg-white/85 text-salmon-700 dark:bg-white/15 dark:text-white">
+          <!-- Badge NFZ — JS ustawia pozycję per slajd -->
+          <div id="badge-nfz" class="absolute inline-flex items-center gap-2 rounded-full backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
+            bg-white/85 text-salmon-700 dark:bg-white/15 dark:text-white"
+            style="top: 3.5rem; left: 1.5rem;">
             <span class="h-1.5 w-1.5 rounded-full bg-sage-500 dark:bg-green-400"></span> NFZ · bez skierowania
           </div>
-          <div class="absolute bottom-14 right-6 rounded-2xl backdrop-blur px-4 py-3 shadow-sm
-            bg-white/85 dark:bg-navy-900/70 dark:border dark:border-white/10">
-            <p class="text-[10px] uppercase tracking-wider text-salmon-700/60 dark:text-white/50">Mielec</p>
-            <p class="text-sm font-medium text-salmon-900 dark:text-white">2 gabinety · Smoczka i Korczaka</p>
+
+          <!-- Badge Gabinety — JS ustawia pozycję per slajd -->
+          <div id="badge-gabinety" class="absolute rounded-xl backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
+            bg-white/85 text-salmon-700 dark:bg-navy-900/70 dark:border dark:border-white/10 dark:text-white/70"
+            style="top: 1.5rem; right: 1.5rem;">
+            2 gabinety · Smoczka i Korczaka
           </div>
 
           <!-- Strzałki -->
@@ -104,7 +107,7 @@ import { site, forms } from "../data/site";
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
 
-          <!-- Kropki -->
+          <!-- Dolny pasek: kropki w środku -->
           <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
             {[0,1,2,3,4].map((i) => (
               <button
@@ -125,11 +128,16 @@ import { site, forms } from "../data/site";
   const slides = document.querySelectorAll<HTMLElement>(".carousel-slide");
   const dots = document.querySelectorAll<HTMLElement>(".carousel-dot");
   const wrap = document.getElementById("hero-carousel-wrap") as HTMLElement;
+  const badgeNfz = document.getElementById("badge-nfz") as HTMLElement;
+  const badgeGabinety = document.getElementById("badge-gabinety") as HTMLElement;
   const aspects: string[] = JSON.parse(wrap?.dataset.aspects ?? "[]");
   let current = 0;
   let timer: ReturnType<typeof setInterval>;
 
-  wrap.style.transition = "padding-bottom 0.8s ease, margin-left 0.8s ease, width 0.8s ease";
+  const T = "0.8s ease";
+  wrap.style.transition = `padding-bottom ${T}, margin-left ${T}, width ${T}`;
+  badgeNfz.style.transition = `top ${T}, bottom ${T}, left ${T}, right ${T}, opacity ${T}`;
+  badgeGabinety.style.transition = `top ${T}, bottom ${T}, left ${T}, right ${T}, opacity ${T}`;
 
   function goTo(n: number) {
     slides[current].classList.replace("opacity-100", "opacity-0");
@@ -140,10 +148,48 @@ import { site, forms } from "../data/site";
     dots[current].classList.remove("w-1.5", "bg-white/50");
     dots[current].classList.add("w-5", "bg-white");
     if (aspects[current]) wrap.style.paddingBottom = aspects[current];
-    // Przy zdjęciu grupowym (250.jpg, index 3) galeria wysuwa się w lewo
-    const isWide = current === 3;
+
+    const isWide = current === 3 && window.innerWidth >= 1024;
     wrap.style.marginLeft = isWide ? "-22%" : "0";
     wrap.style.width = isWide ? "122%" : "100%";
+
+    if (current === 3) {
+      // Zdjęcie grupowe — oba na dół, półprzezroczyste
+      badgeNfz.style.top = "auto";
+      badgeNfz.style.bottom = "0.75rem";
+      badgeNfz.style.left = "1.5rem";
+      badgeNfz.style.right = "auto";
+      badgeNfz.style.opacity = "0.5";
+      badgeGabinety.style.top = "auto";
+      badgeGabinety.style.bottom = "0.75rem";
+      badgeGabinety.style.left = "auto";
+      badgeGabinety.style.right = "1.5rem";
+      badgeGabinety.style.opacity = "0.5";
+    } else if (current === 0) {
+      // Blondynka — Gabinety góra prawa, NFZ góra lewa nieco niżej
+      badgeGabinety.style.top = "1.5rem";
+      badgeGabinety.style.bottom = "auto";
+      badgeGabinety.style.left = "auto";
+      badgeGabinety.style.right = "1.5rem";
+      badgeGabinety.style.opacity = "1";
+      badgeNfz.style.top = "3.5rem";
+      badgeNfz.style.bottom = "auto";
+      badgeNfz.style.left = "1.5rem";
+      badgeNfz.style.right = "auto";
+      badgeNfz.style.opacity = "1";
+    } else {
+      // Pozostałe — NFZ góra lewa, Gabinety pod spodem
+      badgeNfz.style.top = "1.5rem";
+      badgeNfz.style.bottom = "auto";
+      badgeNfz.style.left = "1.5rem";
+      badgeNfz.style.right = "auto";
+      badgeNfz.style.opacity = "1";
+      badgeGabinety.style.top = "4rem";
+      badgeGabinety.style.bottom = "auto";
+      badgeGabinety.style.left = "1.5rem";
+      badgeGabinety.style.right = "auto";
+      badgeGabinety.style.opacity = "1";
+    }
   }
 
   function startAuto() {
