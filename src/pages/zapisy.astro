@@ -92,7 +92,7 @@ const grupy = [
                 class={`group relative overflow-hidden rounded-3xl border p-4 sm:p-6 transition hover:-translate-y-0.5 hover:shadow-xl text-center sm:text-left
                   border-salmon-100 bg-white shadow-[0_2px_0_rgba(232,86,48,0.04)] hover:border-salmon-200
                   dark:border-white/10 dark:bg-white/5 dark:backdrop-blur-sm dark:hover:bg-white/10 dark:hover:border-white/20
-                  flex flex-col ${p.nfz ? "min-h-[10rem] sm:min-h-[12rem]" : ""}`}
+                  flex flex-col ${p.nfz ? "min-h-[10rem] sm:min-h-[12rem]" : groupHasNfz ? "sm:min-h-[12rem]" : ""}`}
               >
                 <div class="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full blur-2xl transition
                   bg-salmon-100/60 group-hover:bg-salmon-200/70
@@ -106,10 +106,10 @@ const grupy = [
                       <NfzBadge />
                     </div>
                   )}
-                  <h3 class={`font-serif text-xl text-salmon-900 dark:text-white leading-snug ${p.nfz ? "mt-auto" : ""}`}>{p.tytul}</h3>
+                  <h3 class={`font-serif text-xl text-salmon-900 dark:text-white leading-snug ${p.nfz ? "mt-auto" : groupHasNfz ? "sm:mt-auto" : ""}`}>{p.tytul}</h3>
                   <div class="mt-4 flex justify-center sm:justify-start">
                     <span class="inline-flex items-center gap-2 text-sm font-medium transition
-                      text-salmon-700 group-hover:text-salmon-800
+                      text-salmon-400 group-hover:text-salmon-500
                       dark:text-salmon-300/80 dark:group-hover:text-salmon-300">
                       {p.internal ? "Zadzwoń" : "Wypełnij formularz"}
                       <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
