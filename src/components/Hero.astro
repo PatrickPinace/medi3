@@ -51,42 +51,115 @@ import { site, forms } from "../data/site";
       </div>
     </div>
 
-    <!-- Placeholder zdjęcia -->
+    <!-- Karuzela zdjęć -->
     <div class="lg:col-span-5 max-w-sm mx-auto lg:max-w-none w-full">
-      <div class="relative aspect-[4/5] w-full rounded-[2rem] overflow-hidden ring-1
-        bg-gradient-to-br from-salmon-100 via-blush-100 to-peach-100 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)]
-        dark:from-purple-700/60 dark:via-navy-700/70 dark:to-navy-600/60 dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]">
-        <svg class="absolute inset-0 w-full h-full opacity-70 dark:opacity-40" viewBox="0 0 400 500" fill="none" aria-hidden="true">
-          <circle cx="300" cy="120" r="80" fill="url(#g1)" />
-          <circle cx="80"  cy="380" r="110" fill="url(#g2)" />
-          <defs>
-            <radialGradient id="g1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f996bd" stop-opacity=".75"/><stop offset="100%" stop-color="#f996bd" stop-opacity="0"/></radialGradient>
-            <radialGradient id="g2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffac8e" stop-opacity=".8"/><stop offset="100%" stop-color="#ffac8e" stop-opacity="0"/></radialGradient>
-          </defs>
-        </svg>
+      <!-- Wrapper z animowaną wysokością — pionowe 4:5 domyślnie, poziome 3:2 dla zdjęcia grupowego -->
+      <div id="hero-carousel-wrap" style="padding-bottom: 125%" class="relative w-full rounded-[2rem] overflow-hidden ring-1
+        ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)]
+        dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]"
+        data-aspects='["125%","125%","125%","66.7%","125%"]'>
 
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-          <svg viewBox="0 0 24 24" class="h-16 w-16 mb-4 text-salmon-400/70 dark:text-white/30" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" opacity=".4"/>
-            <circle cx="12" cy="10" r="3"/>
-            <path d="M12 13v3"/>
-          </svg>
-          <p class="font-serif text-lg text-salmon-700/70 dark:text-white/50">Tu pojawi się zdjęcie</p>
-          <p class="mt-1 text-xs uppercase tracking-wider text-salmon-700/50 dark:text-white/30">placeholder · 4:5</p>
-        </div>
+        <div id="hero-carousel" class="absolute inset-0">
 
-        <div class="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
-          bg-white/85 text-salmon-700
-          dark:bg-white/15 dark:text-white">
-          <span class="h-1.5 w-1.5 rounded-full bg-sage-500 dark:bg-green-400"></span> NFZ · bez skierowania
-        </div>
-        <div class="absolute bottom-6 right-6 rounded-2xl backdrop-blur px-4 py-3 shadow-sm
-          bg-white/85
-          dark:bg-navy-900/70 dark:border dark:border-white/10">
-          <p class="text-[10px] uppercase tracking-wider text-salmon-700/60 dark:text-white/50">Mielec</p>
-          <p class="text-sm font-medium text-salmon-900 dark:text-white">2 gabinety · Smoczka i Korczaka</p>
+          <!-- Slajdy -->
+          {[
+            { src: "001.jpg", alt: "Specjalistka Medi3 z modelem miednicy", pos: "object-top" },
+            { src: "184.jpg", alt: "Położna Medi3 z fantomem niemowlęcia", pos: "object-top" },
+            { src: "222.jpg", alt: "Położna Medi3", pos: "object-top" },
+            { src: "250.jpg", alt: "Zespół położnych Medi3", pos: "object-center" },
+            { src: "299.jpg", alt: "Zespół Medi3 - położna i fizjoterapeuta", pos: "object-top" },
+          ].map((s, i) => {
+            const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+            return (
+              <img
+                src={`${base}/assets/galeria/${s.src}`}
+                alt={s.alt}
+                data-slide={i}
+                class={`carousel-slide absolute inset-0 w-full h-full object-cover ${s.pos} transition-opacity duration-700 ${i === 0 ? "opacity-100" : "opacity-0"}`}
+                loading={i === 0 ? "eager" : "lazy"}
+              />
+            );
+          })}
+
+          <!-- Nakładki UI -->
+          <div class="absolute top-6 left-6 inline-flex items-center gap-2 rounded-full backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
+            bg-white/85 text-salmon-700 dark:bg-white/15 dark:text-white">
+            <span class="h-1.5 w-1.5 rounded-full bg-sage-500 dark:bg-green-400"></span> NFZ · bez skierowania
+          </div>
+          <div class="absolute bottom-14 right-6 rounded-2xl backdrop-blur px-4 py-3 shadow-sm
+            bg-white/85 dark:bg-navy-900/70 dark:border dark:border-white/10">
+            <p class="text-[10px] uppercase tracking-wider text-salmon-700/60 dark:text-white/50">Mielec</p>
+            <p class="text-sm font-medium text-salmon-900 dark:text-white">2 gabinety · Smoczka i Korczaka</p>
+          </div>
+
+          <!-- Strzałki -->
+          <button aria-label="Poprzednie zdjęcie" id="carousel-prev"
+            class="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur transition
+              bg-white/70 text-salmon-700 hover:bg-white dark:bg-navy-900/60 dark:text-white dark:hover:bg-navy-900/80">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button aria-label="Następne zdjęcie" id="carousel-next"
+            class="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur transition
+              bg-white/70 text-salmon-700 hover:bg-white dark:bg-navy-900/60 dark:text-white dark:hover:bg-navy-900/80">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <!-- Kropki -->
+          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {[0,1,2,3,4].map((i) => (
+              <button
+                aria-label={`Zdjęcie ${i + 1}`}
+                data-dot={i}
+                class={`carousel-dot h-1.5 rounded-full transition-all duration-300 ${i === 0 ? "w-5 bg-white" : "w-1.5 bg-white/50"}`}
+              />
+            ))}
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const slides = document.querySelectorAll<HTMLElement>(".carousel-slide");
+  const dots = document.querySelectorAll<HTMLElement>(".carousel-dot");
+  const wrap = document.getElementById("hero-carousel-wrap") as HTMLElement;
+  const aspects: string[] = JSON.parse(wrap?.dataset.aspects ?? "[]");
+  let current = 0;
+  let timer: ReturnType<typeof setInterval>;
+
+  wrap.style.transition = "padding-bottom 0.8s ease, margin-left 0.8s ease, width 0.8s ease";
+
+  function goTo(n: number) {
+    slides[current].classList.replace("opacity-100", "opacity-0");
+    dots[current].classList.remove("w-5", "bg-white");
+    dots[current].classList.add("w-1.5", "bg-white/50");
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.replace("opacity-0", "opacity-100");
+    dots[current].classList.remove("w-1.5", "bg-white/50");
+    dots[current].classList.add("w-5", "bg-white");
+    if (aspects[current]) wrap.style.paddingBottom = aspects[current];
+    // Przy zdjęciu grupowym (250.jpg, index 3) galeria wysuwa się w lewo
+    const isWide = current === 3;
+    wrap.style.marginLeft = isWide ? "-22%" : "0";
+    wrap.style.width = isWide ? "122%" : "100%";
+  }
+
+  function startAuto() {
+    timer = setInterval(() => goTo(current + 1), 10000);
+  }
+
+  function resetAuto() {
+    clearInterval(timer);
+    startAuto();
+  }
+
+  document.getElementById("carousel-prev")?.addEventListener("click", () => { goTo(current - 1); resetAuto(); });
+  document.getElementById("carousel-next")?.addEventListener("click", () => { goTo(current + 1); resetAuto(); });
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => { goTo(Number(dot.dataset.dot)); resetAuto(); });
+  });
+
+  startAuto();
+</script>
