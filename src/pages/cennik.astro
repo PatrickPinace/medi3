@@ -9,7 +9,8 @@ import { url } from "../utils/url";
 const data = await getEntry("cennik", "uslugi");
 const { kategorie } = data.data;
 
-const formatPrice = (price: number, nfz?: boolean) => {
+const formatPrice = (price: number | string, nfz?: boolean) => {
+  if (typeof price === "string") return price;
   if (nfz && price === 0) return null;
   return `${price} zł`;
 };

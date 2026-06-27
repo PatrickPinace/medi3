@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 
 const pozycja = z.object({
   name: z.string(),
-  price: z.number(),
+  price: z.union([z.number(), z.string()]),
   nfz: z.boolean().optional(),
   note: z.string().optional(),
 });

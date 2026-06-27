@@ -1,6 +1,37 @@
-# Cennik usług Medi3
-# Edytuj ten plik żeby zmienić ceny lub dodać pozycje.
-# Pola: name (nazwa), price (cena jako liczba), unit (opcjonalnie np. "wizyta"), nfz (true/false), note (opcjonalny drobny dopis)
+# ============================================================
+#  CENNIK MEDI3 — plik do edycji
+# ============================================================
+#
+#  JAK ZMIENIAĆ CENY:
+#    Znajdź pozycję i zmień liczbę przy "price:"
+#      - name: Badanie KTG
+#        price: 150        <-- zmień tutaj
+#
+#  JAK DODAĆ NOWĄ USŁUGĘ:
+#    Dopisz blok (z myślnikiem) pod ostatnią pozycją w kategorii:
+#      - name: Nazwa usługi
+#        price: 200
+#
+#  JAK DODAĆ USŁUGĘ BEZPŁATNĄ Z NFZ:
+#    Ustaw price: 0 i dodaj nfz: true — na stronie pojawi się
+#    znaczek NFZ i napis "bezpłatnie":
+#      - name: Nazwa usługi NFZ
+#        price: 0
+#        nfz: true
+#
+#  JAK WPISAĆ TEKST ZAMIAST CENY (np. "od 100 zł", "wycena indywidualna"):
+#    Wpisz tekst w cudzysłowie:
+#      - name: Konsultacja specjalna
+#        price: "od 200 zł"
+#
+#  JAK DODAĆ NOWĄ KATEGORIĘ:
+#    Dopisz blok na końcu pliku (przed pustą linią):
+#      - nazwa: Nazwa kategorii
+#        pozycje:
+#          - name: Pierwsza usługa
+#            price: 100
+#
+# ============================================================
 
 kategorie:
 
