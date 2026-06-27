@@ -111,7 +111,7 @@
   /* Przyciski- salmon zawsze */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-400 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
-    @apply dark:bg-salmon-400 dark:hover:bg-salmon-300;
+    @apply dark:bg-salmon-400/70 dark:hover:bg-salmon-400/90;
   }
 
   /* Ghost: jasny tryb = border salmon, ciemny = border white */
