@@ -89,17 +89,18 @@ const grupy = [
                 rel={p.internal ? undefined : "noopener noreferrer"}
                 class="group relative overflow-hidden rounded-2xl border p-6 transition hover:-translate-y-0.5 text-center sm:text-left
                   border-salmon-100 bg-white hover:border-salmon-200 hover:bg-salmon-50
-                  dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/20"
+                  dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:border-white/20
+                  flex flex-col min-h-[9rem]"
               >
                 <div class="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-salmon-500/5 blur-2xl transition group-hover:bg-salmon-500/15"></div>
 
-                <div class="relative">
+                <div class="relative flex flex-col flex-1">
                   {p.nfz && (
                     <div class="mb-3 flex justify-center sm:justify-start">
                       <NfzBadge />
                     </div>
                   )}
-                  <h3 class="font-serif text-lg text-salmon-900 dark:text-white leading-snug">{p.tytul}</h3>
+                  <h3 class="font-serif text-lg text-salmon-900 dark:text-white leading-snug mt-auto">{p.tytul}</h3>
                   <span class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-salmon-500 group-hover:text-salmon-600 dark:text-salmon-400 dark:group-hover:text-salmon-300 transition">
                     {p.internal ? "Zadzwoń" : "Wypełnij formularz"}
                     <svg viewBox="0 0 24 24" class="h-4 w-4 transition group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg>

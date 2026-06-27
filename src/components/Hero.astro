@@ -1,5 +1,6 @@
 ---
 import { site, forms } from "../data/site";
+import { url } from "../utils/url";
 ---
 
 <section class="relative overflow-hidden">
@@ -10,18 +11,18 @@ import { site, forms } from "../data/site";
   </div>
 
   <div class="container-x pt-10 md:pt-20 pb-16 md:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-    <div class="lg:col-span-7 relative z-10 text-center lg:text-left">
-      <span class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium
-        border-salmon-200/70 bg-white/60 text-salmon-700
-        dark:border-white/20 dark:bg-white/10 dark:text-white/80">
+    <div class="lg:col-span-7 text-center lg:text-left">
+      <a href={url("/cennik")} class="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium transition
+        border-salmon-200 bg-white/60 text-salmon-700 hover:bg-salmon-50 hover:border-salmon-300
+        dark:border-white/20 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20">
         <span class="h-1.5 w-1.5 rounded-full bg-salmon-500 animate-pulse"></span>
         Świadczenia na NFZ i prywatnie
-      </span>
+      </a>
 
       <h1 class="mt-5 sm:mt-6 font-serif text-4xl sm:text-6xl lg:text-[5.25rem] leading-[1.1] sm:leading-[1.08] tracking-tight
         text-salmon-900 dark:text-white">
         Kompleksowa<br />
-        <span class="italic text-salmon-600 dark:text-salmon-400">opieka</span> <span style="text-shadow: 0 0 18px rgba(255,255,255,0.95), 0 0 6px rgba(255,255,255,1)">okołoporodowa</span>
+        <span class="italic text-salmon-600 dark:text-salmon-400">opieka</span> okołoporodowa
       </h1>
 
       <p class="mt-5 sm:mt-7 max-w-xl mx-auto lg:mx-0 text-base sm:text-lg leading-relaxed
@@ -53,15 +54,12 @@ import { site, forms } from "../data/site";
 
     <!-- Karuzela zdjęć -->
     <div class="lg:col-span-5 max-w-sm mx-auto lg:max-w-none w-full">
-      <!-- Wrapper z animowaną wysokością — pionowe 4:5 domyślnie, poziome 3:2 dla zdjęcia grupowego -->
       <div id="hero-carousel-wrap" style="padding-bottom: 125%" class="relative w-full rounded-[2rem] overflow-hidden ring-1
         ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)]
         dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]"
         data-aspects='["125%","125%","125%","66.7%","125%"]'>
 
         <div id="hero-carousel" class="absolute inset-0">
-
-          <!-- Slajdy -->
           {[
             { src: "001.jpg", alt: "Specjalistka Medi3 z modelem miednicy", pos: "object-top" },
             { src: "184.jpg", alt: "Położna Medi3 z fantomem niemowlęcia", pos: "object-top" },
@@ -81,20 +79,6 @@ import { site, forms } from "../data/site";
             );
           })}
 
-          <!-- Badge NFZ — JS ustawia pozycję per slajd -->
-          <div id="badge-nfz" class="absolute inline-flex items-center gap-2 rounded-full backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
-            bg-white/85 text-salmon-700 dark:bg-white/15 dark:text-white"
-            style="top: 3.5rem; left: 1.5rem;">
-            <span class="h-1.5 w-1.5 rounded-full bg-sage-500 dark:bg-green-400"></span> NFZ · bez skierowania
-          </div>
-
-          <!-- Badge Gabinety — JS ustawia pozycję per slajd -->
-          <div id="badge-gabinety" class="absolute rounded-xl backdrop-blur px-3 py-1.5 text-xs font-medium shadow-sm
-            bg-white/85 text-salmon-700 dark:bg-navy-900/70 dark:border dark:border-white/10 dark:text-white/70"
-            style="top: 1.5rem; right: 1.5rem;">
-            2 gabinety · Smoczka i Korczaka
-          </div>
-
           <!-- Strzałki -->
           <button aria-label="Poprzednie zdjęcie" id="carousel-prev"
             class="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-9 w-9 items-center justify-center rounded-full backdrop-blur transition
@@ -107,8 +91,8 @@ import { site, forms } from "../data/site";
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
 
-          <!-- Dolny pasek: kropki w środku -->
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+          <!-- Kropki -->
+          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
             {[0,1,2,3,4].map((i) => (
               <button
                 aria-label={`Zdjęcie ${i + 1}`}
@@ -117,8 +101,22 @@ import { site, forms } from "../data/site";
               />
             ))}
           </div>
-
         </div>
+      </div>
+
+      <!-- Pastylki pod zdjęciem -->
+      <div class="mt-3 flex items-center justify-between gap-2">
+        <a href={url("/cennik")} class="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition
+          border-salmon-200 bg-white text-salmon-700 hover:bg-salmon-50 hover:border-salmon-300
+          dark:border-white/20 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20">
+          <span class="h-1.5 w-1.5 rounded-full bg-sage-500 dark:bg-green-400"></span> NFZ · bez skierowania
+        </a>
+        <a href={url("/dojazd")} class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition
+          border-salmon-200 bg-white text-salmon-700 hover:bg-salmon-50 hover:border-salmon-300
+          dark:border-white/20 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20">
+          <svg viewBox="0 0 24 24" class="h-3 w-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          2 gabinety · Smoczka i Korczaka
+        </a>
       </div>
     </div>
   </div>
@@ -128,16 +126,11 @@ import { site, forms } from "../data/site";
   const slides = document.querySelectorAll<HTMLElement>(".carousel-slide");
   const dots = document.querySelectorAll<HTMLElement>(".carousel-dot");
   const wrap = document.getElementById("hero-carousel-wrap") as HTMLElement;
-  const badgeNfz = document.getElementById("badge-nfz") as HTMLElement;
-  const badgeGabinety = document.getElementById("badge-gabinety") as HTMLElement;
   const aspects: string[] = JSON.parse(wrap?.dataset.aspects ?? "[]");
   let current = 0;
   let timer: ReturnType<typeof setInterval>;
 
-  const T = "0.8s ease";
-  wrap.style.transition = `padding-bottom ${T}, margin-left ${T}, width ${T}`;
-  badgeNfz.style.transition = `top ${T}, bottom ${T}, left ${T}, right ${T}, opacity ${T}`;
-  badgeGabinety.style.transition = `top ${T}, bottom ${T}, left ${T}, right ${T}, opacity ${T}`;
+  wrap.style.transition = "padding-bottom 0.8s ease, margin-left 0.8s ease, width 0.8s ease";
 
   function goTo(n: number) {
     slides[current].classList.replace("opacity-100", "opacity-0");
@@ -148,48 +141,9 @@ import { site, forms } from "../data/site";
     dots[current].classList.remove("w-1.5", "bg-white/50");
     dots[current].classList.add("w-5", "bg-white");
     if (aspects[current]) wrap.style.paddingBottom = aspects[current];
-
     const isWide = current === 3 && window.innerWidth >= 1024;
     wrap.style.marginLeft = isWide ? "-22%" : "0";
     wrap.style.width = isWide ? "122%" : "100%";
-
-    if (current === 3) {
-      // Zdjęcie grupowe — oba na dół, półprzezroczyste
-      badgeNfz.style.top = "auto";
-      badgeNfz.style.bottom = "0.75rem";
-      badgeNfz.style.left = "1.5rem";
-      badgeNfz.style.right = "auto";
-      badgeNfz.style.opacity = "0.5";
-      badgeGabinety.style.top = "auto";
-      badgeGabinety.style.bottom = "0.75rem";
-      badgeGabinety.style.left = "auto";
-      badgeGabinety.style.right = "1.5rem";
-      badgeGabinety.style.opacity = "0.5";
-    } else if (current === 0) {
-      // Blondynka — Gabinety góra prawa, NFZ góra lewa nieco niżej
-      badgeGabinety.style.top = "1.5rem";
-      badgeGabinety.style.bottom = "auto";
-      badgeGabinety.style.left = "auto";
-      badgeGabinety.style.right = "1.5rem";
-      badgeGabinety.style.opacity = "1";
-      badgeNfz.style.top = "3.5rem";
-      badgeNfz.style.bottom = "auto";
-      badgeNfz.style.left = "1.5rem";
-      badgeNfz.style.right = "auto";
-      badgeNfz.style.opacity = "1";
-    } else {
-      // Pozostałe — NFZ góra lewa, Gabinety pod spodem
-      badgeNfz.style.top = "1.5rem";
-      badgeNfz.style.bottom = "auto";
-      badgeNfz.style.left = "1.5rem";
-      badgeNfz.style.right = "auto";
-      badgeNfz.style.opacity = "1";
-      badgeGabinety.style.top = "4rem";
-      badgeGabinety.style.bottom = "auto";
-      badgeGabinety.style.left = "1.5rem";
-      badgeGabinety.style.right = "auto";
-      badgeGabinety.style.opacity = "1";
-    }
   }
 
   function startAuto() {
