@@ -52,22 +52,23 @@ const wartosci = [
         </div>
       </div>
 
-      <!-- Placeholder zdjęcia -->
-      <div class="relative aspect-square w-full max-w-sm mx-auto lg:max-w-none rounded-[2.5rem] overflow-hidden border border-white/10 bg-gradient-to-br from-purple-700/50 via-navy-700/60 to-navy-600/50 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.5)]">
-        <svg class="absolute inset-0 w-full h-full opacity-40" viewBox="0 0 400 400" fill="none" aria-hidden="true">
-          <circle cx="100" cy="120" r="90" fill="#f43b84" fill-opacity=".3"/>
-          <circle cx="300" cy="280" r="100" fill="#3b57b5" fill-opacity=".4"/>
-        </svg>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="h-20 w-20 text-white/20" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
-            <path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10z"/>
-          </svg>
-        </div>
-        <div class="absolute bottom-6 left-6 right-6 rounded-2xl bg-navy-900/70 backdrop-blur px-4 py-3 border border-white/10">
-          <p class="font-serif text-white/70 text-sm italic leading-relaxed">"Myślałam, że potrzebuję cudownej rady. A potrzebowałam kogoś, kto bez pośpiechu odpowie na wszystkie moje 'a co jeśli?' i zrobi to tak, że uwierzę. One tak mają."</p>
-          <p class="mt-1 text-xs text-salmon-700/50 dark:text-white/40">- jedna z naszych mam</p>
-        </div>
-      </div>
+      <!-- Zdjęcie -->
+      {(() => {
+        const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+        return (
+          <div class="relative aspect-[4/5] w-full max-w-sm mx-auto lg:max-w-none rounded-[2.5rem] overflow-hidden ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)] dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]">
+            <img
+              src={`${base}/assets/galeria/184.jpg`}
+              alt="Położna Medi3 z fantomem niemowlęcia"
+              class="absolute inset-0 w-full h-full object-cover object-top"
+            />
+            <div class="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/80 dark:bg-navy-900/70 backdrop-blur px-4 py-3 border border-salmon-100 dark:border-white/10">
+              <p class="font-serif text-salmon-900 dark:text-white/70 text-sm italic leading-relaxed">"Myślałam, że potrzebuję cudownej rady. A potrzebowałam kogoś, kto bez pośpiechu odpowie na wszystkie moje 'a co jeśli?' i zrobi to tak, że uwierzę. One tak mają."</p>
+              <p class="mt-1 text-xs text-salmon-700/50 dark:text-white/40">- jedna z naszych mam</p>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   </section>
 
