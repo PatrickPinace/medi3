@@ -41,7 +41,7 @@ kategorie:
         price: 130
       - name: Porada laktacyjna - pierwsza wizyta
         price: 230
-      - name: Porada laktacyjna - wizyta kontrolna (do 45 min)
+      - name: "Porada laktacyjna - wizyta kontrolna (do 45 min)"
         price: 150
       - name: Wizyty patronażowe (NFZ)
         price: 0
