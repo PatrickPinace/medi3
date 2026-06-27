@@ -125,7 +125,7 @@
 
   .cta-gradient {
     @apply bg-gradient-to-br from-salmon-300 via-salmon-400 to-peach-400;
-    @apply dark:from-salmon-900 dark:via-salmon-800 dark:to-navy-800;
+    @apply dark:from-salmon-300/20 dark:via-salmon-300/15 dark:to-salmon-300/10;
   }
 
   /* Prose */
