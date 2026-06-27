@@ -14,7 +14,7 @@ const { label, value, mono = false, big = false } = Astro.props;
   <p class="text-xs font-semibold uppercase tracking-wider text-salmon-700/60 dark:text-white/40">{label}</p>
   <div class="mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
     <p class={`${big ? "text-2xl font-serif" : ""} ${mono ? "font-mono tracking-wide" : ""} break-words
-      text-salmon-900 dark:text-white`}>
+      text-salmon-900 dark:text-white/80`}>
       {value}
     </p>
     <button

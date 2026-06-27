@@ -118,7 +118,7 @@
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-medium transition;
     @apply border-salmon-200 bg-white/60 text-salmon-700 hover:bg-white hover:border-salmon-300;
-    @apply dark:border-white/30 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 dark:hover:border-white/50;
+    @apply dark:border-white/30 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20 dark:hover:border-white/50;
   }
 
   .btn-peach {
@@ -133,7 +133,7 @@
   /* Prose */
   .prose-medi h2 {
     @apply font-serif text-3xl mt-12 mb-4;
-    @apply text-salmon-900 dark:text-white;
+    @apply text-salmon-900 dark:text-white/80;
   }
   .prose-medi h3 {
     @apply font-serif text-xl mt-8 mb-3;
@@ -154,7 +154,7 @@
   }
   .prose-medi strong {
     @apply font-semibold;
-    @apply text-salmon-900 dark:text-white;
+    @apply text-salmon-900 dark:text-white/80;
   }
   .prose-medi a {
     @apply underline underline-offset-4;
