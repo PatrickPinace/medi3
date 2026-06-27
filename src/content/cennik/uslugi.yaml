@@ -6,6 +6,9 @@ kategorie:
 
   - nazwa: Położnictwo i opieka okołoporodowa
     pozycje:
+      - name: Szkoła Rodzenia
+        price: 0
+        nfz: true
       - name: Badanie KTG
         price: 130
       - name: Porada laktacyjna - pierwsza wizyta
