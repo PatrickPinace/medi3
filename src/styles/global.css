@@ -108,7 +108,7 @@
 
   /* Przyciski- salmon zawsze */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-500 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-600 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-salmon-400 px-6 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-salmon-500 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300 focus-visible:ring-offset-2;
     @apply dark:bg-salmon-500 dark:hover:bg-salmon-600;
   }
 
@@ -124,7 +124,7 @@
   }
 
   .cta-gradient {
-    @apply bg-gradient-to-br from-salmon-500 via-salmon-600 to-peach-600;
+    @apply bg-gradient-to-br from-salmon-300 via-salmon-400 to-peach-400;
     @apply dark:from-salmon-800 dark:via-salmon-700 dark:to-salmon-800;
   }
 
