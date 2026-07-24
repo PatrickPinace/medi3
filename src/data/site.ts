@@ -24,6 +24,13 @@ export const site = {
       hint: "wjazd od ul. Czecha, gabinet nr 5 (I piętro)",
       map: "https://maps.app.goo.gl/zUK8VLPiQ4eFng359",
     },
+    {
+      key: "batorego",
+      name: "Gabinet Fizjo Femme",
+      address: "ul. Batorego 13 (parter)",
+      hint: "Fizjoterapia uroginekologiczna - Katarzyna Soja-Chydzińska",
+      map: "https://www.google.com/maps/search/?api=1&query=Batorego+13+Mielec",
+    },
   ],
   foundation: {
     name: "Fundacja Medi3",
