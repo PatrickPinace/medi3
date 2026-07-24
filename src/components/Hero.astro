@@ -57,11 +57,10 @@ import { url } from "../utils/url";
       <div id="hero-carousel-wrap" style="padding-bottom: 125%" class="relative w-full rounded-[2rem] overflow-hidden ring-1
         ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)]
         dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]"
-        data-aspects='["125%","125%","66.7%","125%","125%"]'>
+        data-aspects='["125%","66.7%","125%","125%"]'>
 
         <div id="hero-carousel" class="absolute inset-0">
           {[
-            { src: "001.jpg", alt: "Specjalistka Medi3 z modelem miednicy", pos: "object-[20%]" },
             { src: "184.jpg", alt: "Położna Medi3 z fantomem niemowlęcia", pos: "object-bottom" },
             { src: "250.jpg", alt: "Zespół położnych Medi3", pos: "object-center" },
             { src: "299.jpg", alt: "Zespół Medi3 - położna i fizjoterapeuta", pos: "object-bottom" },
@@ -93,7 +92,7 @@ import { url } from "../utils/url";
 
           <!-- Kropki -->
           <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {[0,1,2,3,4].map((i) => (
+            {[0,1,2,3].map((i) => (
               <button
                 aria-label={`Zdjęcie ${i + 1}`}
                 data-dot={i}
@@ -141,7 +140,7 @@ import { url } from "../utils/url";
     dots[current].classList.remove("w-1.5", "bg-white/50");
     dots[current].classList.add("w-5", "bg-white");
     if (aspects[current]) wrap.style.paddingBottom = aspects[current];
-    const isWide = current === 2 && window.innerWidth >= 1024;
+    const isWide = current === 1 && window.innerWidth >= 1024;
     wrap.style.marginLeft = isWide ? "-22%" : "0";
     wrap.style.width = isWide ? "122%" : "100%";
   }
