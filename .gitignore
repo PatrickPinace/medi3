@@ -38,6 +38,7 @@ $RECYCLE.BIN/
 
 # Claude Code
 .claude/
+workdirartur/
 
 # editor swap/temp files
 *.swp
