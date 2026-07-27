@@ -36,8 +36,13 @@ const {
     </script>
   </head>
   <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50
+      focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-salmon-700
+      focus:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-salmon-300">
+      Przejdź do treści
+    </a>
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     <Footer />
