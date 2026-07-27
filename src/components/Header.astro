@@ -75,7 +75,7 @@ const nav = [
 
       <button id="menu-btn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border transition
         border-salmon-200 text-salmon-700
-        dark:border-white/20 dark:text-white/80" aria-label="Menu">
+        dark:border-white/20 dark:text-white/80" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
     </div>
@@ -127,7 +127,9 @@ const nav = [
 
   document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
   document.getElementById("theme-toggle-mobile")?.addEventListener("click", toggleTheme);
-  document.getElementById("menu-btn")?.addEventListener("click", () => {
-    document.getElementById("mobile-menu")?.classList.toggle("hidden");
+  document.getElementById("menu-btn")?.addEventListener("click", (e) => {
+    const menu = document.getElementById("mobile-menu");
+    const isHidden = menu?.classList.toggle("hidden");
+    (e.currentTarget as HTMLElement).setAttribute("aria-expanded", String(!isHidden));
   });
 </script>

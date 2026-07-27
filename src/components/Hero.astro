@@ -92,6 +92,14 @@ import { url } from "../utils/url";
             <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
 
+          <!-- Pauza/wznowienie -->
+          <button aria-label="Zatrzymaj automatyczne przewijanie" aria-pressed="false" id="carousel-pause"
+            class="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full backdrop-blur transition
+              bg-white/70 text-salmon-700 hover:bg-white dark:bg-navy-900/60 dark:text-white dark:hover:bg-navy-900/80">
+            <svg id="icon-pause" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+            <svg id="icon-play" viewBox="0 0 24 24" class="h-3.5 w-3.5 hidden" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+
           <!-- Kropki -->
           <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
             {[0,1,2,3].map((i) => (
@@ -147,7 +155,15 @@ import { url } from "../utils/url";
     wrap.style.width = isWide ? "122%" : "100%";
   }
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let paused = reducedMotion;
+
+  const pauseBtn = document.getElementById("carousel-pause");
+  const iconPause = document.getElementById("icon-pause");
+  const iconPlay = document.getElementById("icon-play");
+
   function startAuto() {
+    if (paused) return;
     timer = setInterval(() => goTo(current + 1), 10000);
   }
 
@@ -156,11 +172,22 @@ import { url } from "../utils/url";
     startAuto();
   }
 
+  function setPaused(next: boolean) {
+    paused = next;
+    clearInterval(timer);
+    if (!paused) startAuto();
+    pauseBtn?.setAttribute("aria-pressed", String(paused));
+    pauseBtn?.setAttribute("aria-label", paused ? "Wznów automatyczne przewijanie" : "Zatrzymaj automatyczne przewijanie");
+    iconPause?.classList.toggle("hidden", paused);
+    iconPlay?.classList.toggle("hidden", !paused);
+  }
+
   document.getElementById("carousel-prev")?.addEventListener("click", () => { goTo(current - 1); resetAuto(); });
   document.getElementById("carousel-next")?.addEventListener("click", () => { goTo(current + 1); resetAuto(); });
   dots.forEach((dot) => {
     dot.addEventListener("click", () => { goTo(Number(dot.dataset.dot)); resetAuto(); });
   });
+  pauseBtn?.addEventListener("click", () => setPaused(!paused));
 
-  startAuto();
+  setPaused(reducedMotion);
 </script>
