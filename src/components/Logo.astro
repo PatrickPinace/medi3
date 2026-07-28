@@ -1,12 +1,13 @@
 ---
+import { Image } from "astro:assets";
 import { url } from "../utils/url";
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import logoIcon from "../assets/logo-icon.png";
 interface Props { class?: string }
 const { class: className = "" } = Astro.props;
 ---
 <a href={url("/")} class={`group inline-flex items-center gap-2.5 ${className}`} aria-label="Medi3 - strona główna">
-  <img
-    src={`${base}/assets/logo-icon.png`}
+  <Image
+    src={logoIcon}
     alt=""
     class="h-9 w-auto"
     aria-hidden="true"

@@ -38,6 +38,7 @@ export const site = {
     nip: "8172190396",
     regon: "381526310",
     krs: "0000752061",
+    rpwdl: "000000212438",
   },
   bank: {
     recipient: "Fundacja Medi3",
