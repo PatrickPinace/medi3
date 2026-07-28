@@ -52,6 +52,9 @@ kategorie:
       - name: Szkoła Rodzenia
         price: 0
         nfz: true
+      - name: "Profilaktyka raka szyjki macicy - test HPV (NFZ)"
+        price: 0
+        nfz: true
 
   - nazwa: Fizjoterapia
     pozycje:
