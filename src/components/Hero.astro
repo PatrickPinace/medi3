@@ -118,7 +118,7 @@ import photo222 from "../assets/galeria/222.jpg";
       </div>
 
       <!-- Pastylki pod zdjęciem -->
-      <div class="mt-3 flex items-center justify-between gap-2">
+      <div id="hero-badges" class="mt-3 flex items-center justify-between gap-2" style="transition: margin-left 0.8s ease, width 0.8s ease">
         <a href={url("/cennik")} class="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition
           border-salmon-200 bg-white text-salmon-700 hover:bg-salmon-50 hover:border-salmon-300
           dark:border-white/20 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20">
@@ -139,6 +139,7 @@ import photo222 from "../assets/galeria/222.jpg";
   const slides = document.querySelectorAll<HTMLElement>(".carousel-slide");
   const dots = document.querySelectorAll<HTMLElement>(".carousel-dot");
   const wrap = document.getElementById("hero-carousel-wrap") as HTMLElement;
+  const badges = document.getElementById("hero-badges") as HTMLElement;
   const aspects: string[] = JSON.parse(wrap?.dataset.aspects ?? "[]");
   let current = 0;
   let timer: ReturnType<typeof setInterval>;
@@ -157,6 +158,8 @@ import photo222 from "../assets/galeria/222.jpg";
     const isWide = current === 1 && window.innerWidth >= 1024;
     wrap.style.marginLeft = isWide ? "-22%" : "0";
     wrap.style.width = isWide ? "122%" : "100%";
+    badges.style.marginLeft = isWide ? "-22%" : "0";
+    badges.style.width = isWide ? "122%" : "100%";
   }
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
