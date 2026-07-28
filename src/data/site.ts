@@ -14,8 +14,10 @@ export const site = {
       key: "smoczka",
       name: "Gabinet Smoczka",
       address: "ul. Wyszyńskiego 4A/7",
-      hint: "Centrum Medyczne Smoczka",
+      hint: "Centrum Medyczne Smoczka - gabinet nr 5",
       map: "https://maps.app.goo.gl/siMucC1Sknxyfc8d6",
+      lat: 50.283868,
+      lng: 21.466072,
     },
     {
       key: "korczaka",
@@ -23,6 +25,8 @@ export const site = {
       address: "ul. Korczaka 1A (LIBRA)",
       hint: "wjazd od ul. Czecha, gabinet nr 5 (I piętro)",
       map: "https://maps.app.goo.gl/zUK8VLPiQ4eFng359",
+      lat: 50.2853561,
+      lng: 21.4431405,
     },
     {
       key: "batorego",
@@ -30,6 +34,17 @@ export const site = {
       address: "ul. Batorego 13 (parter)",
       hint: "Gabinet współdzielony z Fizjo-Femme - Katarzyna Soja-Chydzińska",
       map: "https://www.google.com/maps/search/?api=1&query=Batorego+13+Mielec",
+      lat: 50.2881665,
+      lng: 21.419349,
+    },
+    {
+      key: "siedziba",
+      name: "Siedziba (tylko korespondencja)",
+      address: "ul. Leśna 3/1, 39-300 Mielec",
+      hint: "Fundacja Medi3",
+      map: "https://maps.app.goo.gl/dweaycuADLT1wkqW8",
+      lat: 50.2884811,
+      lng: 21.4319179,
     },
   ],
   foundation: {
