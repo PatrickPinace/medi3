@@ -15,7 +15,7 @@ export const team: TeamMember[] = [
     role: "Położna · CDL",
     specs: ["Prowadzenie ciąży fizjologicznej", "Szkoła Rodzenia", "Wsparcie laktacyjne"],
     bio: "Położna z ponad 10-letnim doświadczeniem, specjalistka w prowadzeniu ciąży fizjologicznej. Prowadzi konsultacje kliniczne i edukację przedporodową.",
-    photo: "/team/anna-plaskota-gladosz.jpg",
+    photo: "anna-plaskota-gladosz.jpg",
     highlight: true,
   },
   {
@@ -24,7 +24,7 @@ export const team: TeamMember[] = [
     role: "Położna",
     specs: ["Edukacja położnych", "Koordynacja programów szkoleniowych"],
     bio: "Specjalistka w edukacji położnych i zarządzaniu projektami szkoleniowymi. Koordynuje programy rozwojowe dla medyków.",
-    photo: "/team/anna-buczek.jpg",
+    photo: "anna-buczek.jpg",
   },
   {
     slug: "magdalena-golba",
@@ -32,7 +32,7 @@ export const team: TeamMember[] = [
     role: "Położna",
     specs: ["Szkolenia medyczne", "Warsztaty praktyczne", "Mentoring"],
     bio: "Ekspertka w szkoleniach medycznych i rozwoju kompetencji położnych. Prowadzi warsztaty praktyczne i sesje mentoringowe.",
-    photo: "/team/magdalena-golba.jpg",
+    photo: "magdalena-golba.jpg",
   },
   {
     slug: "artur-gladosz",
@@ -40,7 +40,7 @@ export const team: TeamMember[] = [
     role: "Fizjoterapeuta · MBA",
     specs: ["Fizjoterapia", "Zarządzanie placówką", "Kierownik placówki"],
     bio: "Kierownik placówki NZOZ Medi3. Fizjoterapeuta z doświadczeniem menedżerskim - odpowiada za organizację i rozwój poradni.",
-    photo: "/team/artur-gladosz2.png",
+    photo: "artur-gladosz2.png",
   },
   {
     slug: "barbara-pieklo",
@@ -48,7 +48,7 @@ export const team: TeamMember[] = [
     role: "Dietetyk kliniczny",
     specs: ["Dietetyka kliniczna", "Psychodietetyka", "Suplementacja w ciąży", "Interpretacja badań"],
     bio: "Dietetyk kliniczny i psychodietetyk - specjalizuje się w suplementacji oraz interpretacji badań laboratoryjnych w ciąży.",
-    photo: "/team/barbara-pieklo.jpg",
+    photo: "barbara-pieklo.jpg",
   },
   {
     slug: "katarzyna-soja-chydzinska",
@@ -56,6 +56,6 @@ export const team: TeamMember[] = [
     role: "Fizjoterapeutka",
     specs: ["Fizjoterapia uroginekologiczna", "Kinesiotaping w ciąży"],
     bio: "Fizjoterapeutka uroginekologiczna - ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
-    photo: "/team/katarzyna-soja-chydzinska.jpg",
+    photo: "katarzyna-soja-chydzinska.jpg",
   },
 ];

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
+import { Image } from "astro:assets";
 import { site, forms } from "../data/site";
+import photo184 from "../assets/galeria/184.jpg";
 
 const dlaKogo = [
   { tytul: "Kobietom w ciąży", opis: "Wsparcie merytoryczne i emocjonalne od pierwszego trymestru - przygotowanie do porodu i pierwszych tygodni z dzieckiem." },
@@ -53,22 +55,17 @@ const wartosci = [
       </div>
 
       <!-- Zdjęcie -->
-      {(() => {
-        const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-        return (
-          <div class="relative aspect-[4/5] w-full max-w-sm mx-auto lg:max-w-none rounded-[2.5rem] overflow-hidden ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)] dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]">
-            <img
-              src={`${base}/assets/galeria/184.jpg`}
-              alt="Położna Medi3 z fantomem niemowlęcia"
-              class="absolute inset-0 w-full h-full object-cover object-top"
-            />
-            <div class="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/80 dark:bg-navy-900/70 backdrop-blur px-4 py-3 border border-salmon-100 dark:border-white/10">
-              <p class="font-serif text-salmon-800 dark:text-white/70 text-sm italic leading-relaxed">"Myślałam, że potrzebuję cudownej rady. A potrzebowałam kogoś, kto bez pośpiechu odpowie na wszystkie moje 'a co jeśli?' i zrobi to tak, że uwierzę. One tak mają."</p>
-              <p class="mt-1 text-xs text-salmon-700/50 dark:text-white/40">- jedna z naszych mam</p>
-            </div>
-          </div>
-        );
-      })()}
+      <div class="relative aspect-[4/5] w-full max-w-sm mx-auto lg:max-w-none rounded-[2.5rem] overflow-hidden ring-1 ring-salmon-200/60 shadow-[0_30px_60px_-30px_rgba(244,59,132,0.35)] dark:ring-white/20 dark:shadow-[0_30px_60px_-30px_rgba(56,32,82,0.8)]">
+        <Image
+          src={photo184}
+          alt="Położna Medi3 z fantomem niemowlęcia"
+          class="absolute inset-0 w-full h-full object-cover object-top"
+        />
+        <div class="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/80 dark:bg-navy-900/70 backdrop-blur px-4 py-3 border border-salmon-100 dark:border-white/10">
+          <p class="font-serif text-salmon-800 dark:text-white/70 text-sm italic leading-relaxed">"Myślałam, że potrzebuję cudownej rady. A potrzebowałam kogoś, kto bez pośpiechu odpowie na wszystkie moje 'a co jeśli?' i zrobi to tak, że uwierzę. One tak mają."</p>
+          <p class="mt-1 text-xs text-salmon-700/50 dark:text-white/40">- jedna z naszych mam</p>
+        </div>
+      </div>
     </div>
   </section>
 
