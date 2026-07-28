@@ -34,7 +34,7 @@ export const site = {
   ],
   foundation: {
     name: "Fundacja Medi3",
-    seat: "ul. Leśna 3, 39-300 Mielec",
+    seat: "ul. Leśna 3/1, 39-300 Mielec",
     nip: "8172190396",
     regon: "381526310",
     krs: "0000752061",
@@ -46,8 +46,8 @@ export const site = {
     accounts: [
       {
         key: "szkola-rodzenia",
-        label: "Szkoła Rodzenia - osoba towarzysząca",
-        description: "Wpłaty za uczestnictwo osoby towarzyszącej w Szkole Rodzenia",
+        label: "Opłaty za usługi zdrowotne",
+        description: "Wpłaty za usługi zdrowotne świadczone przez Fundację Medi3",
         number: "62 1750 1312 6887 6097 2424 6830",
         bankName: null,
       },

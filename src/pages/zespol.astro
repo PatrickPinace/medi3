@@ -40,7 +40,7 @@ const initials = (name: string) =>
               </div>
             )}
             <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-navy-900/70 backdrop-blur px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80">
-              {m.role.split("·")[0].trim()}
+              {m.role.split(/[·-]/)[0].trim()}
             </div>
           </div>
 
@@ -57,6 +57,19 @@ const initials = (name: string) =>
             )}
 
             <p class="mt-4 text-sm leading-relaxed text-salmon-800/75 dark:text-navy-300">{m.bio}</p>
+
+            {m.bioMore && (
+              <details class="group mt-2">
+                <summary class="list-none marker:hidden [&::-webkit-details-marker]:hidden cursor-pointer inline-flex items-center gap-1 text-sm font-medium
+                  text-salmon-600 hover:text-salmon-700
+                  dark:text-salmon-300/80 dark:hover:text-salmon-300">
+                  <span class="group-open:hidden">czytaj więcej</span>
+                  <span class="hidden group-open:inline">czytaj mniej</span>
+                  <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                </summary>
+                <p class="mt-2 text-sm leading-relaxed text-salmon-800/75 dark:text-navy-300">{m.bioMore}</p>
+              </details>
+            )}
           </div>
         </article>
       ))}
