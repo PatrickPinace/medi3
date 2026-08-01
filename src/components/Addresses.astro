@@ -83,13 +83,25 @@ const mapPoints = site.offices
   <div id="locations-map" class="mt-8 h-96 w-full rounded-3xl overflow-hidden border border-salmon-100 dark:border-white/10"></div>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.css" />
   <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script is:inline src="https://unpkg.com/leaflet-gesture-handling@1.2.2/dist/leaflet-gesture-handling.min.js"></script>
   <script is:inline define:vars={{ mapPoints }}>
     document.addEventListener("DOMContentLoaded", function () {
       const el = document.getElementById("locations-map");
       if (!el || typeof L === "undefined") return;
 
-      const map = L.map(el, { scrollWheelZoom: false }).setView([50.2857, 21.438], 13);
+      const map = L.map(el, {
+        scrollWheelZoom: false,
+        gestureHandling: true,
+        gestureHandlingOptions: {
+          text: {
+            touch: "Przesuń mapę dwoma palcami",
+            scroll: "Użyj Ctrl + scrolla, aby przybliżyć mapę",
+            scrollMac: "Użyj ⌘ + scrolla, aby przybliżyć mapę",
+          },
+        },
+      }).setView([50.2857, 21.438], 13);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
