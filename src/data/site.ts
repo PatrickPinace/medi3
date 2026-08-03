@@ -4,7 +4,7 @@ export const site = {
   phone: "881 489 851",
   phoneTel: "+48881489851",
   email: "poradnie@medi3.pl",
-  city: "Mielec / Rzeszów (Podkarpackie)",
+  city: "Mielec (Podkarpackie)",
   social: {
     instagram: "https://www.instagram.com/szkolarodzenia.mielec/",
     facebook: "https://www.facebook.com/polozne.medi3",
