@@ -34,7 +34,7 @@ const mapPoints = site.offices
   <div class="grid gap-6 md:grid-cols-2">
     {site.offices.map((o, i) => (
       <div class={`group relative overflow-hidden rounded-3xl border p-6 sm:p-8 transition
-        bg-gradient-to-br from-white to-cream-100 border-salmon-100 hover:border-salmon-300
+        bg-linear-to-br from-white to-cream-100 border-salmon-100 hover:border-salmon-300
         dark:bg-none dark:border-white/10 dark:bg-white/5 dark:backdrop-blur-sm dark:hover:border-white/20
         ${i === site.offices.length - 1 && site.offices.length % 2 === 1 ? "md:col-span-2 md:w-1/2 md:mx-auto" : ""}`}>
         <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full blur-2xl
@@ -64,7 +64,7 @@ const mapPoints = site.offices
             <p class="mt-1 text-sm text-salmon-800/60 dark:text-white/50">{o.hint}</p>
 
             <div class="mt-6 flex flex-col sm:flex-row sm:flex-wrap items-center sm:items-start gap-3">
-              <a href={o.map} target="_blank" rel="noopener" class="relative z-10 btn-primary !py-2.5 !px-5 text-xs">
+              <a href={o.map} target="_blank" rel="noopener" class="relative z-10 btn-primary py-2.5! px-5! text-xs">
                 <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-7-10a7 7 0 1 1 14 0c0 5.65-7 10-7 10z"/><circle cx="12" cy="11" r="2"/></svg>
                 Otwórz w mapach
               </a>

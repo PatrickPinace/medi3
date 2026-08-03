@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Tailwind 4: dark mode oparty na klasie .dark na <html> */
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   /* AKCENT: różowy #f43b84 */
@@ -129,7 +129,7 @@
   }
 
   .cta-gradient {
-    @apply bg-gradient-to-br from-heart via-salmon-400 to-peach-400;
+    @apply bg-linear-to-br from-heart via-salmon-400 to-peach-400;
     @apply dark:from-salmon-300/20 dark:via-salmon-300/15 dark:to-salmon-300/10;
   }
 
