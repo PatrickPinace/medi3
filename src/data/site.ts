@@ -95,6 +95,7 @@ export const forms = {
   laktacyjna: "https://docs.google.com/forms/d/e/1FAIpQLSc3ofCMikOoJnfbVHAV_unzVjAILnuHyYrfoQK3vZ4gSnd1OQ/viewform",
   ogolny: "https://forms.gle/9MA7CVvsHRSknCUN9",
   pierwszaPomoc: "https://forms.gle/aFMJ8Biu3zF4K5eU6",
+  szkolaRodzenia: "https://script.google.com/macros/s/AKfycbwfzVB3KjUsKQ-tGxLUgpm_NLvhf_MQKqxWjAfDa-59gxF3wAOGyrPxE16LsAf7CzlH/exec",
 } as const;
 
 export const resources = {
