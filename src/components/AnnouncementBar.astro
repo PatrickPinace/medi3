@@ -1,0 +1,21 @@
+---
+import { url } from "../utils/url";
+---
+<div class="relative border-b transition-colors
+  bg-amber-50 border-amber-200
+  dark:bg-amber-500/10 dark:border-amber-500/20">
+  <div class="container-x py-2.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-sm">
+    <span class="inline-flex items-center gap-2 font-medium text-amber-900 dark:text-amber-200">
+      <svg viewBox="0 0 24 24" class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a1.5 1.5 0 0 0 1.29 2.25h17.78A1.5 1.5 0 0 0 22.18 18L13.71 3.86a1.5 1.5 0 0 0-2.58 0Z"/>
+      </svg>
+      Ważna informacja: wyciek danych z systemu MyDr
+    </span>
+    <a href={url("/komunikat-mydr")} class="inline-flex items-center gap-1 font-medium underline underline-offset-4
+      text-amber-800 decoration-amber-400 hover:text-amber-900
+      dark:text-amber-200 dark:decoration-amber-500/60 dark:hover:text-amber-100">
+      Czytaj więcej
+      <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</div>
