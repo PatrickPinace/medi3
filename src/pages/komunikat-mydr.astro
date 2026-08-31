@@ -16,6 +16,10 @@ const kroki = [
     title: "Zachowaj szczególną ostrożność",
     description: "Wobec nieoczekiwanych SMS-ów, e-maili i telefonów podszywających się pod placówki medyczne, ZUS, banki czy urzędy - proszących o potwierdzenie wizyty, dopłatę do badania, aktualizację danych czy podanie kodu/hasła. Nie klikaj w linki i nie podawaj danych osobom, których tożsamości nie możesz zweryfikować.",
   },
+  {
+    title: "Pytaj o podstawę prawną",
+    description: "Jeśli ktoś prosi Cię o podanie danych osobowych lub dokumentów, masz prawo zapytać o podstawę prawną takiego żądania - tak zaleca UODO. Brak jasnej odpowiedzi to sygnał ostrzegawczy.",
+  },
 ];
 ---
 
@@ -35,9 +39,9 @@ const kroki = [
       <aside class="lg:col-span-1">
         <div class="sticky top-24 space-y-6">
           <div class="rounded-3xl border border-amber-200 bg-amber-50 dark:border-amber-500/20 dark:bg-amber-500/10 p-6 text-center lg:text-left">
-            <p class="text-xs font-semibold uppercase tracking-wider text-amber-800/80 dark:text-amber-200/80">Status</p>
+            <p class="text-xs font-semibold uppercase tracking-wider text-amber-800/80 dark:text-amber-200/80">Status - aktualizacja 31.08.2026</p>
             <p class="mt-3 text-sm text-amber-900 dark:text-amber-100">
-              Ustalamy zakres incydentu w kontakcie z dostawcą systemu (MyDr). Informacja będzie aktualizowana.
+              Prezes UODO prowadzi kontrolę u dostawcy systemu (MyDr). My wciąż ustalamy, czy dane naszych pacjentów zostały objęte incydentem. Informacja będzie aktualizowana.
             </p>
           </div>
 
@@ -63,8 +67,32 @@ const kroki = [
           Na dzień publikacji tej informacji nie mamy jeszcze potwierdzenia, czy i w jakim zakresie dane
           naszych pacjentów zostały objęte tym incydentem. Prowadzimy ustalenia w tej sprawie w kontakcie
           z dostawcą systemu (MyDr) oraz analizujemy sytuację zgodnie z obowiązującymi przepisami o ochronie
-          danych osobowych (RODO). O wynikach tych ustaleń będziemy informować na bieżąco - w tym miejscu
-          oraz, jeśli zajdzie taka potrzeba, indywidualnie osoby, których dane mogły zostać naruszone.
+          danych osobowych (RODO).
+        </p>
+        <p>
+          Więcej wiemy natomiast o samym incydencie w skali całego kraju - dzięki komunikatom Urzędu Ochrony
+          Danych Osobowych (UODO):
+        </p>
+        <ul>
+          <li>
+            13 sierpnia 2026 r. Prezes UODO wszczął kontrolę u dostawcy systemu MyDr, sprawdzającą
+            zastosowane zabezpieczenia techniczne i organizacyjne oraz to, czy były regularnie testowane
+            pod kątem zmieniających się zagrożeń.
+          </li>
+          <li>
+            Według doniesień medialnych incydent mógł dotyczyć nawet ok. 19 mln osób i ok. 12 tys. placówek
+            medycznych w całej Polsce korzystających z systemu MyDr, a skradzione dane miały obejmować
+            m.in. imiona, nazwiska, numery PESEL oraz dane dotyczące zdrowia.
+          </li>
+          <li>
+            27 sierpnia 2026 r. UODO opublikował odpowiedzi na najczęściej zadawane pytania pacjentów
+            i administratorów w związku z tym incydentem, w tym dotyczące obowiązku zawiadamiania osób,
+            których dane mogły zostać naruszone.
+          </li>
+        </ul>
+        <p>
+          O wynikach naszych własnych ustaleń będziemy informować na bieżąco - w tym miejscu oraz, jeśli
+          zajdzie taka potrzeba, indywidualnie osoby, których dane mogły zostać naruszone.
         </p>
 
         <h2 id="co-zrobic">Co możesz zrobić już teraz, zachowując ostrożność</h2>
@@ -83,7 +111,21 @@ const kroki = [
         </div>
 
         <p>
+          Zgodnie z wyjaśnieniami UODO nie musisz w tej sprawie składać indywidualnej skargi - Prezes UODO
+          prowadzi już z urzędu kontrolę u dostawcy systemu (MyDr). Jeśli chcesz skorzystać z przysługujących
+          Ci praw wynikających z RODO (np. dostępu do swoich danych), zgłoś się bezpośrednio do nas.
+        </p>
+
+        <p>
           Będziemy aktualizować tę informację w miarę ustalania dalszych szczegółów sprawy.
+        </p>
+
+        <p class="text-sm">
+          Źródła:
+          {" "}<a href="https://uodo.gov.pl/pl/138/4539" target="_blank" rel="noopener">Wyciek danych - co dalej?</a> (12.08.2026),
+          {" "}<a href="https://uodo.gov.pl/pl/138/4540" target="_blank" rel="noopener">Prezes UODO skontroluje spółkę MyDr</a> (13.08.2026),
+          {" "}<a href="https://uodo.gov.pl/pl/615/4550" target="_blank" rel="noopener">Pytania zadawane przez podmioty danych oraz administratorów związane z incydentem MyDr</a> (27.08.2026)
+          - Urząd Ochrony Danych Osobowych.
         </p>
       </article>
     </div>
