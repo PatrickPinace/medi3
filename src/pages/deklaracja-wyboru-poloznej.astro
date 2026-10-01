@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../data/site";
+
+const FORM_URL = "https://script.google.com/macros/s/AKfycbzFlfJvacLtcqcIUZxcmSvQO_m7ZKlmNyYPcx5i0cXafACmKoF93OzhU2ks5K2S4VWUPg/exec";
+---
+
+<BaseLayout
+  title="Deklaracja wyboru położnej · Medi3"
+  description="Wypełnij deklarację wyboru pielęgniarki i położnej POZ online - gotowy dokument pobierzesz jako PDF i dostaniesz e-mailem, podpiszesz profilem zaufanym i odeślesz do nas."
+>
+  <PageHero
+    eyebrow="Formalności"
+    title="Deklaracja wyboru położnej"
+    subtitle="Wypełnij formularz - gotową deklarację od razu pobierzesz jako PDF i dostaniesz też e-mailem. Potem podpiszesz ją profilem zaufanym i odeślesz do nas."
+  />
+
+  <section class="container-x py-10 sm:py-12">
+    <div class="rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 p-6 sm:p-10 text-center">
+      <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-salmon-100 text-salmon-600 dark:bg-white/10 dark:text-navy-200">
+        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6M9 9h2"/></svg>
+      </div>
+      <p class="mt-5 font-serif text-xl text-salmon-800 dark:text-white/80">Deklaracja wyboru pielęgniarki i położnej POZ</p>
+      <p class="mt-2 max-w-xl mx-auto text-sm leading-relaxed text-salmon-800/70 dark:text-navy-300">
+        Formularz otwiera się w osobnym oknie Google - uzupełnisz w nim dane, od razu pobierzesz gotową
+        deklarację jako PDF i dostaniesz ją też e-mailem. Potem wystarczy podpisać profilem zaufanym i odesłać do nas.
+      </p>
+      <div class="mt-6">
+        <a href={FORM_URL} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full bg-salmon-600 text-white px-6 py-3 text-sm font-medium hover:bg-salmon-700 transition dark:bg-white/15 dark:hover:bg-white/25">
+          Wypełnij deklarację
+        </a>
+      </div>
+      <p class="mt-3 text-xs text-salmon-800/50 dark:text-navy-400">
+        Link otworzy się w nowej karcie: script.google.com
+      </p>
+    </div>
+  </section>
+
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="rounded-[2rem] cta-gradient px-6 py-10 sm:px-12 sm:py-14 text-white dark:text-white/80 relative overflow-hidden">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="relative max-w-2xl mx-auto md:mx-0 text-center md:text-left">
+        <h2 class="font-serif text-3xl tracking-tight">Masz pytanie o deklarację?</h2>
+        <p class="mt-3 text-white/85 dark:text-white/50">Zadzwoń lub napisz - pomożemy wypełnić formularz.</p>
+        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-navy-100 transition dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
+            ☎ {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/60 px-6 py-3 text-sm font-medium hover:bg-white/10 transition dark:border-white/30">
+            {site.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
