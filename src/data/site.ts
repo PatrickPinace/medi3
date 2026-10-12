@@ -96,7 +96,11 @@ export const forms = {
   ogolny: "https://forms.gle/9MA7CVvsHRSknCUN9",
   pierwszaPomoc: "https://forms.gle/aFMJ8Biu3zF4K5eU6",
   szkolaRodzenia: "https://script.google.com/macros/s/AKfycbwfzVB3KjUsKQ-tGxLUgpm_NLvhf_MQKqxWjAfDa-59gxF3wAOGyrPxE16LsAf7CzlH/exec",
+  profilaktyka: "https://forms.gle/tHsmDEzfoqeXDAtC6",
 } as const;
+
+// Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
+export const zapisyCiazaApi: string = "";
 
 export const resources = {
   kalkulatorTygodnia: "https://docs.google.com/spreadsheets/d/1UA6FgKizeIb2n9QNxxi8FSHY77-Mfi0nQyEWfsOjJis/edit?gid=0#gid=0",
