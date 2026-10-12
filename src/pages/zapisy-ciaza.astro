@@ -23,10 +23,9 @@ import { url } from "../utils/url";
       data-tel={site.phoneTel}
       data-rodo={url("/rodo")}
       data-profilaktyka={forms.profilaktyka}
-      data-fallback={forms.ciaza}
-    >
+      data-fallback={forms.ciaza}    >
       <div class="m3-wrap">
-        <div class="m3-card" id="m3-card"><p class="m3-loading">Wczytywanie formularza…</p></div>
+        <div class="m3-card" id="m3-card"><p class="m3-loading">Wczytywanie formularza… to może potrwać kilka sekund.</p></div>
       </div>
     </div>
   </section>
@@ -218,7 +217,7 @@ import { url } from "../utils/url";
               }).join('') + '</tr>';
             }).join('') + '</table></div>';
         break;
-      case 'IMAGE': body = '<img src="' + q.src + '" alt="' + esc(q.title) + '">'; break;
+      case 'IMAGE': return '';
     }
     return '<div class="m3-q" data-id="' + q.id + '">' + head + help + body + '<div class="m3-err-msg"></div></div>';
   }
