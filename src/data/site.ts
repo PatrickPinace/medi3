@@ -100,7 +100,7 @@ export const forms = {
 } as const;
 
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
-export const zapisyCiazaApi: string = "";
+export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
 
 export const resources = {
   kalkulatorTygodnia: "https://docs.google.com/spreadsheets/d/1UA6FgKizeIb2n9QNxxi8FSHY77-Mfi0nQyEWfsOjJis/edit?gid=0#gid=0",
