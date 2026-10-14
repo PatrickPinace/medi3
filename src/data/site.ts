@@ -108,7 +108,7 @@ export const deklaracja = {
 } as const;
 
 // Endpoint /exec Apps Script (medi3/warsztaty/Kod.gs) obsługujący /zapisy-warsztaty - dowolne warsztaty z limitem miejsc; pusty = formularz niedostępny
-export const zapisyWarsztatyApi: string = "";
+export const zapisyWarsztatyApi: string = "https://script.google.com/macros/s/AKfycbwqRGh2mgJpWYXXT2bS0A8I3G67E3PtV8uSJsmB5lL1kOb4E2aPvyZvQXcFINZTG8YArA/exec";
 
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
