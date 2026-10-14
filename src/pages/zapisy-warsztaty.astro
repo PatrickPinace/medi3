@@ -36,6 +36,10 @@ import "../styles/m3-form.css";
           <div id="pp-main" hidden>
             <h2 class="m3-sec-title" id="pp-event-name"></h2>
             <p class="m3-sec-help" id="pp-event-desc"></p>
+            <div class="m3-notice" id="pp-notice" hidden>
+              <p class="m3-notice-title">Zajęcia już się odbyły</p>
+              <p class="m3-notice-text">Nowy termin podamy później. Jeśli interesują Cię te zajęcia, zapisz się na listę oczekujących poniżej.</p>
+            </div>
             <p class="m3-price" id="pp-price" hidden></p>
             <h3 class="m3-step" id="pp-terms-title" style="margin-top:0">Terminy</h3>
             <div class="m3-slots" id="pp-slots"></div>
@@ -111,14 +115,22 @@ import "../styles/m3-form.css";
   }
   if (!API) { unavailable(); return; }
 
-  var anyFree = false, EVENT = null;
+  var anyFree = false, EVENT = null, PAST = false;
   var W = new URLSearchParams(location.search).get('w') || '';
 
+  function today() {
+    var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
+
   function renderSlots(groups, interest) {
-    var html = '';
+    var html = '', now = today();
     groups.forEach(function (g) {
       var cls = 'm3-slot', info;
-      if (!g.open) { cls += ' planned'; info = interest ? 'Zapisy na ten termin jeszcze nie ruszyły.' : 'Druga grupa ruszy, jeśli zbierze się komplet chętnych.'; }
+      if (!g.open) {
+        cls += ' planned';
+        info = g.date < now ? 'Zajęcia się odbyły.' : interest ? 'Zapisy na ten termin jeszcze nie ruszyły.' : 'Druga grupa ruszy, jeśli zbierze się komplet chętnych.';
+      }
       else if (g.left <= 0) { cls += ' full'; info = '<span class="m3-left">Komplet - brak wolnych miejsc</span>'; }
       else { cls += ' free'; info = '<span class="m3-left">Wolnych miejsc: ' + g.left + ' z ' + g.limit + '</span>'; }
       html += '<div class="' + cls + '"><b>' + esc(g.label) + '</b>'
@@ -148,10 +160,14 @@ import "../styles/m3-form.css";
       anyFree = open.some(function (g) { return g.left > 0; });
       $('pp-main').hidden = false;
       var interest = !open.length;
+      PAST = interest && data.groups.length > 0 && data.groups.every(function (g) { return g.date < today(); });
       renderSlots(data.groups, interest);
       $('pp-terms-title').hidden = !data.groups.length;
-      btn.textContent = interest ? 'Zapisz się na listę zainteresowanych' : (anyFree ? 'Zapisz się' : 'Zapisz się na listę rezerwową');
-      $('pp-info').textContent = interest
+      $('pp-notice').hidden = !PAST;
+      btn.textContent = PAST ? 'Zapisz się na listę oczekujących' : interest ? 'Zapisz się na listę zainteresowanych' : (anyFree ? 'Zapisz się' : 'Zapisz się na listę rezerwową');
+      $('pp-info').textContent = PAST
+        ? 'Zostaw dane - damy znać jako pierwszym, gdy ogłosimy nowy termin, a miejsca przydzielimy w kolejności zgłoszeń.'
+        : interest
         ? 'Terminy zostaną ogłoszone wkrótce. Zostaw dane - damy znać jako pierwszym, gdy otworzymy zapisy, a miejsca przydzielimy w kolejności zgłoszeń.'
         : anyFree
           ? 'Zapiszemy Cię do pierwszej grupy, w której jest wystarczająco dużo miejsc.'
@@ -214,9 +230,9 @@ import "../styles/m3-form.css";
         if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); load(); return; }
         var waitlist = res.status === 'waitlist';
         $('pp-main').hidden = true; $('pp-done').hidden = false;
-        $('pp-done-title').textContent = res.interest ? 'Jesteś na liście zainteresowanych' : waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na warsztaty';
+        $('pp-done-title').textContent = res.interest ? (PAST ? 'Jesteś na liście oczekujących' : 'Jesteś na liście zainteresowanych') : waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na warsztaty';
         $('pp-done-group').textContent = res.interest
-          ? 'Damy znać, gdy ustalimy termin i otworzymy zapisy.'
+          ? (PAST ? 'Damy znać, gdy ogłosimy nowy termin.' : 'Damy znać, gdy ustalimy termin i otworzymy zapisy.')
           : waitlist
             ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
             : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');

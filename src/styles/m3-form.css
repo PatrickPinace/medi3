@@ -115,3 +115,8 @@
 /* Ceny */
 .m3form .m3-price{font-weight:600;color:var(--ink);margin:0 0 18px;font-size:15px}
 .m3form .m3-total{font-weight:700;color:var(--pink);margin:0 0 14px;font-size:15px}
+
+/* Wyraźny komunikat (np. zajęcia już się odbyły) */
+.m3form .m3-notice{background:var(--pink-soft);border:1px solid var(--pink-line);border-radius:18px;padding:18px 20px;margin:4px 0 20px}
+.m3form .m3-notice-title{font-family:var(--font-serif);font-size:clamp(26px,6vw,34px);line-height:1.15;font-weight:600;color:var(--ink);margin:0 0 8px}
+.m3form .m3-notice-text{font-size:16px;line-height:1.5;color:var(--text);margin:0}
