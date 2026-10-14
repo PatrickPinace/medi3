@@ -37,7 +37,7 @@ import "../styles/m3-form.css";
             <h2 class="m3-sec-title" id="pp-event-name"></h2>
             <p class="m3-sec-help" id="pp-event-desc"></p>
             <p class="m3-price" id="pp-price" hidden></p>
-            <h3 class="m3-step" style="margin-top:0">Terminy</h3>
+            <h3 class="m3-step" id="pp-terms-title" style="margin-top:0">Terminy</h3>
             <div class="m3-slots" id="pp-slots"></div>
             <p class="m3-sec-help" id="pp-info"></p>
 
@@ -114,11 +114,11 @@ import "../styles/m3-form.css";
   var anyFree = false, EVENT = null;
   var W = new URLSearchParams(location.search).get('w') || '';
 
-  function renderSlots(groups) {
+  function renderSlots(groups, interest) {
     var html = '';
     groups.forEach(function (g) {
       var cls = 'm3-slot', info;
-      if (!g.open) { cls += ' planned'; info = 'Druga grupa ruszy, jeśli zbierze się komplet chętnych.'; }
+      if (!g.open) { cls += ' planned'; info = interest ? 'Zapisy na ten termin jeszcze nie ruszyły.' : 'Druga grupa ruszy, jeśli zbierze się komplet chętnych.'; }
       else if (g.left <= 0) { cls += ' full'; info = '<span class="m3-left">Komplet - brak wolnych miejsc</span>'; }
       else { cls += ' free'; info = '<span class="m3-left">Wolnych miejsc: ' + g.left + ' z ' + g.limit + '</span>'; }
       html += '<div class="' + cls + '"><b>' + esc(g.label) + '</b>'
@@ -147,17 +147,15 @@ import "../styles/m3-form.css";
       var open = data.groups.filter(function (g) { return g.open; });
       anyFree = open.some(function (g) { return g.left > 0; });
       $('pp-main').hidden = false;
-      if (!open.length) {
-        $('pp-slots').innerHTML = '';
-        f.hidden = true;
-        $('pp-info').textContent = 'Zapisy są obecnie zamknięte. Zadzwoń: ' + PHONE + '.';
-        return;
-      }
-      renderSlots(data.groups);
-      btn.textContent = anyFree ? 'Zapisz się' : 'Zapisz się na listę rezerwową';
-      $('pp-info').textContent = anyFree
-        ? 'Zapiszemy Cię do pierwszej grupy, w której jest wystarczająco dużo miejsc.'
-        : 'Wszystkie miejsca są zajęte. Zapisz się na listę rezerwową - damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.';
+      var interest = !open.length;
+      renderSlots(data.groups, interest);
+      $('pp-terms-title').hidden = !data.groups.length;
+      btn.textContent = interest ? 'Zapisz się na listę zainteresowanych' : (anyFree ? 'Zapisz się' : 'Zapisz się na listę rezerwową');
+      $('pp-info').textContent = interest
+        ? 'Terminy zostaną ogłoszone wkrótce. Zostaw dane - damy znać jako pierwszym, gdy otworzymy zapisy, a miejsca przydzielimy w kolejności zgłoszeń.'
+        : anyFree
+          ? 'Zapiszemy Cię do pierwszej grupy, w której jest wystarczająco dużo miejsc.'
+          : 'Wszystkie miejsca są zajęte. Zapisz się na listę rezerwową - damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.';
     }).catch(unavailable);
   }
 
@@ -216,11 +214,13 @@ import "../styles/m3-form.css";
         if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); load(); return; }
         var waitlist = res.status === 'waitlist';
         $('pp-main').hidden = true; $('pp-done').hidden = false;
-        $('pp-done-title').textContent = waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na warsztaty';
-        $('pp-done-group').textContent = waitlist
-          ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
-          : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');
-        $('pp-done-total').hidden = res.total == null;
+        $('pp-done-title').textContent = res.interest ? 'Jesteś na liście zainteresowanych' : waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na warsztaty';
+        $('pp-done-group').textContent = res.interest
+          ? 'Damy znać, gdy ustalimy termin i otworzymy zapisy.'
+          : waitlist
+            ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
+            : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');
+        $('pp-done-total').hidden = res.total == null || !!res.interest;
         if (res.total != null) $('pp-done-total').textContent = 'Do zapłaty: ' + res.total + ' zł';
         $('pp-done-mail').textContent = res.mailSent === false
           ? 'Nie udało się wysłać potwierdzenia e-mailem - zapisz termin.'
