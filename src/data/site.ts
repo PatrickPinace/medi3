@@ -107,8 +107,8 @@ export const deklaracja = {
   polozne: ["Anna Plaskota-Gładosz", "Anna Buczek", "Katarzyna Kulis", "Aleksandra Kłudka-Gałęza"],
 } as const;
 
-// Endpoint /exec Apps Script obsługujący /zapisy-pierwsza-pomoc (arkusz "Pierwsza pomoc - zapisy 22.10.2026"; pusty = formularz niedostępny)
-export const zapisyPierwszaPomocApi: string = "";
+// Endpoint /exec Apps Script (medi3/warsztaty/Kod.gs) obsługujący /zapisy-warsztaty - dowolne warsztaty z limitem miejsc; pusty = formularz niedostępny
+export const zapisyWarsztatyApi: string = "";
 
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";

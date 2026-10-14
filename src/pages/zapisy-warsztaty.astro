@@ -1,26 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
-import { site, zapisyPierwszaPomocApi } from "../data/site";
+import { site, zapisyWarsztatyApi } from "../data/site";
 import { url } from "../utils/url";
 import "../styles/m3-form.css";
 ---
 
 <BaseLayout
-  title="Zapisy na zajęcia z pierwszej pomocy · Medi3"
-  description="Pierwsza pomoc noworodka i niemowlęcia - praktyczne zajęcia dla rodziców i opiekunów w Mielcu. Zapisz się online, liczba miejsc w grupie jest ograniczona."
+  title="Zapisy na warsztaty · Medi3"
+  description="Zapisy na warsztaty i zajęcia Fundacji Medi3 w Mielcu - wybierz termin i zapisz się online. Liczba miejsc w grupie jest ograniczona."
 >
   <PageHero
-    eyebrow="Szkolenia"
-    title="Pierwsza pomoc noworodka i niemowlęcia"
-    subtitle="Praktyczne zajęcia dla rodziców i opiekunów. Liczba miejsc w grupie jest ograniczona - zapisz się online."
+    eyebrow="Warsztaty"
+    title="Zapisy na warsztaty"
+    subtitle="Wybierz termin i zapisz się online. Liczba miejsc w grupie jest ograniczona."
   />
 
   <section class="container-x py-10 sm:py-16">
     <div
       id="m3pp"
       class="m3form"
-      data-api={zapisyPierwszaPomocApi}
+      data-api={zapisyWarsztatyApi}
       data-phone={site.phone}
       data-tel={site.phoneTel}
     >
@@ -28,8 +28,15 @@ import "../styles/m3-form.css";
         <div class="m3-card" id="pp-card">
           <p class="m3-loading" id="pp-loading">Wczytywanie terminów…</p>
 
+          <div id="pp-choice" hidden>
+            <h2 class="m3-sec-title" id="pp-choice-title"></h2>
+            <div id="pp-choice-list"></div>
+          </div>
+
           <div id="pp-main" hidden>
-            <h2 class="m3-sec-title">Terminy</h2>
+            <h2 class="m3-sec-title" id="pp-event-name"></h2>
+            <p class="m3-sec-help" id="pp-event-desc"></p>
+            <h3 class="m3-step" style="margin-top:0">Terminy</h3>
             <div class="m3-slots" id="pp-slots"></div>
             <p class="m3-sec-help" id="pp-info"></p>
 
@@ -40,14 +47,9 @@ import "../styles/m3-form.css";
                 <label class="m3-f"><span>Telefon</span><input type="tel" name="telefon" autocomplete="tel" placeholder="np. 600 123 456" required /></label>
               </div>
               <label class="m3-f"><span>Liczba osób</span>
-                <select name="osob">
-                  <option value="1">1 osoba</option>
-                  <option value="2">2 osoby</option>
-                  <option value="3">3 osoby</option>
-                  <option value="4">4 osoby</option>
-                </select>
+                <select name="osob" id="pp-osob"></select>
               </label>
-              <p class="m3-hint">Wpisz łącznie tyle osób, ile przyjdzie na zajęcia (np. oboje rodzice).</p>
+              <p class="m3-hint">Wybierz łącznie tyle osób, ile przyjdzie (np. oboje rodzice).</p>
               <label class="m3-f"><span>Uwagi (opcjonalnie)</span><input type="text" name="uwagi" maxlength="500" /></label>
 
               <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -62,7 +64,7 @@ import "../styles/m3-form.css";
 
           <div id="pp-done" class="m3-done" hidden>
             <div class="m3-tick">✓</div>
-            <h2 id="pp-done-title">Zapisaliśmy Cię na zajęcia</h2>
+            <h2 id="pp-done-title">Zapisaliśmy Cię</h2>
             <p id="pp-done-group"></p>
             <p id="pp-done-mail"></p>
             <p>W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`}>{site.phone}</a></p>
@@ -106,7 +108,8 @@ import "../styles/m3-form.css";
   }
   if (!API) { unavailable(); return; }
 
-  var anyFree = false;
+  var anyFree = false, EVENT = null;
+  var W = new URLSearchParams(location.search).get('w') || '';
 
   function renderSlots(groups) {
     var html = '';
@@ -123,11 +126,19 @@ import "../styles/m3-form.css";
   }
 
   function load() {
-    fetch(API).then(function (r) { return r.json(); }).then(function (data) {
+    fetch(API + (W ? '?w=' + encodeURIComponent(W) : '')).then(function (r) { return r.json(); }).then(function (data) {
       if (!data || !data.ok) throw new Error('status');
+      $('pp-loading').hidden = true;
+      if (!data.event) { showChoice(data); return; }
+      EVENT = data.event;
+      $('pp-event-name').textContent = EVENT.name;
+      $('pp-event-desc').textContent = EVENT.description || '';
+      $('pp-event-desc').hidden = !EVENT.description;
+      var opts = '';
+      for (var n = 1; n <= EVENT.maxOsob; n++) opts += '<option value="' + n + '">' + n + (n === 1 ? ' osoba' : n < 5 ? ' osoby' : ' osób') + '</option>';
+      $('pp-osob').innerHTML = opts;
       var open = data.groups.filter(function (g) { return g.open; });
       anyFree = open.some(function (g) { return g.left > 0; });
-      $('pp-loading').hidden = true;
       $('pp-main').hidden = false;
       if (!open.length) {
         $('pp-slots').innerHTML = '';
@@ -141,6 +152,22 @@ import "../styles/m3-form.css";
         ? 'Zapiszemy Cię do pierwszej grupy, w której jest wystarczająco dużo miejsc.'
         : 'Wszystkie miejsca są zajęte. Zapisz się na listę rezerwową - damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.';
     }).catch(unavailable);
+  }
+
+  function showChoice(data) {
+    $('pp-choice').hidden = false;
+    if (!data.events.length) {
+      $('pp-choice-title').textContent = 'Zapisy są obecnie zamknięte';
+      $('pp-choice-list').innerHTML = '<p class="m3-sec-help">Nie prowadzimy teraz zapisów na warsztaty. Zadzwoń: ' + esc(PHONE) + '.</p>';
+      return;
+    }
+    $('pp-choice-title').textContent = W ? 'Zapisy na te warsztaty są zamknięte. Zapisz się na:' : 'Wybierz warsztaty';
+    $('pp-choice-list').innerHTML = data.events.map(function (e) {
+      return '<button type="button" class="m3-choice" data-w="' + esc(e.id) + '"><b>' + esc(e.name) + '</b></button>';
+    }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('#pp-choice-list .m3-choice'), function (b) {
+      b.addEventListener('click', function () { location.href = location.pathname + '?w=' + encodeURIComponent(b.dataset.w); });
+    });
   }
 
   function showError(text, field) {
@@ -159,7 +186,7 @@ import "../styles/m3-form.css";
     if (!f.zgoda.checked) return showError('Zaznacz zapoznanie się z klauzulą informacyjną.', f.zgoda);
 
     var data = {
-      imie: name, email: email, telefon: phone, osob: Number(f.osob.value), uwagi: f.uwagi.value.trim(),
+      event: EVENT.id, imie: name, email: email, telefon: phone, osob: Number(f.osob.value), uwagi: f.uwagi.value.trim(),
       zgoda: true, website: f.website.value
     };
     btn.disabled = true; var label = btn.textContent; btn.textContent = 'Zapisuję…';
@@ -170,7 +197,7 @@ import "../styles/m3-form.css";
         if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); load(); return; }
         var waitlist = res.status === 'waitlist';
         $('pp-main').hidden = true; $('pp-done').hidden = false;
-        $('pp-done-title').textContent = waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na zajęcia';
+        $('pp-done-title').textContent = waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na warsztaty';
         $('pp-done-group').textContent = waitlist
           ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
           : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');
