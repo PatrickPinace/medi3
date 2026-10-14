@@ -39,6 +39,23 @@ export const team: TeamMember[] = [
     photo: "magdalena-golba.jpg",
   },
   {
+    slug: "katarzyna-kulis",
+    name: "Katarzyna Kulis",
+    role: "Położna",
+    specs: ["Porody domowe", "Opieka okołoporodowa"],
+    bio: "Położna pracująca w zespole położnych przyjmujących porody domowe. Wspiera kobiety w czasie ciąży, porodu i połogu.",
+    photo: "katarzyna-kulis.jpg",
+  },
+  {
+    slug: "aleksandra-kludka-galeza",
+    name: "Aleksandra Kłudka-Gałęza",
+    role: "Położna",
+    specs: ["Opieka w ciąży i połogu", "Wizyty domowe", "Pierwsze tygodnie macierzyństwa"],
+    bio: "Położna z doświadczeniem zdobytym na oddziale ginekologiczno-położniczym i noworodkowym, wspierająca kobiety w okresie ciąży, połogu i pierwszych tygodniach macierzyństwa.",
+    bioMore: "W swojej pracy patrzy na kobietę i dziecko holistycznie, z szacunkiem do fizjologii, indywidualnych potrzeb i decyzji każdej mamy. Stale poszerza swoją wiedzę i umiejętności, aby zapewniać opiekę opartą na aktualnej wiedzy, a jednocześnie pełną uważności i empatii. Podczas wizyt domowych szczególnie zależy jej na tworzeniu atmosfery spokoju i bezpieczeństwa. Wierzy, że dobra opieka położnej to nie tylko wiedza i doświadczenie, ale także obecność, wsparcie i budowanie w kobiecie zaufania do siebie oraz własnego ciała.",
+    photo: "aleksandra-kludka-galeza.jpg",
+  },
+  {
     slug: "artur-gladosz",
     name: "Artur Gładosz",
     role: "Fizjoterapeuta · MBA",
@@ -61,5 +78,13 @@ export const team: TeamMember[] = [
     specs: ["Fizjoterapia uroginekologiczna", "Kinesiotaping w ciąży"],
     bio: "Fizjoterapeutka uroginekologiczna - ekspertka w kinesiotapingu w ciąży i terapii dna miednicy.",
     photo: "katarzyna-soja-chydzinska.jpg",
+  },
+  {
+    slug: "julia-rodzinka-trybuszek",
+    name: "Julia Rodzinka-Trybuszek",
+    role: "Fizjoterapeutka",
+    specs: ["Fizjoterapia"],
+    bio: "Fizjoterapeutka w zespole Medi3.",
+    photo: "julia-rodzinka-trybuszek.jpg",
   },
 ];
