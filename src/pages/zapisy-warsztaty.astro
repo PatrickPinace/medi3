@@ -36,6 +36,7 @@ import "../styles/m3-form.css";
           <div id="pp-main" hidden>
             <h2 class="m3-sec-title" id="pp-event-name"></h2>
             <p class="m3-sec-help" id="pp-event-desc"></p>
+            <p class="m3-price" id="pp-price" hidden></p>
             <h3 class="m3-step" style="margin-top:0">Terminy</h3>
             <div class="m3-slots" id="pp-slots"></div>
             <p class="m3-sec-help" id="pp-info"></p>
@@ -50,6 +51,7 @@ import "../styles/m3-form.css";
                 <select name="osob" id="pp-osob"></select>
               </label>
               <p class="m3-hint">Wybierz łącznie tyle osób, ile przyjdzie (np. oboje rodzice).</p>
+              <p class="m3-total" id="pp-total" hidden></p>
               <label class="m3-f"><span>Uwagi (opcjonalnie)</span><input type="text" name="uwagi" maxlength="500" /></label>
 
               <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -66,6 +68,7 @@ import "../styles/m3-form.css";
             <div class="m3-tick">✓</div>
             <h2 id="pp-done-title">Zapisaliśmy Cię</h2>
             <p id="pp-done-group"></p>
+            <p id="pp-done-total" hidden></p>
             <p id="pp-done-mail"></p>
             <p>W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`}>{site.phone}</a></p>
           </div>
@@ -137,6 +140,10 @@ import "../styles/m3-form.css";
       var opts = '';
       for (var n = 1; n <= EVENT.maxOsob; n++) opts += '<option value="' + n + '">' + n + (n === 1 ? ' osoba' : n < 5 ? ' osoby' : ' osób') + '</option>';
       $('pp-osob').innerHTML = opts;
+      var price = EVENT.price;
+      $('pp-price').hidden = !price;
+      if (price) $('pp-price').textContent = 'Cena: ' + price.text + '.';
+      updateTotal();
       var open = data.groups.filter(function (g) { return g.open; });
       anyFree = open.some(function (g) { return g.left > 0; });
       $('pp-main').hidden = false;
@@ -153,6 +160,18 @@ import "../styles/m3-form.css";
         : 'Wszystkie miejsca są zajęte. Zapisz się na listę rezerwową - damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.';
     }).catch(unavailable);
   }
+
+  function totalFor(n) {
+    var p = EVENT && EVENT.price;
+    if (!p) return null;
+    return Math.floor(n / 2) * (p.pair || 2 * p.single) + (n % 2) * (p.single || p.pair);
+  }
+  function updateTotal() {
+    var t = totalFor(Number($('pp-osob').value));
+    $('pp-total').hidden = t === null;
+    if (t !== null) $('pp-total').textContent = 'Do zapłaty: ' + t + ' zł';
+  }
+  $('pp-osob').addEventListener('change', updateTotal);
 
   function showChoice(data) {
     $('pp-choice').hidden = false;
@@ -201,6 +220,8 @@ import "../styles/m3-form.css";
         $('pp-done-group').textContent = waitlist
           ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
           : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');
+        $('pp-done-total').hidden = res.total == null;
+        if (res.total != null) $('pp-done-total').textContent = 'Do zapłaty: ' + res.total + ' zł';
         $('pp-done-mail').textContent = res.mailSent === false
           ? 'Nie udało się wysłać potwierdzenia e-mailem - zapisz termin.'
           : 'Potwierdzenie wysłaliśmy na adres ' + email + '.';

@@ -111,3 +111,7 @@
 .m3form .m3-slot.full,.m3form .m3-slot.planned{opacity:.8}
 .m3form .m3-slot .m3-left{color:var(--ok);font-weight:600}
 .m3form .m3-slot.full .m3-left{color:var(--err)}
+
+/* Ceny */
+.m3form .m3-price{font-weight:600;color:var(--ink);margin:0 0 18px;font-size:15px}
+.m3form .m3-total{font-weight:700;color:var(--pink);margin:0 0 14px;font-size:15px}
