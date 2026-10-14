@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
-import { site } from "../data/site";
-
-const FORM_URL = "https://script.google.com/macros/s/AKfycbzFlfJvacLtcqcIUZxcmSvQO_m7ZKlmNyYPcx5i0cXafACmKoF93OzhU2ks5K2S4VWUPg/exec";
+import { site, deklaracja } from "../data/site";
+import { url } from "../utils/url";
+import "../styles/m3-form.css";
 ---
 
 <BaseLayout
   title="Deklaracja wyboru pielęgniarki i/lub położnej · Medi3"
-  description="Wypełnij deklarację wyboru pielęgniarki i położnej POZ online - gotowy dokument pobierzesz jako PDF i dostaniesz e-mailem, podpiszesz profilem zaufanym i odeślesz do nas."
+  description="Wypełnij online deklarację wyboru pielęgniarki i położnej POZ - gotowy dokument pobierzesz jako PDF i dostaniesz e-mailem, podpiszesz profilem zaufanym i odeślesz do nas."
 >
   <PageHero
     eyebrow="Formalności"
@@ -16,38 +16,180 @@ const FORM_URL = "https://script.google.com/macros/s/AKfycbzFlfJvacLtcqcIUZxcmSv
     subtitle="Wypełnij formularz - gotową deklarację od razu pobierzesz jako PDF i dostaniesz też e-mailem. Potem podpiszesz ją profilem zaufanym i odeślesz do nas."
   />
 
-  <section class="container-x py-10 sm:py-12">
-    <div class="rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 p-6 sm:p-10 text-center">
-      <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-salmon-100 text-salmon-600 dark:bg-white/10 dark:text-navy-200">
-        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6M9 9h2"/></svg>
+  <section class="container-x py-10 sm:py-16">
+    <div
+      id="m3dk"
+      class="m3form"
+      data-api={deklaracja.api}
+      data-phone={site.phone}
+      data-fallback={deklaracja.api}
+    >
+      <div class="m3-wrap">
+
+        <div id="dk-choice" class="m3-card">
+          <h2 class="m3-sec-title">Jaką deklarację chcesz złożyć?</h2>
+          <p class="m3-sec-help">Fundacja Medi3 · ul. Leśna 3/1, 39-300 Mielec</p>
+          <button type="button" class="m3-choice" data-rodzaj="pielegniarka"><b>Pielęgniarka POZ</b><span>dotyczy kobiet i mężczyzn</span></button>
+          <button type="button" class="m3-choice" data-rodzaj="polozna"><b>Położna POZ</b><span>dotyczy kobiet</span></button>
+          <button type="button" class="m3-choice" data-rodzaj="obie"><b>Pielęgniarka i położna POZ</b><span>dotyczy kobiet - otrzymasz dwie deklaracje</span></button>
+          <hr class="m3-sep" />
+          <button type="button" class="m3-btn m3-btn-ghost" id="dk-to-lookup">Mam już podpisaną deklarację - prześlij ją</button>
+        </div>
+
+        <div id="dk-lookup" class="m3-card" hidden>
+          <h2 class="m3-sec-title">Prześlij podpisaną deklarację</h2>
+          <p class="m3-sec-help">Podaj PESEL osoby, której dotyczy deklaracja, i adres e-mail wpisany wcześniej w formularzu.</p>
+          <label class="m3-f"><span>PESEL</span><input type="text" id="dk-lk-pesel" inputmode="numeric" maxlength="11" /></label>
+          <label class="m3-f"><span>E-mail</span><input type="email" id="dk-lk-email" autocomplete="email" /></label>
+          <button type="button" class="m3-btn m3-btn-main" id="dk-lk-btn">Dalej</button>
+          <div id="dk-lk-msg" class="m3-msg err" role="status" aria-live="polite"></div>
+          <p style="text-align:center;margin:14px 0 0"><a href="#" id="dk-lk-back">wróć</a></p>
+        </div>
+
+        <div id="dk-form-view" class="m3-card" hidden>
+          <div class="m3-chosen"><span>Deklaracja: <b id="dk-chosen"></b></span><button type="button" class="m3-link" id="dk-change">zmień</button></div>
+
+          <form id="dk-f" novalidate>
+            <input type="hidden" name="rodzaj" id="dk-rodzaj" />
+
+            <fieldset>
+              <legend id="dk-main-legend">Dane osoby, która wybiera położną</legend>
+              <div class="m3-row">
+                <label class="m3-f"><span>Imię</span><input type="text" name="imie" autocomplete="given-name" required /></label>
+                <label class="m3-f"><span>Nazwisko</span><input type="text" name="nazwisko" autocomplete="family-name" required /></label>
+              </div>
+              <label class="m3-f"><span>PESEL</span><input type="text" name="pesel" inputmode="numeric" maxlength="11" required /></label>
+              <p class="m3-hint" id="dk-birth">Data urodzenia uzupełni się automatycznie na podstawie numeru PESEL.</p>
+              <div class="m3-row addr">
+                <label class="m3-f"><span>Ulica</span><input type="text" name="ulica" autocomplete="address-line1" required /></label>
+                <label class="m3-f"><span>Nr domu / mieszkania</span><input type="text" name="nrDomu" required /></label>
+              </div>
+              <div class="m3-row zip">
+                <label class="m3-f"><span>Kod pocztowy</span><input type="text" name="kod" inputmode="numeric" maxlength="6" placeholder="00-000" autocomplete="postal-code" required /></label>
+                <label class="m3-f"><span>Miejscowość</span><input type="text" name="miejscowosc" autocomplete="address-level2" required /></label>
+              </div>
+              <div class="m3-row">
+                <label class="m3-f"><span>Telefon</span><input type="tel" name="telefon" autocomplete="tel" placeholder="np. 600 123 456" required /></label>
+                <label class="m3-f"><span>E-mail - tu wyślemy deklarację</span><input type="email" name="email" autocomplete="email" required /></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Przedstawiciel ustawowy</legend>
+              <label class="m3-opt"><input type="checkbox" name="przedstawiciel" id="dk-rep" />
+                <span>Składam deklarację w imieniu dziecka lub osoby, którą reprezentuję. Powyżej wpisałam/em dane tej osoby.</span></label>
+              <div id="dk-rep-box" hidden>
+                <p style="margin:6px 0 12px;font-weight:700">Twoje dane - osoby wypełniającej deklarację</p>
+                <div class="m3-row">
+                  <label class="m3-f"><span>Imię</span><input type="text" name="pImie" data-rep /></label>
+                  <label class="m3-f"><span>Nazwisko</span><input type="text" name="pNazwisko" data-rep /></label>
+                </div>
+                <div class="m3-row">
+                  <label class="m3-f"><span>PESEL</span><input type="text" name="pPesel" inputmode="numeric" maxlength="11" data-rep /></label>
+                  <label class="m3-f"><span>Telefon</span><input type="tel" name="pTelefon" placeholder="np. 600 123 456" data-rep /></label>
+                </div>
+                <label class="m3-opt"><input type="checkbox" name="pAdresTenSam" id="dk-same" checked /><span>Mieszkam pod tym samym adresem co dziecko / osoba reprezentowana</span></label>
+                <div id="dk-rep-addr" hidden>
+                  <div class="m3-row addr">
+                    <label class="m3-f"><span>Ulica</span><input type="text" name="pUlica" data-addr /></label>
+                    <label class="m3-f"><span>Nr domu / mieszkania</span><input type="text" name="pNrDomu" data-addr /></label>
+                  </div>
+                  <div class="m3-row zip">
+                    <label class="m3-f"><span>Kod pocztowy</span><input type="text" name="pKod" inputmode="numeric" maxlength="6" placeholder="00-000" data-addr /></label>
+                    <label class="m3-f"><span>Miejscowość</span><input type="text" name="pMiejscowosc" data-addr /></label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend id="dk-choice-legend">Wybór położnej</legend>
+              <label class="m3-f" id="dk-nurse-box"><span>Pielęgniarka podstawowej opieki zdrowotnej</span>
+                <select name="pielegniarka">
+                  {deklaracja.pielegniarki.map((n) => <option>{n}</option>)}
+                </select>
+              </label>
+              <label class="m3-f" id="dk-midwife-box"><span>Położna podstawowej opieki zdrowotnej</span>
+                <select name="polozna">
+                  <option value="">Wybierz z listy</option>
+                  {deklaracja.polozne.map((n) => <option>{n}</option>)}
+                </select>
+              </label>
+
+              <p style="margin:6px 0 10px;font-size:15px">W tym roku kalendarzowym wybieram świadczeniodawcę i <span id="dk-who">położną</span>:</p>
+              <label class="m3-opt"><input type="radio" name="wybor" value="1-2" checked /><span>po raz pierwszy lub drugi</span></label>
+              <label class="m3-opt"><input type="radio" name="wybor" value="3+" /><span>po raz trzeci lub kolejny</span></label>
+
+              <div id="dk-powod-box" class="m3-sub" hidden>
+                <p style="margin:0 0 8px;font-size:14px;color:var(--muted)">Powód kolejnej zmiany:</p>
+                <label class="m3-opt"><input type="radio" name="powod" value="art95" />
+                  <span>zmiana miejsca zamieszkania, zaprzestanie udzielania świadczeń przez dotychczasową placówkę, pielęgniarkę lub położną albo inne przyczyny po stronie placówki</span></label>
+                <label class="m3-f m3-sub" id="dk-przyczyny-box" hidden><span>Jakie przyczyny po stronie placówki? (jeśli dotyczy)</span><input type="text" name="przyczyny" /></label>
+                <label class="m3-opt"><input type="radio" name="powod" value="inna" /><span>inna okoliczność (zmiana może być płatna - 80 zł)</span></label>
+              </div>
+            </fieldset>
+
+            <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <label class="m3-opt"><input type="checkbox" name="zgoda" required />
+              <span>Zapoznałam/em się z <a href={url("/rodo")} target="_blank" rel="noopener">klauzulą informacyjną RODO</a>.</span></label>
+
+            <button type="submit" class="m3-btn m3-btn-main" id="dk-btn">Wyślij i pobierz PDF</button>
+            <div id="dk-msg" class="m3-msg" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div id="dk-done" class="m3-card" hidden>
+          <div class="m3-done" id="dk-sent-box">
+            <div class="m3-tick">✓</div>
+            <h2>Deklaracja gotowa</h2>
+            <p id="dk-sent"><span id="dk-sent-pre"></span><strong id="dk-email"></strong>.</p>
+            <div class="m3-dl-list" id="dk-dl-list"></div>
+          </div>
+          <div class="m3-done" id="dk-upload-intro" hidden>
+            <div class="m3-tick">✍</div>
+            <h2>Prześlij podpisaną deklarację</h2>
+            <p>Podpisz deklarację z wiadomości e-mail profilem zaufanym i dodaj ją poniżej.</p>
+          </div>
+
+          <h3 class="m3-step">Podpisz deklarację profilem zaufanym</h3>
+          <ol class="m3-steps">
+            <li>Wejdź na <a href="https://www.gov.pl/web/gov/podpisz-dokument-elektronicznie-wykorzystaj-podpis-zaufany" target="_blank" rel="noopener">gov.pl - Podpisz dokument elektronicznie</a> i kliknij <em>Start</em>.</li>
+            <li>Wybierz opcję podpisania <em>dokumentu PDF w formacie dedykowanym dla dokumentów PDF</em> i kliknij <em>Dalej</em>, a potem <em>Podpisz lub sprawdź dokument PDF</em>.</li>
+            <li>Kliknij <em>Wybierz dokument z dysku</em>, wskaż pobraną deklarację i kliknij <em>Podpisz</em>.</li>
+            <li>Zaloguj się do profilu zaufanego, np. przez bankowość internetową lub aplikację mObywatel.</li>
+            <li>Przewiń do drugiej strony i kliknij nad napisem „podpis świadczeniobiorcy lub przedstawiciela ustawowego”. Następnie kliknij <em>Podpisz podpisem zaufanym</em> i potwierdź kodem z SMS lub aplikacji.</li>
+            <li>Pobierz podpisany plik PDF.</li>
+          </ol>
+          <p class="m3-hint" style="margin:0">Nie masz profilu zaufanego? Wydrukuj deklarację, podpisz ją odręcznie i przynieś na wizytę.</p>
+
+          <h3 class="m3-step">Odeślij podpisany plik</h3>
+          <div class="m3-drop">
+            <label class="m3-f" style="margin:0"><span>Podpisane deklaracje (PDF, do 10 MB każda)</span>
+              <input type="file" id="dk-signed" accept=".pdf,.xml,application/pdf" multiple /></label>
+          </div>
+          <button type="button" class="m3-btn m3-btn-main" id="dk-up-btn">Prześlij podpisane deklaracje</button>
+          <div id="dk-up-msg" class="m3-msg" role="status" aria-live="polite"></div>
+          <p class="m3-hint" style="margin-top:14px">Możesz też odpowiedzieć na wiadomość z deklaracją i dołączyć podpisany plik jako załącznik.</p>
+        </div>
+
       </div>
-      <p class="mt-5 font-serif text-xl text-salmon-800 dark:text-white/80">Deklaracja wyboru pielęgniarki i położnej POZ</p>
-      <p class="mt-2 max-w-xl mx-auto text-sm leading-relaxed text-salmon-800/70 dark:text-navy-300">
-        Formularz otwiera się w osobnym oknie Google - uzupełnisz w nim dane, od razu pobierzesz gotową
-        deklarację jako PDF i dostaniesz ją też e-mailem. Potem wystarczy podpisać profilem zaufanym i odesłać do nas.
-      </p>
-      <div class="mt-6">
-        <a href={FORM_URL} target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full bg-salmon-600 text-white px-6 py-3 text-sm font-medium hover:bg-salmon-700 transition dark:bg-white/15 dark:hover:bg-white/25">
-          Wypełnij deklarację
-        </a>
-      </div>
-      <p class="mt-3 text-xs text-salmon-800/50 dark:text-navy-400">
-        Link otworzy się w nowej karcie: script.google.com
-      </p>
     </div>
   </section>
 
   <section class="container-x pb-16 sm:pb-20">
-    <div class="rounded-[2rem] cta-gradient px-6 py-10 sm:px-12 sm:py-14 text-white dark:text-white/80 relative overflow-hidden">
+    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-12 sm:px-14 sm:py-20 text-white dark:text-white/80">
       <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
-      <div class="relative max-w-2xl mx-auto md:mx-0 text-center md:text-left">
-        <h2 class="font-serif text-3xl tracking-tight">Masz pytanie o deklarację?</h2>
-        <p class="mt-3 text-white/85 dark:text-white/50">Zadzwoń lub napisz - pomożemy wypełnić formularz.</p>
-        <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
-          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-navy-100 transition dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
-            ☎ {site.phone}
+      <div class="absolute -left-16 -bottom-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
+      <div class="relative max-w-3xl mx-auto text-center">
+        <h2 class="font-serif text-3xl sm:text-5xl tracking-tight leading-tight">Masz pytanie o deklarację?</h2>
+        <p class="mt-4 text-white/85 dark:text-white/50 text-base sm:text-lg">Zadzwoń lub napisz - pomożemy wypełnić formularz.</p>
+        <div class="mt-7 sm:mt-8 flex flex-wrap justify-center gap-3">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition w-full sm:w-auto dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+            {site.phone}
           </a>
-          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/60 px-6 py-3 text-sm font-medium hover:bg-white/10 transition dark:border-white/30">
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition w-full sm:w-auto dark:border-white/20 dark:text-white/60">
             {site.email}
           </a>
         </div>
@@ -55,3 +197,228 @@ const FORM_URL = "https://script.google.com/macros/s/AKfycbzFlfJvacLtcqcIUZxcmSv
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3dk');
+  var API = root.dataset.api, PHONE = root.dataset.phone, FALLBACK = root.dataset.fallback;
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('dk-f'), btn = $('dk-btn'), msg = $('dk-msg');
+  var submissionId = '', files = [];
+  var qid = new URLSearchParams(location.search).get('id');
+  if (qid && /^[0-9a-f-]{36}$/.test(qid)) submissionId = qid;
+
+  var VIEWS = ['dk-choice', 'dk-lookup', 'dk-form-view', 'dk-done'];
+  function show(id) {
+    VIEWS.forEach(function (v) { $(v).hidden = v !== id; });
+    root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function call(action, data) {
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: action, data: data })
+    }).then(function (r) { return r.json(); });
+  }
+
+  function netError(el) {
+    el.textContent = 'Nie udało się połączyć z serwerem. Spróbuj ponownie lub zadzwoń: ' + PHONE + '. ';
+    var a = document.createElement('a');
+    a.href = FALLBACK; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Otwórz formularz w nowej karcie';
+    el.appendChild(a);
+  }
+
+  function download(file) {
+    var a = document.createElement('a');
+    a.href = file.url; a.download = file.name;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+
+  var RODZAJE = {
+    pielegniarka: { label: 'pielęgniarka POZ', nurse: true, midwife: false, who: 'pielęgniarkę' },
+    polozna: { label: 'położna POZ', nurse: false, midwife: true, who: 'położną' },
+    obie: { label: 'pielęgniarka i położna POZ', nurse: true, midwife: true, who: 'pielęgniarkę i położną' }
+  };
+  function choose(rodzaj) {
+    var r = RODZAJE[rodzaj];
+    $('dk-rodzaj').value = rodzaj;
+    $('dk-chosen').textContent = r.label;
+    $('dk-who').textContent = r.who;
+    $('dk-choice-legend').textContent = r.nurse && r.midwife ? 'Wybór pielęgniarki i położnej' : r.nurse ? 'Wybór pielęgniarki' : 'Wybór położnej';
+    $('dk-nurse-box').hidden = !r.nurse; f.pielegniarka.disabled = !r.nurse; f.pielegniarka.required = r.nurse;
+    $('dk-midwife-box').hidden = !r.midwife; f.polozna.disabled = !r.midwife; f.polozna.required = r.midwife;
+    show('dk-form-view');
+  }
+  document.querySelectorAll('.m3-choice').forEach(function (b) { b.addEventListener('click', function () { choose(b.dataset.rodzaj); }); });
+  $('dk-change').addEventListener('click', function () { show('dk-choice'); });
+
+  $('dk-to-lookup').addEventListener('click', function () { show('dk-lookup'); });
+  $('dk-lk-back').addEventListener('click', function (e) { e.preventDefault(); show('dk-choice'); });
+  $('dk-lk-pesel').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 11); });
+  $('dk-lk-btn').addEventListener('click', function () {
+    var b = $('dk-lk-btn'), m = $('dk-lk-msg');
+    m.textContent = '';
+    b.disabled = true; b.textContent = 'Szukam deklaracji…';
+    call('find', { pesel: $('dk-lk-pesel').value, email: $('dk-lk-email').value })
+      .then(function (res) {
+        b.disabled = false; b.textContent = 'Dalej';
+        if (res && res.ok) { submissionId = res.id; showDone(true); }
+        else m.textContent = (res && res.error) || 'Wystąpił błąd.';
+      })
+      .catch(function () { b.disabled = false; b.textContent = 'Dalej'; netError(m); });
+  });
+
+  function showDone(uploadOnly) {
+    $('dk-sent-box').hidden = uploadOnly; $('dk-upload-intro').hidden = !uploadOnly;
+    show('dk-done');
+  }
+  if (submissionId) showDone(true);
+
+  $('dk-up-btn').addEventListener('click', function () {
+    var up = $('dk-up-msg'), list = Array.prototype.slice.call($('dk-signed').files), b = $('dk-up-btn');
+    var err = function (t) { up.className = 'm3-msg err'; up.textContent = t; };
+    up.className = 'm3-msg'; up.textContent = '';
+    if (!list.length) return err('Wybierz podpisany plik.');
+    if (list.some(function (x) { return x.size > 10 * 1024 * 1024; })) return err('Każdy plik może mieć najwyżej 10 MB.');
+    var read = function (file) {
+      return new Promise(function (ok, no) { var r = new FileReader(); r.onload = function () { ok(r.result.split(',')[1]); }; r.onerror = no; r.readAsDataURL(file); });
+    };
+    var send = function (file, base64) {
+      return call('upload', { id: submissionId, name: file.name, base64: base64 })
+        .then(function (res) { return res || { ok: false }; })
+        .catch(function () { return { ok: false, error: 'Nie udało się przesłać pliku. Odpowiedz na e-mail z podpisanym plikiem w załączniku.' }; });
+    };
+    b.disabled = true;
+    var chain = Promise.resolve(true);
+    list.forEach(function (file, i) {
+      chain = chain.then(function (okSoFar) {
+        if (!okSoFar) return false;
+        b.textContent = list.length > 1 ? 'Przesyłam ' + (i + 1) + ' z ' + list.length + '…' : 'Przesyłam…';
+        return read(file).then(function (base64) { return send(file, base64); }).then(function (res) {
+          if (!res.ok) { b.disabled = false; b.textContent = 'Prześlij podpisane deklaracje'; err(file.name + ': ' + (res.error || 'Wystąpił błąd.')); return false; }
+          return true;
+        });
+      });
+    });
+    chain.then(function (allOk) {
+      if (!allOk) return;
+      up.className = 'm3-msg m3-ok';
+      up.textContent = list.length > 1 ? 'Dziękujemy! Podpisane deklaracje dotarły do Medi3.' : 'Dziękujemy! Podpisana deklaracja dotarła do Medi3.';
+      b.hidden = true;
+    });
+  });
+
+  var zipFmt = function (e) {
+    var v = e.target.value.replace(/\D/g, '').slice(0, 5);
+    e.target.value = v.length > 2 ? v.slice(0, 2) + '-' + v.slice(2) : v;
+  };
+  f.kod.addEventListener('input', zipFmt);
+  f.pKod.addEventListener('input', zipFmt);
+
+  function peselOk(p) {
+    if (!/^\d{11}$/.test(p)) return false;
+    var w = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3], s = 0;
+    for (var i = 0; i < 10; i++) s += w[i] * +p[i];
+    return (10 - s % 10) % 10 === +p[10];
+  }
+  function birth(p) {
+    var y = +p.slice(0, 2), m = +p.slice(2, 4), d = +p.slice(4, 6);
+    if (m > 80) { y += 1800; m -= 80; } else if (m > 60) { y += 2200; m -= 60; }
+    else if (m > 40) { y += 2100; m -= 40; } else if (m > 20) { y += 2000; m -= 20; } else y += 1900;
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    return pad(d) + '-' + pad(m) + '-' + y;
+  }
+  f.pPesel.addEventListener('input', function (e) { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 11); });
+  f.pesel.addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 11);
+    $('dk-birth').textContent = peselOk(e.target.value)
+      ? 'Data urodzenia: ' + birth(e.target.value)
+      : 'Data urodzenia uzupełni się automatycznie na podstawie numeru PESEL.';
+  });
+
+  var checkedVal = function (name) { var el = f.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ''; };
+  function sync() {
+    var rep = $('dk-rep').checked;
+    $('dk-rep-box').hidden = !rep;
+    $('dk-rep-addr').hidden = $('dk-same').checked;
+    $('dk-main-legend').textContent = rep ? 'Dane dziecka lub osoby reprezentowanej' : 'Dane osoby, która wybiera położną';
+    var third = checkedVal('wybor') === '3+';
+    $('dk-powod-box').hidden = !third;
+    $('dk-przyczyny-box').hidden = !(third && checkedVal('powod') === 'art95');
+  }
+  f.querySelectorAll('#dk-rep, #dk-same, input[name="wybor"], input[name="powod"]')
+    .forEach(function (el) { el.addEventListener('change', sync); });
+  sync();
+
+  function showError(text, field) {
+    msg.className = 'm3-msg err'; msg.textContent = text;
+    if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+  }
+  f.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+
+  function firstEmpty(selector) {
+    return Array.prototype.slice.call(f.querySelectorAll(selector)).find(function (el) { return !el.value.trim(); });
+  }
+  function reset() { btn.disabled = false; btn.textContent = 'Wyślij i pobierz PDF'; }
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'm3-msg';
+
+    var el = firstEmpty('input[required]:not([type=checkbox]), select[required]');
+    if (el) return showError(el.tagName === 'SELECT' ? 'Wybierz osobę z listy.' : 'Uzupełnij wszystkie wymagane pola.', el);
+    if (!peselOk(f.pesel.value)) return showError('Numer PESEL jest niepoprawny.', f.pesel);
+    if (RODZAJE[f.rodzaj.value].midwife && +f.pesel.value[9] % 2 !== 0)
+      return showError('Deklarację do położnej POZ składają wyłącznie kobiety. Wróć i wybierz deklarację do pielęgniarki.', f.pesel);
+    if (!/^\d{2}-\d{3}$/.test(f.kod.value)) return showError('Kod pocztowy wpisz w formacie 00-000.', f.kod);
+    if (!/^(\+48)?\d{9}$/.test(f.telefon.value.replace(/[\s-]/g, ''))) return showError('Podaj 9-cyfrowy numer telefonu.', f.telefon);
+    if ($('dk-rep').checked) {
+      el = firstEmpty('[data-rep]') || (!$('dk-same').checked && firstEmpty('[data-addr]'));
+      if (el) return showError('Uzupełnij dane przedstawiciela ustawowego.', el);
+      if (!peselOk(f.pPesel.value)) return showError('Numer PESEL przedstawiciela jest niepoprawny.', f.pPesel);
+      if (!/^(\+48)?\d{9}$/.test(f.pTelefon.value.replace(/[\s-]/g, ''))) return showError('Podaj 9-cyfrowy numer telefonu przedstawiciela.', f.pTelefon);
+      if (f.pPesel.value === f.pesel.value) return showError('PESEL przedstawiciela musi być inny niż PESEL dziecka / osoby reprezentowanej.', f.pPesel);
+    }
+    if (checkedVal('wybor') === '3+' && !checkedVal('powod')) return showError('Wskaż powód kolejnej zmiany.');
+    if (!f.zgoda.checked) return showError('Zaznacz zapoznanie się z klauzulą informacyjną.', f.zgoda);
+
+    var data = {};
+    new FormData(f).forEach(function (v, k) { data[k] = v; });
+    data.zgoda = f.zgoda.checked;
+    data.przedstawiciel = $('dk-rep').checked;
+    data.pAdresTenSam = $('dk-same').checked;
+
+    btn.disabled = true; btn.textContent = 'Generuję PDF…';
+    call('submit', data)
+      .then(function (res) {
+        if (!(res && res.ok)) { showError(res && res.error ? res.error : 'Wystąpił błąd.'); reset(); return; }
+        submissionId = res.id;
+        files = res.pdfs.map(function (p) {
+          var bin = atob(p.base64), bytes = new Uint8Array(bin.length);
+          for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          var label = /pielegniarka/.test(p.fileName) ? 'deklarację do pielęgniarki' : 'deklarację do położnej';
+          return { url: URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' })), name: p.fileName, label: label };
+        });
+        var many = files.length > 1;
+        $('dk-dl-list').innerHTML = '';
+        files.forEach(function (file) {
+          var a = document.createElement('a');
+          a.className = 'm3-btn2'; a.href = '#'; a.textContent = 'Pobierz ' + file.label;
+          a.addEventListener('click', function (ev) { ev.preventDefault(); download(file); });
+          $('dk-dl-list').appendChild(a);
+        });
+        $('dk-email').textContent = data.email;
+        $('dk-sent-pre').textContent = many
+          ? 'Przygotowaliśmy dwie deklaracje. Pobierz każdą przyciskiem poniżej - kopie wysłaliśmy też na '
+          : 'Deklaracja pobrała się na Twoje urządzenie, a kopię wysłaliśmy na ';
+        if (!res.mailSent) {
+          $('dk-sent').textContent = 'Nie udało się wysłać kopii e-mailem - pobierz i zachowaj ' + (many ? 'obie deklaracje.' : 'deklarację.');
+        }
+        showDone(false);
+        download(files[0]);
+      })
+      .catch(function () { netError(msg); msg.className = 'm3-msg err'; reset(); });
+  });
+})();
+</script>

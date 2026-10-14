@@ -99,6 +99,14 @@ export const forms = {
   profilaktyka: "https://forms.gle/tHsmDEzfoqeXDAtC6",
 } as const;
 
+// Formularz /deklaracja-wyboru-poloznej: backend Apps Script (doPost -> submitForm / findSubmission / uploadSigned).
+// Listy osób muszą się zgadzać z tymi, które skrypt przyjmuje przy generowaniu deklaracji.
+export const deklaracja = {
+  api: "https://script.google.com/macros/s/AKfycbzFlfJvacLtcqcIUZxcmSvQO_m7ZKlmNyYPcx5i0cXafACmKoF93OzhU2ks5K2S4VWUPg/exec",
+  pielegniarki: ["Klaudia Pasikiewicz"],
+  polozne: ["Anna Plaskota-Gładosz", "Anna Buczek", "Katarzyna Kulis", "Aleksandra Kłudka-Gałęza"],
+} as const;
+
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
 

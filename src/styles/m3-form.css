@@ -1,0 +1,102 @@
+/* Wspólne style formularzy z backendem Apps Script (/zapisy-ciaza, /deklaracja-wyboru-poloznej). Root: .m3form */
+.m3form{--pink:var(--color-salmon-600);--pink-soft:var(--color-salmon-50);--pink-line:var(--color-salmon-200);--btn:var(--color-salmon-600);--btn-hover:var(--color-salmon-700);
+  --ink:#3a1f30;--text:#4a2f3f;--muted:rgba(58,31,48,.65);--line:var(--color-salmon-100);--track:var(--color-salmon-100);--err:#c0262d;--err-line:#f0a3a7;--ok:#047857;
+  --card:#fff;--field:#fff;--field-line:var(--color-salmon-300);--card-border:var(--color-salmon-100);
+  color:var(--ink);scroll-margin-top:96px}
+.dark .m3form{--pink:var(--color-salmon-300);--pink-soft:rgba(255,255,255,.07);--pink-line:rgba(255,255,255,.28);--btn:var(--color-salmon-600);--btn-hover:var(--color-salmon-500);
+  --ink:#e8eef8;--text:var(--color-navy-100);--muted:var(--color-navy-300);--line:rgba(255,255,255,.14);--track:rgba(255,255,255,.12);--err:#ff9a9f;--err-line:#b3545a;--ok:#6ee7b7;
+  --card:rgba(255,255,255,.05);--field:rgba(255,255,255,.06);--field-line:rgba(255,255,255,.3);--card-border:rgba(255,255,255,.1)}
+.m3form *{box-sizing:border-box}
+.m3form [hidden]{display:none!important}
+.m3form .m3-wrap{max-width:560px;margin:0 auto}
+.m3form .m3-card{background:var(--card);border:1px solid var(--card-border);border-radius:1.75rem;box-shadow:0 10px 30px rgba(120,40,80,.07);padding:28px 30px}
+.dark .m3form .m3-card{box-shadow:none;backdrop-filter:blur(4px)}
+@media(max-width:520px){.m3form .m3-card{padding:22px 18px}}
+.m3form .m3-loading{text-align:center;color:var(--muted);margin:20px 0}
+.m3form a{color:var(--pink);text-underline-offset:3px}
+.m3form .m3-progress{height:4px;background:var(--track);border-radius:4px;margin:-6px 0 22px;overflow:hidden}
+.m3form .m3-progress i{display:block;height:100%;background:var(--btn);transition:width .3s}
+.m3form .m3-sec-title{font-family:var(--font-serif);font-size:24px;font-weight:600;margin:0 0 6px;line-height:1.2}
+.m3form .m3-sec-help{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 18px}
+.m3form .m3-info p{font-size:14px;line-height:1.6;margin:0 0 10px;color:var(--text)}
+.m3form .m3-alert{border:1px solid var(--pink-line);background:var(--pink-soft);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;margin:4px 0 14px}
+.m3form .m3-alert a{font-weight:700}
+.m3form details{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px;border-top:1px solid var(--line);padding-top:12px}
+.m3form summary{cursor:pointer;color:var(--ink);font-weight:600}
+.m3form .m3-q{margin:0 0 22px}
+.m3form .m3-q-title{font-weight:600;font-size:16px;margin:0 0 4px;line-height:1.4}
+.m3form .m3-req{color:var(--pink)}
+.m3form .m3-q-help{font-size:13.5px;color:var(--muted);margin:0 0 10px;line-height:1.55}
+.m3form .m3-q-title + *{margin-top:10px}
+.m3form input[type=text],.m3form input[type=email],.m3form input[type=tel],.m3form input[type=date],.m3form input[type=time],
+.m3form input[type=datetime-local],.m3form textarea,.m3form select{
+  width:100%;font:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--field-line);border-radius:12px;background:var(--field);color:var(--ink);outline:none;box-shadow:none;height:auto;margin:0}
+.m3form textarea{min-height:96px;resize:vertical}
+.m3form input:focus,.m3form textarea:focus,.m3form select:focus{border-color:var(--pink);box-shadow:0 0 0 3px color-mix(in srgb,var(--pink) 18%,transparent)}
+.m3form select option{color:#3a1f30;background:#fff}
+.m3form .m3-opts{display:flex;flex-direction:column;gap:10px}
+.m3form .m3-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--field-line);border-radius:12px;padding:14px 16px;cursor:pointer;
+  font-size:15px;line-height:1.4;margin:0 0 10px;font-weight:400;transition:border-color .15s,background .15s}
+.m3form .m3-opts .m3-opt{margin:0}
+.m3form .m3-opt:hover{border-color:var(--pink-line)}
+.m3form .m3-opt input{accent-color:var(--btn);width:18px;height:18px;margin:0;flex:none}
+.m3form .m3-opt.on,.m3form .m3-opt:has(input:checked){border-color:var(--pink);background:var(--pink-soft)}
+.m3form .m3-opt .m3-other{flex:1;padding:8px 10px;font-size:14px}
+.m3form .m3-scale{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.m3form .m3-scale label{display:flex;flex-direction:column;align-items:center;font-size:13px;gap:4px;cursor:pointer}
+.m3form .m3-lab{font-size:12.5px;color:var(--muted)}
+.m3form .m3-grid{overflow-x:auto}
+.m3form .m3-grid table{border-collapse:collapse;width:100%;font-size:14px;margin:0}
+.m3form .m3-grid th,.m3form .m3-grid td{padding:8px 6px;text-align:center;border:0;border-bottom:1px solid var(--line)}
+.m3form .m3-grid th:first-child,.m3form .m3-grid td:first-child{text-align:left}
+.m3form .m3-q img{max-width:100%;height:auto;border-radius:12px}
+.m3form .m3-err-msg{color:var(--err);font-size:13px;margin-top:6px;display:none}
+.m3form .m3-q.has-err .m3-err-msg{display:block}
+.m3form .m3-q.has-err input,.m3form .m3-q.has-err textarea,.m3form .m3-q.has-err select,.m3form .m3-q.has-err .m3-opt{border-color:var(--err-line)}
+.m3form .m3-nav{display:flex;gap:10px;margin-top:8px;padding-top:18px;border-top:1px solid var(--line)}
+.m3form .m3-btn{flex:1;font:inherit;font-weight:600;font-size:15px;padding:13px 16px;border-radius:9999px;cursor:pointer;transition:background .15s;text-transform:none;letter-spacing:0;line-height:1.3;width:100%}
+.m3form .m3-nav .m3-btn{width:auto}
+.m3form .m3-btn-main{background:var(--btn);color:#fff;border:1px solid var(--btn)}
+.m3form .m3-btn-main:hover{background:var(--btn-hover);border-color:var(--btn-hover)}
+.m3form .m3-btn-ghost{background:transparent;color:var(--pink);border:1px solid var(--pink-line)}
+.m3form .m3-btn-ghost:hover{background:var(--pink-soft)}
+.m3form .m3-btn[disabled]{opacity:.6;cursor:wait}
+.m3form .m3-btn:focus-visible,.m3form .m3-opt:focus-within{outline:3px solid color-mix(in srgb,var(--pink) 35%,transparent);outline-offset:2px}
+.m3form .m3-form-err{display:none;color:var(--err);font-size:14px;margin-top:12px;white-space:pre-line}
+.m3form .m3-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.m3form .m3-done{text-align:center;padding:12px 0}
+.m3form .m3-tick{width:64px;height:64px;border-radius:50%;background:var(--pink-soft);color:var(--pink);font-size:34px;line-height:64px;margin:0 auto 14px}
+.m3form .m3-done h2{margin:0 0 8px;font-size:26px;color:var(--ink)}
+.m3form .m3-done p{color:var(--muted);line-height:1.6;font-size:14.5px;margin:0 0 6px}
+@media (prefers-reduced-motion:reduce){.m3form *{transition:none!important}}
+
+/* Kreator deklaracji: wybór rodzaju, pola w rzędach, instrukcja podpisu, wysyłka plików */
+.m3form fieldset{border:0;padding:0;margin:0 0 22px;min-width:0}
+.m3form legend{font-family:var(--font-serif);font-weight:600;font-size:20px;color:var(--ink);margin-bottom:12px;padding:0}
+.m3form .m3-row{display:grid;gap:0 12px;grid-template-columns:1fr 1fr}
+.m3form .m3-row.addr{grid-template-columns:2fr 1fr}
+.m3form .m3-row.zip{grid-template-columns:130px 1fr}
+@media(max-width:480px){.m3form .m3-row,.m3form .m3-row.addr,.m3form .m3-row.zip{grid-template-columns:1fr}}
+.m3form label.m3-f{display:block;margin-bottom:14px}
+.m3form label.m3-f > span{display:block;margin-bottom:4px;font-size:14px;font-weight:600;color:var(--text)}
+.m3form .m3-hint{font-size:13px;color:var(--muted);margin:-8px 0 14px;line-height:1.5}
+.m3form .m3-sub{margin:4px 0 14px 12px}
+.m3form [aria-invalid=true]{border-color:var(--err-line)!important}
+.m3form .m3-msg{margin-top:14px;min-height:1.5em;font-size:14px;line-height:1.5}
+.m3form .m3-msg.err{color:var(--err)}
+.m3form .m3-ok{color:var(--ok);font-weight:600}
+.m3form .m3-choice{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px;cursor:pointer;font:inherit;transition:border-color .15s,background .15s}
+.m3form .m3-choice:hover{border-color:var(--pink);background:var(--pink-soft)}
+.m3form .m3-choice b{display:block;font-size:16px;margin-bottom:2px}
+.m3form .m3-choice span{color:var(--muted);font-size:14px}
+.m3form .m3-chosen{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--pink-soft);border-radius:12px;padding:10px 14px;margin-bottom:20px;font-size:14px}
+.m3form .m3-link{background:none;border:0;padding:0;color:var(--pink);text-decoration:underline;text-underline-offset:3px;font:inherit;font-size:14px;cursor:pointer}
+.m3form .m3-btn2{display:inline-block;padding:10px 20px;background:transparent;color:var(--pink);border:1px solid var(--pink-line);border-radius:9999px;font-weight:600;text-decoration:none;font-size:14px;cursor:pointer;font-family:inherit}
+.m3form .m3-btn2:hover{background:var(--pink-soft)}
+.m3form .m3-dl-list{display:flex;flex-direction:column;gap:8px;align-items:center;margin-bottom:8px}
+.m3form h3.m3-step{font-family:var(--font-serif);font-size:21px;font-weight:600;margin:28px 0 10px;color:var(--ink)}
+.m3form ol.m3-steps{padding-left:1.3em;margin:0 0 12px;color:var(--text);font-size:14px;line-height:1.6}
+.m3form ol.m3-steps li{margin-bottom:8px}
+.m3form .m3-drop{border:1.5px dashed var(--pink-line);border-radius:12px;padding:16px;background:var(--pink-soft);margin-bottom:12px}
+.m3form .m3-drop input[type=file]{width:100%;font:inherit;font-size:14px;color:var(--ink)}
+.m3form .m3-sep{border:0;border-top:1px solid var(--line);margin:18px 0}

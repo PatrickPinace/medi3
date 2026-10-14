@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { site, forms, zapisyCiazaApi } from "../data/site";
 import { url } from "../utils/url";
+import "../styles/m3-form.css";
 ---
 
 <BaseLayout
@@ -18,12 +19,14 @@ import { url } from "../utils/url";
   <section class="container-x py-10 sm:py-16">
     <div
       id="m3sr"
+      class="m3form"
       data-api={zapisyCiazaApi}
       data-phone={site.phone}
       data-tel={site.phoneTel}
       data-rodo={url("/rodo")}
       data-profilaktyka={forms.profilaktyka}
-      data-fallback={forms.ciaza}    >
+      data-fallback={forms.ciaza}
+    >
       <div class="m3-wrap">
         <div class="m3-card" id="m3-card"><p class="m3-loading">Wczytywanie formularza… to może potrwać kilka sekund.</p></div>
       </div>
@@ -50,76 +53,6 @@ import { url } from "../utils/url";
     </div>
   </section>
 </BaseLayout>
-
-<style is:global>
-#m3sr{--pink:var(--color-salmon-600);--pink-soft:var(--color-salmon-50);--pink-line:var(--color-salmon-200);--btn:var(--color-salmon-600);--btn-hover:var(--color-salmon-700);
-  --ink:#3a1f30;--text:#4a2f3f;--muted:rgba(58,31,48,.65);--line:var(--color-salmon-100);--track:var(--color-salmon-100);--err:#c0262d;--err-line:#f0a3a7;
-  --card:#fff;--field:#fff;--card-border:var(--color-salmon-100);
-  color:var(--ink);scroll-margin-top:96px}
-.dark #m3sr{--pink:var(--color-salmon-300);--pink-soft:rgba(255,255,255,.07);--pink-line:rgba(255,255,255,.28);--btn:var(--color-salmon-600);--btn-hover:var(--color-salmon-500);
-  --ink:#e8eef8;--text:var(--color-navy-100);--muted:var(--color-navy-300);--line:rgba(255,255,255,.14);--track:rgba(255,255,255,.12);--err:#ff9a9f;--err-line:#b3545a;
-  --card:rgba(255,255,255,.05);--field:rgba(255,255,255,.06);--card-border:rgba(255,255,255,.1)}
-#m3sr *{box-sizing:border-box}
-#m3sr .m3-wrap{max-width:560px;margin:0 auto}
-#m3sr .m3-card{background:var(--card);border:1px solid var(--card-border);border-radius:1.75rem;box-shadow:0 10px 30px rgba(120,40,80,.07);padding:28px 30px}
-.dark #m3sr .m3-card{box-shadow:none;backdrop-filter:blur(4px)}
-@media(max-width:520px){#m3sr .m3-card{padding:22px 18px}}
-#m3sr .m3-loading{text-align:center;color:var(--muted);margin:20px 0}
-#m3sr a{color:var(--pink);text-underline-offset:3px}
-#m3sr .m3-progress{height:4px;background:var(--track);border-radius:4px;margin:-6px 0 22px;overflow:hidden}
-#m3sr .m3-progress i{display:block;height:100%;background:var(--btn);transition:width .3s}
-#m3sr .m3-sec-title{font-family:var(--font-serif);font-size:24px;font-weight:600;margin:0 0 6px;line-height:1.2}
-#m3sr .m3-sec-help{font-size:14px;color:var(--muted);line-height:1.6;margin:0 0 18px}
-#m3sr .m3-info p{font-size:14px;line-height:1.6;margin:0 0 10px;color:var(--text)}
-#m3sr .m3-alert{border:1px solid var(--pink-line);background:var(--pink-soft);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;margin:4px 0 14px}
-#m3sr .m3-alert a{font-weight:700}
-#m3sr details{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:22px;border-top:1px solid var(--line);padding-top:12px}
-#m3sr summary{cursor:pointer;color:var(--ink);font-weight:600}
-#m3sr .m3-q{margin:0 0 22px}
-#m3sr .m3-q-title{font-weight:600;font-size:16px;margin:0 0 4px;line-height:1.4}
-#m3sr .m3-req{color:var(--pink)}
-#m3sr .m3-q-help{font-size:13.5px;color:var(--muted);margin:0 0 10px;line-height:1.55}
-#m3sr .m3-q-title + *{margin-top:10px}
-#m3sr input[type=text],#m3sr input[type=email],#m3sr input[type=tel],#m3sr input[type=date],#m3sr input[type=time],
-#m3sr input[type=datetime-local],#m3sr textarea,#m3sr select{
-  width:100%;font:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--field);color:var(--ink);outline:none;box-shadow:none;height:auto;margin:0}
-#m3sr textarea{min-height:96px;resize:vertical}
-#m3sr input:focus,#m3sr textarea:focus,#m3sr select:focus{border-color:var(--pink);box-shadow:0 0 0 3px color-mix(in srgb,var(--pink) 18%,transparent)}
-#m3sr select option{color:#3a1f30;background:#fff}
-#m3sr .m3-opts{display:flex;flex-direction:column;gap:10px}
-#m3sr .m3-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;
-  font-size:15px;line-height:1.4;margin:0;font-weight:400;transition:border-color .15s,background .15s}
-#m3sr .m3-opt:hover{border-color:var(--pink-line)}
-#m3sr .m3-opt input{accent-color:var(--btn);width:18px;height:18px;margin:0;flex:none}
-#m3sr .m3-opt.on{border-color:var(--pink);background:var(--pink-soft)}
-#m3sr .m3-opt .m3-other{flex:1;padding:8px 10px;font-size:14px}
-#m3sr .m3-scale{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-#m3sr .m3-scale label{display:flex;flex-direction:column;align-items:center;font-size:13px;gap:4px;cursor:pointer}
-#m3sr .m3-lab{font-size:12.5px;color:var(--muted)}
-#m3sr .m3-grid{overflow-x:auto}
-#m3sr .m3-grid table{border-collapse:collapse;width:100%;font-size:14px;margin:0}
-#m3sr .m3-grid th,#m3sr .m3-grid td{padding:8px 6px;text-align:center;border:0;border-bottom:1px solid var(--line)}
-#m3sr .m3-grid th:first-child,#m3sr .m3-grid td:first-child{text-align:left}
-#m3sr .m3-q img{max-width:100%;height:auto;border-radius:12px}
-#m3sr .m3-err-msg{color:var(--err);font-size:13px;margin-top:6px;display:none}
-#m3sr .m3-q.has-err .m3-err-msg{display:block}
-#m3sr .m3-q.has-err input,#m3sr .m3-q.has-err textarea,#m3sr .m3-q.has-err select,#m3sr .m3-q.has-err .m3-opt{border-color:var(--err-line)}
-#m3sr .m3-nav{display:flex;gap:10px;margin-top:8px;padding-top:18px;border-top:1px solid var(--line)}
-#m3sr .m3-btn{flex:1;font:inherit;font-weight:600;font-size:15px;padding:13px 16px;border-radius:9999px;cursor:pointer;transition:background .15s;text-transform:none;letter-spacing:0;line-height:1.3}
-#m3sr .m3-btn-main{background:var(--btn);color:#fff;border:1px solid var(--btn)}
-#m3sr .m3-btn-main:hover{background:var(--btn-hover);border-color:var(--btn-hover)}
-#m3sr .m3-btn-ghost{background:transparent;color:var(--pink);border:1px solid var(--pink-line)}
-#m3sr .m3-btn-ghost:hover{background:var(--pink-soft)}
-#m3sr .m3-btn[disabled]{opacity:.6;cursor:wait}
-#m3sr .m3-btn:focus-visible,#m3sr .m3-opt:focus-within{outline:3px solid color-mix(in srgb,var(--pink) 35%,transparent);outline-offset:2px}
-#m3sr .m3-form-err{display:none;color:var(--err);font-size:14px;margin-top:12px;white-space:pre-line}
-#m3sr .m3-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-#m3sr .m3-done{text-align:center;padding:12px 0}
-#m3sr .m3-tick{width:64px;height:64px;border-radius:50%;background:var(--pink-soft);color:var(--pink);font-size:34px;line-height:64px;margin:0 auto 14px}
-#m3sr .m3-done h2{margin:0 0 8px;font-size:26px;color:var(--ink)}
-#m3sr .m3-done p{color:var(--muted);line-height:1.6;font-size:14.5px;margin:0 0 6px}
-@media (prefers-reduced-motion:reduce){#m3sr *{transition:none!important}}
-</style>
 
 <script is:inline>
 (function () {
