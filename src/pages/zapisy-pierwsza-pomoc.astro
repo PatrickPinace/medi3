@@ -1,0 +1,190 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site, zapisyPierwszaPomocApi } from "../data/site";
+import { url } from "../utils/url";
+import "../styles/m3-form.css";
+---
+
+<BaseLayout
+  title="Zapisy na zajęcia z pierwszej pomocy · Medi3"
+  description="Pierwsza pomoc noworodka i niemowlęcia - praktyczne zajęcia dla rodziców i opiekunów w Mielcu. Zapisz się online, liczba miejsc w grupie jest ograniczona."
+>
+  <PageHero
+    eyebrow="Szkolenia"
+    title="Pierwsza pomoc noworodka i niemowlęcia"
+    subtitle="Praktyczne zajęcia dla rodziców i opiekunów. Liczba miejsc w grupie jest ograniczona - zapisz się online."
+  />
+
+  <section class="container-x py-10 sm:py-16">
+    <div
+      id="m3pp"
+      class="m3form"
+      data-api={zapisyPierwszaPomocApi}
+      data-phone={site.phone}
+      data-tel={site.phoneTel}
+    >
+      <div class="m3-wrap">
+        <div class="m3-card" id="pp-card">
+          <p class="m3-loading" id="pp-loading">Wczytywanie terminów…</p>
+
+          <div id="pp-main" hidden>
+            <h2 class="m3-sec-title">Terminy</h2>
+            <div class="m3-slots" id="pp-slots"></div>
+            <p class="m3-sec-help" id="pp-info"></p>
+
+            <form id="pp-f" novalidate>
+              <label class="m3-f"><span>Imię i nazwisko</span><input type="text" name="imie" autocomplete="name" required /></label>
+              <div class="m3-row">
+                <label class="m3-f"><span>E-mail</span><input type="email" name="email" autocomplete="email" required /></label>
+                <label class="m3-f"><span>Telefon</span><input type="tel" name="telefon" autocomplete="tel" placeholder="np. 600 123 456" required /></label>
+              </div>
+              <label class="m3-f"><span>Liczba osób</span>
+                <select name="osob">
+                  <option value="1">1 osoba</option>
+                  <option value="2">2 osoby</option>
+                  <option value="3">3 osoby</option>
+                  <option value="4">4 osoby</option>
+                </select>
+              </label>
+              <p class="m3-hint">Wpisz łącznie tyle osób, ile przyjdzie na zajęcia (np. oboje rodzice).</p>
+              <label class="m3-f"><span>Uwagi (opcjonalnie)</span><input type="text" name="uwagi" maxlength="500" /></label>
+
+              <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <label class="m3-opt"><input type="checkbox" name="zgoda" required />
+                <span>Zapoznałam/em się z <a href={url("/rodo")} target="_blank" rel="noopener">klauzulą informacyjną RODO</a>.</span></label>
+
+              <button type="submit" class="m3-btn m3-btn-main" id="pp-btn">Zapisz się</button>
+              <div id="pp-msg" class="m3-msg" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div id="pp-done" class="m3-done" hidden>
+            <div class="m3-tick">✓</div>
+            <h2 id="pp-done-title">Zapisaliśmy Cię na zajęcia</h2>
+            <p id="pp-done-group"></p>
+            <p id="pp-done-mail"></p>
+            <p>W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`}>{site.phone}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-12 sm:px-14 sm:py-20 text-white dark:text-white/80">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="absolute -left-16 -bottom-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
+      <div class="relative max-w-3xl mx-auto text-center">
+        <h2 class="font-serif text-3xl sm:text-5xl tracking-tight leading-tight">Masz pytania?</h2>
+        <p class="mt-4 text-white/85 dark:text-white/50 text-base sm:text-lg">Zadzwoń lub napisz - pomożemy w zapisie i odpowiemy na wszystkie pytania.</p>
+        <div class="mt-7 sm:mt-8 flex flex-wrap justify-center gap-3">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition w-full sm:w-auto dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+            {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition w-full sm:w-auto dark:border-white/20 dark:text-white/60">
+            {site.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3pp');
+  var API = root.dataset.api, PHONE = root.dataset.phone, TEL = 'tel:' + root.dataset.tel;
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('pp-f'), btn = $('pp-btn'), msg = $('pp-msg');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+
+  function unavailable() {
+    $('pp-loading').innerHTML = 'Nie udało się wczytać terminów. Odśwież stronę albo zadzwoń: <a href="' + TEL + '">' + esc(PHONE) + '</a>.';
+  }
+  if (!API) { unavailable(); return; }
+
+  var anyFree = false;
+
+  function renderSlots(groups) {
+    var html = '';
+    groups.forEach(function (g) {
+      var cls = 'm3-slot', info;
+      if (!g.open) { cls += ' planned'; info = 'Druga grupa ruszy, jeśli zbierze się komplet chętnych.'; }
+      else if (g.left <= 0) { cls += ' full'; info = '<span class="m3-left">Komplet - brak wolnych miejsc</span>'; }
+      else { cls += ' free'; info = '<span class="m3-left">Wolnych miejsc: ' + g.left + ' z ' + g.limit + '</span>'; }
+      html += '<div class="' + cls + '"><b>' + esc(g.label) + '</b>'
+        + (g.place ? '<span>' + esc(g.place) + '</span>' : '')
+        + (g.open ? info : '<span>' + info + '</span>') + '</div>';
+    });
+    $('pp-slots').innerHTML = html;
+  }
+
+  function load() {
+    fetch(API).then(function (r) { return r.json(); }).then(function (data) {
+      if (!data || !data.ok) throw new Error('status');
+      var open = data.groups.filter(function (g) { return g.open; });
+      anyFree = open.some(function (g) { return g.left > 0; });
+      $('pp-loading').hidden = true;
+      $('pp-main').hidden = false;
+      if (!open.length) {
+        $('pp-slots').innerHTML = '';
+        f.hidden = true;
+        $('pp-info').textContent = 'Zapisy są obecnie zamknięte. Zadzwoń: ' + PHONE + '.';
+        return;
+      }
+      renderSlots(data.groups);
+      btn.textContent = anyFree ? 'Zapisz się' : 'Zapisz się na listę rezerwową';
+      $('pp-info').textContent = anyFree
+        ? 'Zapiszemy Cię do pierwszej grupy, w której jest wystarczająco dużo miejsc.'
+        : 'Wszystkie miejsca są zajęte. Zapisz się na listę rezerwową - damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.';
+    }).catch(unavailable);
+  }
+
+  function showError(text, field) {
+    msg.className = 'm3-msg err'; msg.textContent = text;
+    if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); }
+  }
+  f.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'm3-msg';
+    var name = f.imie.value.trim(), email = f.email.value.trim(), phone = f.telefon.value.trim();
+    if (name.length < 3 || name.indexOf(' ') < 0) return showError('Podaj imię i nazwisko.', f.imie);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('Wpisz poprawny adres e-mail, np. imie@poczta.pl.', f.email);
+    if (phone.replace(/\D/g, '').length < 9) return showError('Numer telefonu powinien mieć co najmniej 9 cyfr.', f.telefon);
+    if (!f.zgoda.checked) return showError('Zaznacz zapoznanie się z klauzulą informacyjną.', f.zgoda);
+
+    var data = {
+      imie: name, email: email, telefon: phone, osob: Number(f.osob.value), uwagi: f.uwagi.value.trim(),
+      zgoda: true, website: f.website.value
+    };
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Zapisuję…';
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'register', data: data }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = label;
+        if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); load(); return; }
+        var waitlist = res.status === 'waitlist';
+        $('pp-main').hidden = true; $('pp-done').hidden = false;
+        $('pp-done-title').textContent = waitlist ? 'Jesteś na liście rezerwowej' : 'Zapisaliśmy Cię na zajęcia';
+        $('pp-done-group').textContent = waitlist
+          ? 'Wszystkie miejsca są obecnie zajęte. Damy znać, jeśli zbierze się kolejna grupa albo zwolni się miejsce.'
+          : (res.group ? res.group.label + (res.group.place ? ', ' + res.group.place : '') : '');
+        $('pp-done-mail').textContent = res.mailSent === false
+          ? 'Nie udało się wysłać potwierdzenia e-mailem - zapisz termin.'
+          : 'Potwierdzenie wysłaliśmy na adres ' + email + '.';
+        root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = label;
+        showError('Nie udało się połączyć z serwerem. Spróbuj ponownie lub zadzwoń: ' + PHONE + '.');
+      });
+  });
+
+  load();
+})();
+</script>

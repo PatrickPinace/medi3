@@ -100,3 +100,14 @@
 .m3form .m3-drop{border:1.5px dashed var(--pink-line);border-radius:12px;padding:16px;background:var(--pink-soft);margin-bottom:12px}
 .m3form .m3-drop input[type=file]{width:100%;font:inherit;font-size:14px;color:var(--ink)}
 .m3form .m3-sep{border:0;border-top:1px solid var(--line);margin:18px 0}
+
+/* Terminy zajęć z limitem miejsc */
+.m3form .m3-slots{display:flex;flex-direction:column;gap:10px;margin:0 0 22px}
+.m3form .m3-slot{border:1px solid var(--field-line);border-radius:16px;padding:14px 16px}
+.m3form .m3-slot b{display:block;font-size:16px}
+.m3form .m3-slot b::first-letter{text-transform:uppercase}
+.m3form .m3-slot span{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.m3form .m3-slot.free{border-color:var(--pink);background:var(--pink-soft)}
+.m3form .m3-slot.full,.m3form .m3-slot.planned{opacity:.8}
+.m3form .m3-slot .m3-left{color:var(--ok);font-weight:600}
+.m3form .m3-slot.full .m3-left{color:var(--err)}
