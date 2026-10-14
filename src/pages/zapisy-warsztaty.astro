@@ -142,7 +142,7 @@ import "../styles/m3-form.css";
       $('pp-osob').innerHTML = opts;
       var price = EVENT.price;
       $('pp-price').hidden = !price;
-      if (price) $('pp-price').textContent = 'Cena: ' + price.text + '.';
+      if (price) $('pp-price').textContent = 'Cena: ' + price.text + '.' + (data.payment ? ' ' + data.payment : '');
       updateTotal();
       var open = data.groups.filter(function (g) { return g.open; });
       anyFree = open.some(function (g) { return g.left > 0; });
