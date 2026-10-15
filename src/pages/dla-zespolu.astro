@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site, resources } from "../data/site";
+
+const form = resources.ankietaZespolu;
+const embed = form ? form + (form.includes("?") ? "&" : "?") + "embedded=true" : "";
+---
+
+<BaseLayout
+  title="Ankieta dla zespołu · Medi3"
+  description="Strona dla pracowników i współpracowników Medi3 - bieżąca ankieta, np. wybór terminu spotkania zespołu."
+  noindex
+>
+  <PageHero
+    eyebrow="Dla zespołu"
+    title="Ankieta dla zespołu"
+    subtitle="Strona dla pracowników i współpracowników Medi3. Tu wypełnisz bieżącą ankietę, np. wybierzesz termin spotkania zespołu."
+  />
+
+  <section class="container-x py-10 sm:py-16">
+    {embed ? (
+      <>
+        <div class="max-w-3xl mx-auto rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 overflow-hidden">
+          <iframe
+            src={embed}
+            title="Ankieta dla zespołu Medi3"
+            class="block w-full"
+            style="height: 1300px; border: 0;"
+            loading="eager"
+          >Ładowanie…</iframe>
+        </div>
+        <p class="mt-4 text-center text-sm text-salmon-800/60 dark:text-navy-300">
+          Ankieta się nie wyświetla?
+          <a href={form} target="_blank" rel="noopener" class="font-medium text-salmon-700 dark:text-salmon-300 hover:underline underline-offset-4">Otwórz ją w nowej karcie</a>.
+        </p>
+      </>
+    ) : (
+      <div class="max-w-xl mx-auto rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 p-8 text-center">
+        <p class="font-serif text-2xl text-salmon-800 dark:text-white/80">Brak aktywnej ankiety</p>
+        <p class="mt-2 text-sm text-salmon-800/70 dark:text-navy-300">Gdy zaplanujemy kolejne spotkanie, ankieta pojawi się tutaj.</p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

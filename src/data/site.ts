@@ -117,6 +117,8 @@ export const resources = {
   kalkulatorTygodnia: "https://docs.google.com/spreadsheets/d/1UA6FgKizeIb2n9QNxxi8FSHY77-Mfi0nQyEWfsOjJis/edit?gid=0#gid=0",
   kalkulatorWagi: "https://docs.google.com/spreadsheets/d/1XAu_j_AGfoDjccgrW0SQZpa2y8oGPOD-NWIhcJu7A6I/edit?gid=0#gid=0",
   planPorodu: "https://docs.google.com/document/d/1dfaZXu9gaOuM0cXdrm9JleRkneBF9yqwBwJGxpgVKZ8/edit?usp=sharing",
+  // Formularz Google z ankietą dla zespołu (link publiczny z medi3/ankieta-zespolu/Kod.gs; pusty = ankieta niedostępna)
+  ankietaZespolu: "",
   kalendarz: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3TrviKSZtlGnWBk8DieeqAZss8WlwbJXBUKuvmfrIL8rmROwaaRIRsfW7nOchbu5Vrb5AWp1Sb",
   medykalni: "https://medykalni.pl/",
 } as const;
