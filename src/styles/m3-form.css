@@ -138,3 +138,8 @@
 .m3form .m3-answers{list-style:none;margin:10px auto 14px;padding:0;text-align:left;max-width:420px}
 .m3form .m3-answers li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 2px;font-size:14px;color:var(--text)}
 .m3form .m3-answers li b{white-space:nowrap}
+
+/* Opcje z opisem (np. wybór godziny zajęć) */
+.m3form .m3-opt b{display:block;font-weight:600}
+.m3form .m3-opt small{display:block;font-size:13px;color:var(--muted);margin-top:2px;line-height:1.4;font-weight:400}
+.m3form .m3-opt > div{min-width:0}

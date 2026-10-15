@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { site, forms } from "../data/site";
+import { url } from "../utils/url";
+import "../styles/m3-form.css";
 ---
 
 <BaseLayout
@@ -15,23 +17,86 @@ import { site, forms } from "../data/site";
   />
 
   <section class="container-x py-10 sm:py-16">
-    <div class="rounded-[2rem] border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 dark:backdrop-blur-sm p-2 sm:p-3 overflow-hidden">
-      <iframe
-        src={forms.szkolaRodzenia}
-        title="Formularz zapisów - Szkoła Rodzenia Medi3"
-        class="block w-full rounded-3xl"
-        style="height: 1800px;"
-        loading="eager"
-      ></iframe>
-    </div>
+    <div
+      id="m3sr"
+      class="m3form"
+      data-api={forms.szkolaRodzenia}
+      data-phone={site.phone}
+      data-tel={site.phoneTel}
+    >
+      <div class="m3-wrap">
+        <div class="m3-card">
+          <p class="m3-loading" id="sr-loading">Wczytywanie terminów…</p>
 
-    <p class="mt-6 text-center text-sm text-salmon-800/60 dark:text-navy-300">
-      Formularz się nie wyświetla?
-      <a href={forms.szkolaRodzenia} target="_blank" rel="noopener" class="inline-flex items-center gap-1 font-medium text-salmon-700 dark:text-salmon-300 hover:underline underline-offset-4">
-        Otwórz go w nowej karcie
-        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </p>
+          <div id="sr-closed" hidden>
+            <h2 class="m3-sec-title">Zapisy są zamknięte</h2>
+            <p class="m3-sec-help" id="sr-closed-info">Zapisy na tę edycję są obecnie zamknięte. Informację o kolejnej edycji podamy wkrótce.</p>
+          </div>
+
+          <div id="sr-main" hidden>
+            <h2 class="m3-sec-title" id="sr-title"></h2>
+            <div id="sr-desc"></div>
+            <p class="m3-sec-help" id="sr-place" hidden></p>
+
+            <form id="sr-f" novalidate>
+              <div class="m3-q">
+                <p class="m3-q-title">Czy chcesz zapisać się na zajęcia?</p>
+                <div class="m3-opts">
+                  <label class="m3-opt"><input type="radio" name="uczestnictwo" value="tak" checked /><span>Tak, zapisuję się</span></label>
+                  <label class="m3-opt"><input type="radio" name="uczestnictwo" value="nie" /><span>Nie, rezygnuję</span></label>
+                </div>
+              </div>
+
+              <label class="m3-f"><span>Imię i nazwisko</span><input type="text" name="imie" autocomplete="name" placeholder="np. Anna Kowalska" required /></label>
+              <label class="m3-f"><span>Numer telefonu</span><input type="tel" name="telefon" autocomplete="tel" placeholder="np. 600 123 456" required /></label>
+
+              <div id="sr-attend">
+                <div class="m3-q" id="sr-slots-q">
+                  <p class="m3-q-title">Wybierz godzinę zajęć</p>
+                  <div class="m3-opts" id="sr-slots"></div>
+                  <p class="m3-sec-help" id="sr-noslots" hidden style="margin-top:10px">Brak dostępnych terminów.</p>
+                </div>
+
+                <div class="m3-q" id="sr-topics-q">
+                  <p class="m3-q-title">Na które zajęcia planujesz przyjść?</p>
+                  <div class="m3-opts" id="sr-topics"></div>
+                  <button type="button" class="m3-link" id="sr-toggle" style="margin-top:10px">Zaznacz wszystkie</button>
+                </div>
+
+                <div class="m3-q">
+                  <p class="m3-q-title">Czy przyjdziesz z osobą towarzyszącą?</p>
+                  <div class="m3-opts">
+                    <label class="m3-opt"><input type="radio" name="towarzyszaca" value="nie" checked /><span>Przyjdę sama</span></label>
+                    <label class="m3-opt"><input type="radio" name="towarzyszaca" value="tak" /><span>Z osobą towarzyszącą</span></label>
+                  </div>
+                  <p class="m3-hint" id="sr-comp-note" style="margin:10px 0 0" hidden></p>
+                </div>
+              </div>
+
+              <label class="m3-f"><span>Uwagi (pole nieobowiązkowe)</span>
+                <textarea name="uwagi" rows="3" maxlength="500" placeholder="Np. dodatkowe pytania, potrzeby, informacje dla prowadzącej…"></textarea>
+              </label>
+
+              <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <p class="m3-hint" style="margin:0 0 14px">Podane dane wykorzystamy wyłącznie do organizacji zajęć - szczegóły w <a href={url("/rodo")} target="_blank" rel="noopener">klauzuli informacyjnej RODO</a>.</p>
+
+              <button type="submit" class="m3-btn m3-btn-main" id="sr-btn">Zapisz mnie na zajęcia</button>
+              <div id="sr-msg" class="m3-msg" role="status" aria-live="polite"></div>
+            </form>
+
+            <p class="m3-hint" id="sr-footer" style="margin:18px 0 0;text-align:center" hidden></p>
+          </div>
+
+          <div id="sr-done" class="m3-done" hidden>
+            <div class="m3-tick">✓</div>
+            <h2 id="sr-done-title">Zapisano pomyślnie!</h2>
+            <p id="sr-done-text"></p>
+            <p>W razie pytań zadzwoń: <a href={`tel:${site.phoneTel}`}>{site.phone}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="container-x pb-16 sm:pb-20">
@@ -54,3 +119,138 @@ import { site, forms } from "../data/site";
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3sr');
+  var API = root.dataset.api, PHONE = root.dataset.phone, TEL = 'tel:' + root.dataset.tel;
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('sr-f'), btn = $('sr-btn'), msg = $('sr-msg');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var ED = null, SLOTS = [], picked = '', rendered = false;
+
+  function unavailable() {
+    $('sr-loading').hidden = false;
+    $('sr-loading').innerHTML = 'Nie udało się wczytać terminów. Odśwież stronę albo zadzwoń: <a href="' + TEL + '">' + esc(PHONE) + '</a>.';
+  }
+  if (!API) { unavailable(); return; }
+
+  function renderStatic() {
+    $('sr-title').textContent = ED.title + (ED.subtitle ? ' — ' + ED.subtitle : '');
+    $('sr-desc').innerHTML = (ED.description || []).map(function (p) { return '<p class="m3-sec-help" style="margin-bottom:10px">' + esc(p) + '</p>'; }).join('');
+    var place = $('sr-place');
+    place.hidden = !ED.place;
+    if (ED.place) place.innerHTML = 'Zajęcia odbywają się: <b>' + esc(ED.place) + '</b>' + (ED.mapUrl ? ' — <a href="' + esc(ED.mapUrl) + '" target="_blank" rel="noopener">zobacz na mapie</a>' : '') + '.';
+    $('sr-topics').innerHTML = (ED.topics || []).map(function (t) {
+      return '<label class="m3-opt"><input type="checkbox" class="sr-topic" value="' + esc(t) + '" /><span>' + esc(t) + '</span></label>';
+    }).join('');
+    $('sr-topics-q').hidden = !(ED.topics || []).length;
+    $('sr-comp-note').hidden = !ED.companionNote; $('sr-comp-note').textContent = ED.companionNote || '';
+    $('sr-footer').hidden = !ED.footer; $('sr-footer').textContent = ED.footer || '';
+  }
+
+  function opt(val, title, sub) {
+    return '<label class="m3-opt"><input type="radio" name="slot" value="' + esc(val) + '"' + (val === picked ? ' checked' : '') + ' /><div><b>' + esc(title) + '</b>' + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div></label>';
+  }
+  function renderSlots() {
+    var html = '';
+    SLOTS.forEach(function (s) {
+      if (s.wolne <= 0) {
+        html += opt('W|' + s.godzina, 'Brak miejsc na ' + s.godzina, 'Zapisz się na listę rezerwową na tę godzinę');
+        if (ED.newGroup) html += opt('N|' + s.godzina, s.godzina + ' — nie ma już miejsc', 'Zapisz mnie na ' + ED.newGroup);
+      } else {
+        var left = 'Zostały ' + s.wolne + ' z ' + s.limit + ' miejsc';
+        html += opt('S|' + s.godzina, s.godzina, left);
+        html += opt('F|' + s.godzina, 'Obojętna (' + s.godzina + ')', 'Zapisz mnie elastycznie — jeśli powstanie inna grupa, mogę do niej przejść. ' + left);
+      }
+    });
+    $('sr-slots').innerHTML = html;
+    $('sr-noslots').hidden = SLOTS.length > 0;
+  }
+
+  function updateButton() {
+    var decl = f.uczestnictwo.value === 'nie';
+    $('sr-attend').hidden = decl;
+    var kind = (f.querySelector('input[name="slot"]:checked') || {}).value || '';
+    btn.textContent = decl ? 'Zgłoś rezygnację' : (kind[0] === 'W' || kind[0] === 'N') ? 'Zapisz się na listę rezerwową' : 'Zapisz mnie na zajęcia';
+  }
+
+  function load(onlySlots) {
+    fetch(API + (API.indexOf('?') < 0 ? '?' : '&') + 'api=1').then(function (r) { return r.json(); }).then(function (data) {
+      if (!data || !data.ok || !data.edition) throw new Error('status');
+      ED = data.edition; SLOTS = data.slots || [];
+      $('sr-loading').hidden = true;
+      if (!ED.open) { $('sr-main').hidden = true; $('sr-closed').hidden = false; return; }
+      if (!onlySlots || !rendered) { renderStatic(); rendered = true; }
+      renderSlots(); updateButton();
+      $('sr-main').hidden = false;
+    }).catch(unavailable);
+  }
+
+  function showError(text, el) {
+    msg.className = 'm3-msg err'; msg.textContent = text;
+    if (el) { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.setAttribute('aria-invalid', 'true'); if (el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (el.focus) el.focus({ preventScroll: true }); }
+  }
+  f.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+  f.addEventListener('change', function (e) {
+    if (e.target.name === 'slot') picked = e.target.value;
+    msg.textContent = ''; msg.className = 'm3-msg';
+    updateButton();
+  });
+
+  $('sr-toggle').addEventListener('click', function () {
+    var boxes = document.querySelectorAll('.sr-topic');
+    var all = Array.prototype.every.call(boxes, function (b) { return b.checked; });
+    Array.prototype.forEach.call(boxes, function (b) { b.checked = !all; });
+    this.textContent = all ? 'Zaznacz wszystkie' : 'Odznacz wszystkie';
+  });
+
+  function send(action, data, onOk) {
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Wysyłam…';
+    data.website = f.website.value;
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: action, data: data }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = label;
+        if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); if (res && res.refresh) { picked = ''; load(true); } return; }
+        onOk(res);
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = label;
+        showError('Nie udało się połączyć z serwerem. Spróbuj ponownie lub zadzwoń: ' + PHONE + '.');
+      });
+  }
+  function done(title, text) {
+    $('sr-main').hidden = true; $('sr-done').hidden = false;
+    $('sr-done-title').textContent = title; $('sr-done-text').textContent = text;
+    root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'm3-msg';
+    var name = f.imie.value.trim(), phone = f.telefon.value.trim(), notes = f.uwagi.value.trim();
+    if (name.length < 3) return showError('Podaj imię i nazwisko.', f.imie);
+    if (phone.replace(/\D/g, '').length < 9) return showError('Numer telefonu powinien mieć co najmniej 9 cyfr.', f.telefon);
+
+    if (f.uczestnictwo.value === 'nie') {
+      return send('decline', { imie: name, telefon: phone, uwagi: notes }, function (res) { done('Dziękujemy za informację', res.message); });
+    }
+
+    var topics = Array.prototype.map.call(document.querySelectorAll('.sr-topic:checked'), function (b) { return b.value; });
+    var slot = (f.querySelector('input[name="slot"]:checked') || {}).value || '';
+    if (!slot) return showError('Wybierz godzinę zajęć.', $('sr-slots-q'));
+    if (!topics.length) return showError('Zaznacz przynajmniej jedne zajęcia, w których planujesz uczestniczyć.', $('sr-topics-q'));
+    var kind = slot[0], hour = slot.slice(2), comp = f.towarzyszaca.value;
+
+    if (kind === 'W' || kind === 'N') {
+      return send('waitlist', { imie: name, telefon: phone, uwagi: notes, godzina: hour, preferencja: kind === 'N' ? 'nowa_grupa' : 'czekam', osobaTowarzyszaca: comp, wybraneZajecia: topics },
+        function (res) { done('Jesteś na liście rezerwowej', res.message); });
+    }
+    send('register', { imie: name, telefon: phone, godzina: hour, osobaTowarzyszaca: comp, wybraneZajecia: topics, uwagi: notes, mozeSieZamienic: kind === 'F' ? 'tak' : 'nie' },
+      function (res) { done('Zapisano pomyślnie!', 'Termin: ' + hour + '.' + (comp === 'tak' ? ' Przyjdziesz z osobą towarzyszącą.' : '') + ' ' + res.message); });
+  });
+
+  load(false);
+})();
+</script>
