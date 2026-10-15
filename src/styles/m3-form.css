@@ -120,3 +120,21 @@
 .m3form .m3-notice{background:var(--pink-soft);border:1px solid var(--pink-line);border-radius:18px;padding:18px 20px;margin:4px 0 20px}
 .m3form .m3-notice-title{font-family:var(--font-serif);font-size:clamp(26px,6vw,34px);line-height:1.15;font-weight:600;color:var(--ink);margin:0 0 8px}
 .m3form .m3-notice-text{font-size:16px;line-height:1.5;color:var(--text);margin:0}
+
+/* Ankieta dla zespołu: wybór odpowiedzi przy każdym terminie (Pasuje / Może być / Nie pasuje) */
+.m3form .m3-pick-q{margin:0 0 18px}
+.m3form .m3-pick-q .m3-q-title{margin:0 0 8px}
+.m3form .m3-pick-q .m3-q-title::first-letter{text-transform:uppercase}
+.m3form .m3-pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.m3form .m3-pick label{display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid var(--field-line);border-radius:12px;padding:11px 6px;
+  font-size:14px;font-weight:600;line-height:1.25;cursor:pointer;color:var(--text);transition:border-color .15s,background .15s}
+.m3form .m3-pick label:hover{border-color:var(--pink-line)}
+.m3form .m3-pick input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.m3form .m3-pick label:has(input:focus-visible){outline:3px solid color-mix(in srgb,var(--pink) 35%,transparent);outline-offset:2px}
+.m3form .m3-pick label.yes:has(input:checked){border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok)}
+.m3form .m3-pick label.maybe:has(input:checked){border-color:var(--pink);background:var(--pink-soft);color:var(--pink)}
+.m3form .m3-pick label.no:has(input:checked){border-color:var(--err);background:color-mix(in srgb,var(--err) 12%,transparent);color:var(--err)}
+.m3form .m3-pick-q.has-err .m3-pick label{border-color:var(--err-line)}
+.m3form .m3-answers{list-style:none;margin:10px auto 14px;padding:0;text-align:left;max-width:420px}
+.m3form .m3-answers li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 2px;font-size:14px;color:var(--text)}
+.m3form .m3-answers li b{white-space:nowrap}

@@ -110,6 +110,9 @@ export const deklaracja = {
 // Endpoint /exec Apps Script (medi3/warsztaty/Kod.gs) obsługujący /zapisy-warsztaty - dowolne warsztaty z limitem miejsc; pusty = formularz niedostępny
 export const zapisyWarsztatyApi: string = "https://script.google.com/macros/s/AKfycbwqRGh2mgJpWYXXT2bS0A8I3G67E3PtV8uSJsmB5lL1kOb4E2aPvyZvQXcFINZTG8YArA/exec";
 
+// Endpoint /exec Apps Script (medi3/ankieta-zespolu/Kod.gs) obsługujący /dla-zespolu - ankieta dla zespołu; pusty = ankieta niedostępna
+export const ankietaZespoluApi: string = "";
+
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
 
@@ -117,8 +120,6 @@ export const resources = {
   kalkulatorTygodnia: "https://docs.google.com/spreadsheets/d/1UA6FgKizeIb2n9QNxxi8FSHY77-Mfi0nQyEWfsOjJis/edit?gid=0#gid=0",
   kalkulatorWagi: "https://docs.google.com/spreadsheets/d/1XAu_j_AGfoDjccgrW0SQZpa2y8oGPOD-NWIhcJu7A6I/edit?gid=0#gid=0",
   planPorodu: "https://docs.google.com/document/d/1dfaZXu9gaOuM0cXdrm9JleRkneBF9yqwBwJGxpgVKZ8/edit?usp=sharing",
-  // Formularz Google z ankietą dla zespołu (link publiczny z medi3/ankieta-zespolu/Kod.gs; pusty = ankieta niedostępna)
-  ankietaZespolu: "https://docs.google.com/forms/d/e/1FAIpQLSda1avXZa7H1Y_5sDMqeTlSO71j0YfgEPU8e5CA0alP7bhhpw/viewform",
   kalendarz: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3TrviKSZtlGnWBk8DieeqAZss8WlwbJXBUKuvmfrIL8rmROwaaRIRsfW7nOchbu5Vrb5AWp1Sb",
   medykalni: "https://medykalni.pl/",
 } as const;

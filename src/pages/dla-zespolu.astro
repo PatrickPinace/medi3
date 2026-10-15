@@ -1,10 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
-import { site, resources } from "../data/site";
-
-const form = resources.ankietaZespolu;
-const embed = form ? form + (form.includes("?") ? "&" : "?") + "embedded=true" : "";
+import { site, ankietaZespoluApi } from "../data/site";
+import "../styles/m3-form.css";
 ---
 
 <BaseLayout
@@ -19,27 +17,149 @@ const embed = form ? form + (form.includes("?") ? "&" : "?") + "embedded=true" :
   />
 
   <section class="container-x py-10 sm:py-16">
-    {embed ? (
-      <>
-        <div class="max-w-3xl mx-auto rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 overflow-hidden">
-          <iframe
-            src={embed}
-            title="Ankieta dla zespołu Medi3"
-            class="block w-full"
-            style="height: 1300px; border: 0;"
-            loading="eager"
-          >Ładowanie…</iframe>
+    <div
+      id="m3an"
+      class="m3form"
+      data-api={ankietaZespoluApi}
+      data-phone={site.phone}
+      data-tel={site.phoneTel}
+    >
+      <div class="m3-wrap">
+        <div class="m3-card">
+          <p class="m3-loading" id="an-loading">Wczytywanie ankiety…</p>
+
+          <div id="an-closed" hidden>
+            <h2 class="m3-sec-title">Ankieta jest zamknięta</h2>
+            <p class="m3-sec-help">Gdy zaplanujemy kolejne spotkanie, nowa ankieta pojawi się tutaj.</p>
+          </div>
+
+          <div id="an-main" hidden>
+            <h2 class="m3-sec-title" id="an-title"></h2>
+            <p class="m3-sec-help" id="an-desc"></p>
+
+            <form id="an-f" novalidate>
+              <label class="m3-f"><span>Imię i nazwisko</span><input type="text" name="imie" autocomplete="name" required /></label>
+
+              <h3 class="m3-step" style="margin-top:6px">Terminy</h3>
+              <div id="an-terms"></div>
+              <button type="button" class="m3-link" id="an-all" hidden>Pasuje mi każdy termin</button>
+
+              <label class="m3-f" style="margin-top:18px"><span>Uwagi (opcjonalnie)</span><input type="text" name="uwagi" maxlength="500" /></label>
+
+              <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <button type="submit" class="m3-btn m3-btn-main" id="an-btn">Wyślij odpowiedź</button>
+              <div id="an-msg" class="m3-msg" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+
+          <div id="an-done" class="m3-done" hidden>
+            <div class="m3-tick">✓</div>
+            <h2>Dziękujemy za odpowiedź</h2>
+            <p id="an-done-info"></p>
+            <ul class="m3-answers" id="an-done-list"></ul>
+            <p>Zmieniłaś/eś zdanie? Wypełnij ankietę jeszcze raz z tym samym imieniem i nazwiskiem - nowa odpowiedź zastąpi poprzednią.</p>
+            <button type="button" class="m3-btn2" id="an-again" style="margin-top:8px">Wypełnij ponownie</button>
+          </div>
         </div>
-        <p class="mt-4 text-center text-sm text-salmon-800/60 dark:text-navy-300">
-          Ankieta się nie wyświetla?
-          <a href={form} target="_blank" rel="noopener" class="font-medium text-salmon-700 dark:text-salmon-300 hover:underline underline-offset-4">Otwórz ją w nowej karcie</a>.
-        </p>
-      </>
-    ) : (
-      <div class="max-w-xl mx-auto rounded-3xl border border-salmon-100 bg-white dark:border-white/10 dark:bg-white/5 p-8 text-center">
-        <p class="font-serif text-2xl text-salmon-800 dark:text-white/80">Brak aktywnej ankiety</p>
-        <p class="mt-2 text-sm text-salmon-800/70 dark:text-navy-300">Gdy zaplanujemy kolejne spotkanie, ankieta pojawi się tutaj.</p>
       </div>
-    )}
+    </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3an');
+  var API = root.dataset.api, PHONE = root.dataset.phone, TEL = 'tel:' + root.dataset.tel;
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('an-f'), btn = $('an-btn'), msg = $('an-msg');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var SURVEY = null;
+  var CLS = ['yes', 'maybe', 'no'];
+
+  function unavailable() {
+    $('an-loading').hidden = false;
+    $('an-loading').innerHTML = 'Nie udało się wczytać ankiety. Odśwież stronę albo napisz do nas: <a href="' + TEL + '">' + esc(PHONE) + '</a>.';
+  }
+  if (!API) { unavailable(); return; }
+
+  function render() {
+    $('an-title').textContent = SURVEY.title;
+    $('an-desc').textContent = SURVEY.description || '';
+    $('an-desc').hidden = !SURVEY.description;
+    $('an-terms').innerHTML = SURVEY.terms.map(function (t, i) {
+      return '<div class="m3-q m3-pick-q" data-i="' + i + '"><p class="m3-q-title">' + esc(t) + '</p><div class="m3-pick" role="radiogroup" aria-label="' + esc(t) + '">'
+        + SURVEY.options.map(function (o, k) {
+          return '<label class="' + (CLS[k] || '') + '"><input type="radio" name="t' + i + '" value="' + esc(o) + '" /><span>' + esc(o) + '</span></label>';
+        }).join('')
+        + '</div></div>';
+    }).join('');
+    $('an-all').hidden = SURVEY.terms.length < 2;
+  }
+
+  function load() {
+    $('an-loading').hidden = false; $('an-loading').textContent = 'Wczytywanie ankiety…';
+    ['an-closed', 'an-main', 'an-done'].forEach(function (id) { $(id).hidden = true; });
+    fetch(API).then(function (r) { return r.json(); }).then(function (data) {
+      if (!data || !data.ok || !data.survey) throw new Error('status');
+      SURVEY = data.survey;
+      $('an-loading').hidden = true;
+      if (!SURVEY.open) { $('an-closed').hidden = false; return; }
+      render();
+      $('an-main').hidden = false;
+    }).catch(unavailable);
+  }
+
+  function showError(text, el) {
+    msg.className = 'm3-msg err'; msg.textContent = text;
+    if (el) { if (el.tagName === 'INPUT') el.setAttribute('aria-invalid', 'true'); el.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (el.focus) el.focus({ preventScroll: true }); }
+  }
+  f.addEventListener('input', function (e) {
+    e.target.removeAttribute('aria-invalid');
+    var q = e.target.closest && e.target.closest('.m3-pick-q'); if (q) q.classList.remove('has-err');
+  });
+
+  $('an-all').addEventListener('click', function () {
+    Array.prototype.forEach.call(document.querySelectorAll('#an-terms .m3-pick-q'), function (q) {
+      var r = q.querySelector('input[value="' + SURVEY.options[0].replace(/"/g, '\\"') + '"]'); if (r) r.checked = true;
+      q.classList.remove('has-err');
+    });
+    msg.textContent = ''; msg.className = 'm3-msg';
+  });
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'm3-msg';
+    var name = f.imie.value.trim().replace(/\s+/g, ' ');
+    if (name.length < 3 || name.indexOf(' ') < 0) return showError('Podaj imię i nazwisko.', f.imie);
+
+    var odp = [], missing = null;
+    SURVEY.terms.forEach(function (t, i) {
+      var c = f.querySelector('input[name="t' + i + '"]:checked');
+      if (!c) { var q = document.querySelector('#an-terms .m3-pick-q[data-i="' + i + '"]'); q.classList.add('has-err'); if (!missing) missing = q; odp.push(null); }
+      else odp.push(c.value);
+    });
+    if (missing) return showError('Zaznacz odpowiedź przy każdym terminie.', missing);
+
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Wysyłam…';
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'answer', data: { survey: SURVEY.id, imie: name, odp: odp, uwagi: f.uwagi.value.trim(), website: f.website.value } }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = label;
+        if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); return; }
+        $('an-main').hidden = true; $('an-done').hidden = false;
+        $('an-done-info').textContent = res.updated ? 'Zastąpiliśmy Twoją wcześniejszą odpowiedź nową.' : 'Twoja odpowiedź została zapisana.';
+        $('an-done-list').innerHTML = SURVEY.terms.map(function (t, i) { return '<li><span>' + esc(t) + '</span><b>' + esc(odp[i]) + '</b></li>'; }).join('');
+        root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = label;
+        showError('Nie udało się połączyć z serwerem. Spróbuj ponownie za chwilę.');
+      });
+  });
+
+  $('an-again').addEventListener('click', function () { f.reset(); load(); root.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+
+  load();
+})();
+</script>
