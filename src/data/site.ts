@@ -111,7 +111,7 @@ export const deklaracja = {
 export const zapisyWarsztatyApi: string = "https://script.google.com/macros/s/AKfycbwqRGh2mgJpWYXXT2bS0A8I3G67E3PtV8uSJsmB5lL1kOb4E2aPvyZvQXcFINZTG8YArA/exec";
 
 // Endpoint /exec Apps Script (medi3/ankieta-zespolu/Kod.gs) obsługujący /dla-zespolu - ankieta dla zespołu; pusty = ankieta niedostępna
-export const ankietaZespoluApi: string = "";
+export const ankietaZespoluApi: string = "https://script.google.com/macros/s/AKfycbw362twXyg7CNksgpB_Z3wWPhfyeTtUC-1Jj2VcUqq5peRVpVjnZt-mTjqgdNaBc8ptnA/exec";
 
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
