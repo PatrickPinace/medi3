@@ -72,6 +72,15 @@ export const team: TeamMember[] = [
     photo: "barbara-pieklo.jpg",
   },
   {
+    slug: "paulina-dzialo",
+    name: "Paulina Działo",
+    role: "Dietetyk kliniczny · Trener personalny",
+    specs: ["Dietetyka kliniczna", "Żywienie kobiet w ciąży i dzieci", "Program „Moje Zdrowie”"],
+    bio: "Dietetyk kliniczny, trener personalny i instruktor fitness. Ukończyła studia magisterskie z dietetyki oraz studia podyplomowe z dietetyki pediatrycznej i przygotowania pedagogicznego.",
+    bioMore: "W swojej pracy pomaga budować zdrowe nawyki żywieniowe i dopasowuje zalecenia do potrzeb oraz codziennego życia każdej osoby. Łączy wiedzę z zakresu dietetyki i aktywności fizycznej, stawiając na indywidualne podejście i praktyczne rozwiązania. Szczególnie bliska jest jej tematyka żywienia kobiet w ciąży, dzieci i rodzin. Współpracuje z Fundacją Medi3, gdzie prowadzi wizyty podsumowujące w ramach programu „Moje Zdrowie”. Podczas spotkań pomaga pacjentom lepiej zrozumieć wyniki badań i przekłada je na praktyczne zalecenia dotyczące codziennego odżywiania oraz zdrowych nawyków.",
+    photo: "paulina-dzialo.jpg",
+  },
+  {
     slug: "katarzyna-soja-chydzinska",
     name: "mgr Katarzyna Soja-Chydzińska",
     role: "Fizjoterapeutka",
