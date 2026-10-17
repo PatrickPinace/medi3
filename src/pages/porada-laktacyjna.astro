@@ -1,0 +1,322 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site, forms, poradaLaktacyjnaApi } from "../data/site";
+import { url } from "../utils/url";
+import "../styles/m3-form.css";
+---
+
+<BaseLayout
+  title="Porada laktacyjna - rezerwacja wizyty · Medi3"
+  description="Zarezerwuj poradę laktacyjną w Mielcu - wybierz rodzaj wizyty i wolny termin, wypełnij krótki formularz. Certyfikowani Doradcy Laktacyjni Medi3."
+>
+  <PageHero
+    eyebrow="Porada laktacyjna"
+    title="Zarezerwuj poradę laktacyjną"
+    subtitle="Wybierz rodzaj wizyty i wolny termin. Po rezerwacji wyślemy potwierdzenie na Twój adres e-mail."
+  />
+
+  <section class="container-x py-10 sm:py-16">
+    <div
+      id="m3lk"
+      class="m3form"
+      data-api={poradaLaktacyjnaApi}
+      data-phone={site.phone}
+      data-tel={site.phoneTel}
+      data-fallback={forms.laktacyjna}
+    >
+      <div class="m3-wrap">
+        <div class="m3-card">
+          <p class="m3-loading" id="lk-loading">Wczytywanie terminów…</p>
+
+          <div id="lk-closed" hidden>
+            <h2 class="m3-sec-title">Rezerwacje są zamknięte</h2>
+            <p class="m3-sec-help" id="lk-closed-info"></p>
+          </div>
+
+          <div id="lk-main" hidden>
+            <h2 class="m3-sec-title" id="lk-title"></h2>
+            <div id="lk-desc"></div>
+            <div class="m3-alert" id="lk-prep" hidden></div>
+            <p class="m3-sec-help" id="lk-place" hidden></p>
+
+            <form id="lk-f" novalidate>
+              <h3 class="m3-step" style="margin-top:6px">Rodzaj wizyty</h3>
+              <div class="m3-opts" id="lk-visits"></div>
+
+              <div id="lk-slots-wrap">
+                <h3 class="m3-step">Termin</h3>
+                <p class="m3-sec-help" id="lk-slots-info" style="margin-bottom:10px"></p>
+                <div id="lk-slots"></div>
+              </div>
+
+              <h3 class="m3-step">Dane kontaktowe</h3>
+              <label class="m3-f"><span>Imię i nazwisko</span><input type="text" name="imie" autocomplete="name" required /></label>
+              <div class="m3-row">
+                <label class="m3-f"><span>E-mail</span><input type="email" name="email" autocomplete="email" required /></label>
+                <label class="m3-f"><span>Telefon</span><input type="tel" name="telefon" autocomplete="tel" placeholder="np. 600 123 456" required /></label>
+              </div>
+              <label class="m3-f"><span>PESEL</span><input type="text" name="pesel" inputmode="numeric" maxlength="11" autocomplete="off" required /></label>
+              <label class="m3-f"><span>Pełny adres (w tym kod pocztowy)</span><input type="text" name="adres" autocomplete="street-address" placeholder="ul. Przykładowa 1, 39-300 Mielec" required /></label>
+
+              <h3 class="m3-step">Informacje o wizycie</h3>
+              <div class="m3-q">
+                <p class="m3-q-title">Powód zgłoszenia na konsultację <span class="m3-req">*</span></p>
+                <div class="m3-opts" id="lk-reasons"></div>
+              </div>
+              <div id="lk-child">
+                <label class="m3-f"><span>Imię i nazwisko dziecka (dzieci)</span><input type="text" name="dziecko" autocomplete="off" /></label>
+                <label class="m3-f"><span>Data urodzenia dziecka</span><input type="date" name="dzieckoUr" id="lk-dob" /></label>
+              </div>
+              <label class="m3-f"><span>Skąd dowiedziałaś się o poradni?</span>
+                <select name="zrodlo" id="lk-sources"></select>
+              </label>
+
+              <details id="lk-more">
+                <summary>Dodatkowe informacje o karmieniu (nieobowiązkowe)</summary>
+                <div style="padding-top:16px">
+                  <p class="m3-sec-help">Obserwacja dziecka w trakcie karmienia piersią lub butelką. Możesz pominąć.</p>
+                  <div class="m3-q">
+                    <p class="m3-q-title">Czy w trakcie karmienia słychać dźwięki sugerujące utratę szczelności (cmokanie, klikanie)?</p>
+                    <div class="m3-opts" data-radio="obs1" data-options="Tak|Nie|Nie wiem|Nie dotyczy"></div>
+                  </div>
+                  <div class="m3-q">
+                    <p class="m3-q-title">Czy po karmieniu pojawia się pęcherzyk na górnej lub dolnej wardze?</p>
+                    <div class="m3-opts" data-radio="obs2" data-options="Tak|Nie|Nie wiem|Nie dotyczy"></div>
+                  </div>
+                  <div class="m3-q">
+                    <p class="m3-q-title">Jak dziecko chwyta brodawkę sutkową?</p>
+                    <div class="m3-opts" data-radio="obs3" data-options="Głęboko|Płytko|Nie wiem|Nie dotyczy"></div>
+                  </div>
+                  <p class="m3-sec-help" style="margin-top:6px">Wywiad położniczo-noworodkowy (informacje z książeczki zdrowia dziecka):</p>
+                  <label class="m3-f"><span>Pierwsze karmienie - kiedy się odbyło? Jak długo po porodzie?</span><input type="text" name="wyw1" maxlength="150" /></label>
+                  <div class="m3-row">
+                    <label class="m3-f"><span>Urodzeniowa masa ciała</span><input type="text" name="wyw2" maxlength="60" /></label>
+                    <label class="m3-f"><span>Najniższa masa ciała (w której dobie?)</span><input type="text" name="wyw3" maxlength="150" /></label>
+                  </div>
+                  <div class="m3-q">
+                    <p class="m3-q-title">Czy karmisz lub dokarmiasz mieszanką?</p>
+                    <div class="m3-opts" data-radio="wyw4" data-options="Tak|Nie|Nie dotyczy"></div>
+                  </div>
+                </div>
+              </details>
+
+              <label class="m3-f" style="margin-top:6px"><span>Uwagi (nieobowiązkowe)</span>
+                <textarea name="uwagi" rows="3" maxlength="1000" placeholder="Tu możesz umieścić dodatkowe informacje."></textarea>
+              </label>
+
+              <input class="m3-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <label class="m3-opt"><input type="checkbox" name="zgoda" required />
+                <span>Zapoznałam/em się z <a href={url("/rodo")} target="_blank" rel="noopener">klauzulą informacyjną RODO</a> (administrator danych: Fundacja Medi3).</span></label>
+
+              <button type="submit" class="m3-btn m3-btn-main" id="lk-btn">Zarezerwuj termin</button>
+              <div id="lk-msg" class="m3-msg" role="status" aria-live="polite"></div>
+            </form>
+
+            <p class="m3-hint" id="lk-footer" style="margin:18px 0 0;text-align:center" hidden></p>
+          </div>
+
+          <div id="lk-done" class="m3-done" hidden>
+            <div class="m3-tick">✓</div>
+            <h2 id="lk-done-title">Rezerwacja potwierdzona</h2>
+            <p id="lk-done-text"></p>
+            <ul class="m3-answers" id="lk-done-list"></ul>
+            <p id="lk-done-mail"></p>
+            <p>W razie pytań zadzwoń: <a id="lk-done-phone" href={`tel:${site.phoneTel}`}>{site.phone}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3lk');
+  var API = root.dataset.api, PHONE = root.dataset.phone, TEL = 'tel:' + root.dataset.tel, FALLBACK = root.dataset.fallback;
+  var $ = function (id) { return document.getElementById(id); };
+  var f = $('lk-f'), btn = $('lk-btn'), msg = $('lk-msg');
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var DATA = null, rendered = false;
+
+  function unavailable() {
+    $('lk-loading').hidden = false;
+    $('lk-loading').innerHTML = 'Nie udało się wczytać terminów. Odśwież stronę albo zadzwoń: <a href="' + TEL + '">' + esc(PHONE) + '</a>.'
+      + (FALLBACK ? '<br><br>Możesz też wypełnić <a href="' + esc(FALLBACK) + '" target="_blank" rel="noopener">formularz zgłoszeniowy</a> (bez rezerwacji terminu - termin uzgodnimy telefonicznie).' : '');
+  }
+  if (!API) { unavailable(); return; }
+
+  var fmtDay = new Intl.DateTimeFormat('pl-PL', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' });
+  function dayLabel(ymd) { var p = ymd.split('-').map(Number); return fmtDay.format(new Date(Date.UTC(p[0], p[1] - 1, p[2], 12))); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function radios(name, options, checkedVal) {
+    return options.map(function (o) {
+      return '<label class="m3-opt"><input type="radio" name="' + name + '" value="' + esc(o) + '"' + (o === checkedVal ? ' checked' : '') + ' /><span>' + esc(o) + '</span></label>';
+    }).join('');
+  }
+
+  function renderStatic() {
+    var s = DATA.settings;
+    $('lk-title').textContent = s.title;
+    $('lk-desc').innerHTML = (s.description || []).map(function (p) { return '<p class="m3-sec-help" style="margin-bottom:10px">' + esc(p) + '</p>'; }).join('');
+    $('lk-prep').hidden = !s.prep; $('lk-prep').textContent = s.prep || '';
+    var place = $('lk-place'); place.hidden = !s.place;
+    if (s.place) place.innerHTML = 'Miejsce wizyt: <b>' + esc(s.place) + '</b>' + (s.mapUrl ? ' — <a href="' + esc(s.mapUrl) + '" target="_blank" rel="noopener">zobacz na mapie</a>' : '') + '.'
+      + (s.payment ? ' ' + esc(s.payment) : '');
+    $('lk-footer').hidden = !s.footer; $('lk-footer').textContent = s.footer || '';
+
+    $('lk-visits').innerHTML = DATA.visits.map(function (v, i) {
+      var sub = [v.price, v.duration].filter(Boolean).join(' · ');
+      return '<label class="m3-opt"><input type="radio" name="wizyta" value="' + esc(v.id) + '"' + (i === 0 ? ' checked' : '') + ' /><div><b>' + esc(v.name) + '</b>'
+        + (sub ? '<small>' + esc(sub) + '</small>' : '') + (v.note ? '<small>' + esc(v.note) + '</small>' : '') + '</div></label>';
+    }).join('');
+
+    $('lk-reasons').innerHTML = radios('powod', DATA.reasons.concat(['Inne (opisz poniżej)']), '')
+      + '<input type="text" name="powodInne" id="lk-reason-other" maxlength="250" placeholder="Opisz, na czym polega problem" hidden />';
+    $('lk-sources').innerHTML = '<option value="">- wybierz -</option>' + DATA.sources.map(function (o) { return '<option>' + esc(o) + '</option>'; }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-radio]'), function (el) {
+      el.innerHTML = radios(el.dataset.radio, el.dataset.options.split('|'), '');
+    });
+    $('lk-dob').max = new Date().toISOString().slice(0, 10);
+  }
+
+  function currentVisit() {
+    var c = f.querySelector('input[name="wizyta"]:checked');
+    return c ? DATA.visits.filter(function (v) { return v.id === c.value; })[0] : null;
+  }
+
+  function renderSlots(keepValue) {
+    var v = currentVisit();
+    var wrap = $('lk-slots-wrap');
+    $('lk-child').hidden = !(v && v.childData);
+    if (!v) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    var slots = DATA.slots || [], html = '', info;
+    if (!v.needsSlot) {
+      info = 'Termin tej wizyty ustalamy indywidualnie. Po wysłaniu zgłoszenia skontaktujemy się z Tobą.';
+      $('lk-slots').innerHTML = '';
+    } else if (!slots.length) {
+      info = 'Aktualnie nie ma wolnych terminów w kalendarzu. Zostaw zgłoszenie - skontaktujemy się z Tobą, gdy pojawi się termin.';
+      $('lk-slots').innerHTML = '';
+    } else {
+      info = 'Wybierz wolny termin albo zaznacz, że żaden nie pasuje - wtedy skontaktujemy się z Tobą.';
+      var byDay = {}, order = [];
+      slots.forEach(function (s) { if (!byDay[s.date]) { byDay[s.date] = []; order.push(s.date); } byDay[s.date].push(s); });
+      order.forEach(function (d) {
+        html += '<p class="m3-q-title" style="margin:14px 0 8px;font-size:15px">' + esc(cap(dayLabel(d))) + '</p><div class="m3-opts">';
+        byDay[d].forEach(function (s) {
+          var sub = [s.advisor, s.place].filter(Boolean).join(' · ');
+          html += '<label class="m3-opt"><input type="radio" name="termin" value="' + esc(s.id) + '"' + (s.id === keepValue ? ' checked' : '') + ' /><div><b>godz. ' + esc(s.time) + '</b>'
+            + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div></label>';
+        });
+        html += '</div>';
+      });
+      html += '<div class="m3-opts" style="margin-top:14px"><label class="m3-opt"><input type="radio" name="termin" value=""' + (keepValue === '' ? ' checked' : '') + ' /><div><b>Żaden z terminów mi nie pasuje</b><small>Proszę o kontakt w sprawie terminu</small></div></label></div>';
+      $('lk-slots').innerHTML = html;
+    }
+    $('lk-slots-info').textContent = info;
+    updateButton();
+  }
+
+  function updateButton() {
+    var v = currentVisit(); var t = f.querySelector('input[name="termin"]:checked');
+    btn.textContent = (v && v.needsSlot && t && t.value) ? 'Zarezerwuj termin' : 'Wyślij zgłoszenie';
+  }
+
+  function load(keep) {
+    fetch(API + (API.indexOf('?') < 0 ? '?' : '&') + 'api=1').then(function (r) { return r.json(); }).then(function (data) {
+      if (!data || !data.ok || !data.settings) throw new Error('status');
+      DATA = data;
+      $('lk-loading').hidden = true;
+      if (!DATA.settings.open) {
+        $('lk-main').hidden = true; $('lk-closed').hidden = false;
+        $('lk-closed-info').innerHTML = 'Aktualnie nie przyjmujemy rezerwacji online. Zadzwoń: <a href="tel:' + esc((DATA.settings.phone || '').replace(/\s+/g, '')) + '">' + esc(DATA.settings.phone || PHONE) + '</a>.';
+        return;
+      }
+      if (!keep || !rendered) { renderStatic(); rendered = true; }
+      var prev = f.querySelector('input[name="termin"]:checked');
+      renderSlots(keep && prev ? prev.value : undefined);
+      $('lk-main').hidden = false;
+    }).catch(unavailable);
+  }
+
+  function showError(text, el) {
+    msg.className = 'm3-msg err'; msg.textContent = text;
+    if (el) { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') el.setAttribute('aria-invalid', 'true'); if (el.scrollIntoView) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (el.focus) el.focus({ preventScroll: true }); }
+  }
+  f.addEventListener('input', function (e) { e.target.removeAttribute('aria-invalid'); });
+  f.addEventListener('change', function (e) {
+    msg.textContent = ''; msg.className = 'm3-msg';
+    if (e.target.name === 'wizyta') renderSlots(undefined);
+    if (e.target.name === 'termin') updateButton();
+    if (e.target.name === 'powod') { var o = $('lk-reason-other'); o.hidden = e.target.value.indexOf('Inne') !== 0; if (!o.hidden) o.focus(); }
+  });
+
+  function peselOk(p) {
+    if (!/^\d{11}$/.test(p)) return false;
+    var w = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3], s = 0, i;
+    for (i = 0; i < 10; i++) s += w[i] * Number(p[i]);
+    return (10 - (s % 10)) % 10 === Number(p[10]);
+  }
+  function val(name) { var c = f.querySelector('input[name="' + name + '"]:checked'); return c ? c.value : ''; }
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.textContent = ''; msg.className = 'm3-msg';
+    var v = currentVisit();
+    if (!v) return showError('Wybierz rodzaj wizyty.', $('lk-visits'));
+    var termin = (v.needsSlot && DATA.slots.length) ? f.querySelector('input[name="termin"]:checked') : null;
+    if (v.needsSlot && DATA.slots.length && !termin) return showError('Wybierz termin albo zaznacz, że żaden nie pasuje.', $('lk-slots'));
+
+    var name = f.imie.value.trim().replace(/\s+/g, ' '), email = f.email.value.trim(), phone = f.telefon.value.trim(), pesel = f.pesel.value.replace(/\s+/g, ''), addr = f.adres.value.trim();
+    if (name.length < 3 || name.indexOf(' ') < 0) return showError('Podaj imię i nazwisko.', f.imie);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return showError('Wpisz poprawny adres e-mail, np. imie@poczta.pl.', f.email);
+    if (phone.replace(/\D/g, '').length < 9) return showError('Numer telefonu powinien mieć co najmniej 9 cyfr.', f.telefon);
+    if (!peselOk(pesel)) return showError('Podaj poprawny numer PESEL (11 cyfr).', f.pesel);
+    if (addr.length < 6) return showError('Podaj pełny adres (w tym kod pocztowy).', f.adres);
+
+    var reason = val('powod');
+    if (!reason) return showError('Wybierz powód zgłoszenia.', $('lk-reasons'));
+    if (reason.indexOf('Inne') === 0) { reason = 'Inne: ' + $('lk-reason-other').value.trim(); if (reason.length < 8) return showError('Opisz, na czym polega problem.', $('lk-reason-other')); }
+    var child = f.dziecko.value.trim(), dob = f.dzieckoUr.value;
+    if (v.childData) {
+      if (child.length < 2) return showError('Podaj imię i nazwisko dziecka.', f.dziecko);
+      if (!dob) return showError('Podaj datę urodzenia dziecka.', f.dzieckoUr);
+    }
+    if (!f.zgoda.checked) return showError('Zaznacz zapoznanie się z klauzulą informacyjną RODO.', f.zgoda);
+
+    var data = {
+      wizyta: v.id, termin: termin ? termin.value : '', imie: name, email: email, telefon: phone, pesel: pesel, adres: addr, powod: reason,
+      dziecko: v.childData ? child : '', dzieckoUr: v.childData ? dob : '', zrodlo: f.zrodlo.value,
+      obs1: val('obs1'), obs2: val('obs2'), obs3: val('obs3'), wyw1: f.wyw1.value.trim(), wyw2: f.wyw2.value.trim(), wyw3: f.wyw3.value.trim(), wyw4: val('wyw4'),
+      uwagi: f.uwagi.value.trim(), zgoda: true, website: f.website.value
+    };
+    btn.disabled = true; var label = btn.textContent; btn.textContent = 'Wysyłam…';
+    fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'book', data: data }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        btn.disabled = false; btn.textContent = label;
+        if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); if (res && res.refresh) load(true); return; }
+        var booked = res.status === 'Potwierdzony' && res.slot;
+        $('lk-main').hidden = true; $('lk-done').hidden = false;
+        $('lk-done-title').textContent = booked ? 'Rezerwacja potwierdzona' : 'Zgłoszenie przyjęte';
+        $('lk-done-text').textContent = booked ? 'Czekamy na Ciebie w wybranym terminie.' : 'Skontaktujemy się z Tobą, aby uzgodnić termin wizyty.';
+        var li = [['Rodzaj wizyty', v.name]];
+        if (booked) { li.push(['Termin', cap(dayLabel(res.slot.date)) + ', godz. ' + res.slot.time]); if (res.slot.advisor) li.push(['Doradca', res.slot.advisor]); if (res.slot.place) li.push(['Miejsce', res.slot.place]); }
+        if (v.price) li.push(['Cena', v.price]);
+        $('lk-done-list').innerHTML = li.map(function (x) { return '<li><span>' + esc(x[0]) + '</span><b style="white-space:normal;text-align:right">' + esc(x[1]) + '</b></li>'; }).join('');
+        $('lk-done-mail').textContent = res.mailSent === false ? 'Nie udało się wysłać potwierdzenia e-mailem - zapisz termin.' : 'Potwierdzenie wysłaliśmy na adres ' + email + '.';
+        var tel = DATA.settings.phone; if (tel) { $('lk-done-phone').textContent = tel; $('lk-done-phone').href = 'tel:' + tel.replace(/\s+/g, ''); }
+        root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = label;
+        showError('Nie udało się połączyć z serwerem. Spróbuj ponownie lub zadzwoń: ' + PHONE + '.');
+      });
+  });
+
+  load(false);
+})();
+</script>
