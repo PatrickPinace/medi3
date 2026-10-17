@@ -204,10 +204,10 @@ import "../styles/m3-form.css";
       info = 'Termin tej wizyty ustalamy indywidualnie. Po wysłaniu zgłoszenia skontaktujemy się z Tobą.';
       $('lk-slots').innerHTML = '';
     } else if (!slots.length) {
-      info = 'Aktualnie nie ma wolnych terminów w kalendarzu. Zostaw zgłoszenie - skontaktujemy się z Tobą, gdy pojawi się termin.';
+      info = 'Aktualnie nie ma wolnych terminów. Zapisz się na listę oczekujących - skontaktujemy się z Tobą, gdy pojawi się termin (kolejność wg daty zgłoszenia).';
       $('lk-slots').innerHTML = '';
     } else {
-      info = 'Wybierz wolny termin albo zaznacz, że żaden nie pasuje - wtedy skontaktujemy się z Tobą.';
+      info = 'Wybierz wolny termin albo, jeśli żaden nie pasuje, zapisz się na listę oczekujących.';
       var byDay = {}, order = [];
       slots.forEach(function (s) { if (!byDay[s.date]) { byDay[s.date] = []; order.push(s.date); } byDay[s.date].push(s); });
       order.forEach(function (d) {
@@ -219,7 +219,7 @@ import "../styles/m3-form.css";
         });
         html += '</div>';
       });
-      html += '<div class="m3-opts" style="margin-top:14px"><label class="m3-opt"><input type="radio" name="termin" value=""' + (keepValue === '' ? ' checked' : '') + ' /><div><b>Żaden z terminów mi nie pasuje</b><small>Proszę o kontakt w sprawie terminu</small></div></label></div>';
+      html += '<div class="m3-opts" style="margin-top:14px"><label class="m3-opt"><input type="radio" name="termin" value=""' + (keepValue === '' ? ' checked' : '') + ' /><div><b>Żaden z terminów mi nie pasuje</b><small>Zapisz mnie na listę oczekujących - odezwiemy się, gdy pojawi się nowy termin</small></div></label></div>';
       $('lk-slots').innerHTML = html;
     }
     $('lk-slots-info').textContent = info;
@@ -228,7 +228,8 @@ import "../styles/m3-form.css";
 
   function updateButton() {
     var v = currentVisit(); var t = f.querySelector('input[name="termin"]:checked');
-    btn.textContent = (v && v.needsSlot && t && t.value) ? 'Zarezerwuj termin' : 'Wyślij zgłoszenie';
+    var waitlist = v && v.needsSlot && !(t && t.value);
+    btn.textContent = !v ? 'Wyślij zgłoszenie' : waitlist ? 'Zapisz się na listę oczekujących' : v.needsSlot ? 'Zarezerwuj termin' : 'Wyślij zgłoszenie';
   }
 
   function load(keep) {
@@ -312,10 +313,10 @@ import "../styles/m3-form.css";
       .then(function (res) {
         btn.disabled = false; btn.textContent = label;
         if (!(res && res.ok)) { showError((res && res.error) || 'Wystąpił błąd.'); if (res && res.refresh) load(true); return; }
-        var booked = res.status === 'Potwierdzony' && res.slot;
+        var booked = res.status === 'Potwierdzony' && res.slot, waiting = res.status === 'Lista oczekujących';
         $('lk-main').hidden = true; $('lk-done').hidden = false;
-        $('lk-done-title').textContent = booked ? 'Rezerwacja potwierdzona' : 'Zgłoszenie przyjęte';
-        $('lk-done-text').textContent = booked ? 'Czekamy na Ciebie w wybranym terminie.' : 'Skontaktujemy się z Tobą, aby uzgodnić termin wizyty.';
+        $('lk-done-title').textContent = booked ? 'Rezerwacja potwierdzona' : waiting ? 'Jesteś na liście oczekujących' : 'Zgłoszenie przyjęte';
+        $('lk-done-text').textContent = booked ? 'Czekamy na Ciebie w wybranym terminie.' : waiting ? 'Gdy pojawi się wolny termin, skontaktujemy się z Tobą (kolejność wg daty zgłoszenia).' : 'Skontaktujemy się z Tobą, aby uzgodnić termin wizyty.';
         var li = [['Rodzaj wizyty', v.name]];
         if (booked) { li.push(['Termin', cap(dayLabel(res.slot.date)) + ', godz. ' + res.slot.time]); if (res.slot.advisor) li.push(['Doradca', res.slot.advisor]); if (res.slot.place) li.push(['Miejsce', res.slot.place]); }
         if (v.price) li.push(['Cena', v.price]);
