@@ -35,6 +35,10 @@ import "../styles/m3-form.css";
           </div>
 
           <div id="lk-main" hidden>
+            <div class="m3-notice" id="lk-notice" hidden>
+              <p class="m3-notice-title">Ważna informacja</p>
+              <p class="m3-notice-text" id="lk-notice-text"></p>
+            </div>
             <h2 class="m3-sec-title" id="lk-title"></h2>
             <div id="lk-desc"></div>
             <div class="m3-alert" id="lk-prep" hidden></div>
@@ -165,6 +169,7 @@ import "../styles/m3-form.css";
 
   function renderStatic() {
     var s = DATA.settings;
+    $('lk-notice').hidden = !s.notice; $('lk-notice-text').textContent = s.notice || '';
     $('lk-title').textContent = s.title;
     $('lk-desc').innerHTML = (s.description || []).map(function (p) { return '<p class="m3-sec-help" style="margin-bottom:10px">' + esc(p) + '</p>'; }).join('');
     $('lk-prep').hidden = !s.prep; $('lk-prep').textContent = s.prep || '';
@@ -204,8 +209,9 @@ import "../styles/m3-form.css";
       info = 'Termin tej wizyty ustalamy indywidualnie. Po wysłaniu zgłoszenia skontaktujemy się z Tobą.';
       $('lk-slots').innerHTML = '';
     } else if (!slots.length) {
-      info = 'Aktualnie nie ma wolnych terminów. Zapisz się na listę oczekujących - skontaktujemy się z Tobą, gdy pojawi się termin (kolejność wg daty zgłoszenia).';
-      $('lk-slots').innerHTML = '';
+      info = '';
+      $('lk-slots').innerHTML = '<div class="m3-notice"><p class="m3-notice-title">Aktualnie nie ma wolnych terminów</p>'
+        + '<p class="m3-notice-text">Zapisz się na listę oczekujących - skontaktujemy się z Tobą, gdy pojawi się termin (kolejność wg daty zgłoszenia).</p></div>';
     } else {
       info = 'Wybierz wolny termin albo, jeśli żaden nie pasuje, zapisz się na listę oczekujących.';
       var byDay = {}, order = [];
@@ -222,7 +228,7 @@ import "../styles/m3-form.css";
       html += '<div class="m3-opts" style="margin-top:14px"><label class="m3-opt"><input type="radio" name="termin" value=""' + (keepValue === '' ? ' checked' : '') + ' /><div><b>Żaden z terminów mi nie pasuje</b><small>Zapisz mnie na listę oczekujących - odezwiemy się, gdy pojawi się nowy termin</small></div></label></div>';
       $('lk-slots').innerHTML = html;
     }
-    $('lk-slots-info').textContent = info;
+    $('lk-slots-info').textContent = info; $('lk-slots-info').hidden = !info;
     updateButton();
   }
 
