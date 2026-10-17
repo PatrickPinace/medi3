@@ -61,7 +61,7 @@ import "../styles/m3-form.css";
 
               <h3 class="m3-step">Informacje o wizycie</h3>
               <div class="m3-q">
-                <p class="m3-q-title">Powód zgłoszenia na konsultację <span class="m3-req">*</span></p>
+                <p class="m3-q-title">Powód zgłoszenia na konsultację (zaznacz wszystkie pasujące) <span class="m3-req">*</span></p>
                 <div class="m3-opts" id="lk-reasons"></div>
               </div>
               <div id="lk-child">
@@ -151,6 +151,12 @@ import "../styles/m3-form.css";
   function dayLabel(ymd) { var p = ymd.split('-').map(Number); return fmtDay.format(new Date(Date.UTC(p[0], p[1] - 1, p[2], 12))); }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
+  function checks(name, options) {
+    return options.map(function (o) {
+      return '<label class="m3-opt"><input type="checkbox" name="' + name + '" value="' + esc(o) + '" /><span>' + esc(o) + '</span></label>';
+    }).join('');
+  }
+
   function radios(name, options, checkedVal) {
     return options.map(function (o) {
       return '<label class="m3-opt"><input type="radio" name="' + name + '" value="' + esc(o) + '"' + (o === checkedVal ? ' checked' : '') + ' /><span>' + esc(o) + '</span></label>';
@@ -173,7 +179,7 @@ import "../styles/m3-form.css";
         + (sub ? '<small>' + esc(sub) + '</small>' : '') + (v.note ? '<small>' + esc(v.note) + '</small>' : '') + '</div></label>';
     }).join('');
 
-    $('lk-reasons').innerHTML = radios('powod', DATA.reasons.concat(['Inne (opisz poniżej)']), '')
+    $('lk-reasons').innerHTML = checks('powod', DATA.reasons.concat(['Inne']))
       + '<input type="text" name="powodInne" id="lk-reason-other" maxlength="250" placeholder="Opisz, na czym polega problem" hidden />';
     $('lk-sources').innerHTML = '<option value="">- wybierz -</option>' + DATA.sources.map(function (o) { return '<option>' + esc(o) + '</option>'; }).join('');
     Array.prototype.forEach.call(document.querySelectorAll('[data-radio]'), function (el) {
@@ -251,7 +257,7 @@ import "../styles/m3-form.css";
     msg.textContent = ''; msg.className = 'm3-msg';
     if (e.target.name === 'wizyta') renderSlots(undefined);
     if (e.target.name === 'termin') updateButton();
-    if (e.target.name === 'powod') { var o = $('lk-reason-other'); o.hidden = e.target.value.indexOf('Inne') !== 0; if (!o.hidden) o.focus(); }
+    if (e.target.name === 'powod' && e.target.value === 'Inne') { var o = $('lk-reason-other'); o.hidden = !e.target.checked; if (!o.hidden) o.focus(); }
   });
 
   function peselOk(p) {
@@ -261,6 +267,7 @@ import "../styles/m3-form.css";
     return (10 - (s % 10)) % 10 === Number(p[10]);
   }
   function val(name) { var c = f.querySelector('input[name="' + name + '"]:checked'); return c ? c.value : ''; }
+  function vals(name) { return Array.prototype.map.call(f.querySelectorAll('input[name="' + name + '"]:checked'), function (c) { return c.value; }); }
 
   f.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -277,9 +284,15 @@ import "../styles/m3-form.css";
     if (!peselOk(pesel)) return showError('Podaj poprawny numer PESEL (11 cyfr).', f.pesel);
     if (addr.length < 6) return showError('Podaj pełny adres (w tym kod pocztowy).', f.adres);
 
-    var reason = val('powod');
-    if (!reason) return showError('Wybierz powód zgłoszenia.', $('lk-reasons'));
-    if (reason.indexOf('Inne') === 0) { reason = 'Inne: ' + $('lk-reason-other').value.trim(); if (reason.length < 8) return showError('Opisz, na czym polega problem.', $('lk-reason-other')); }
+    var picked = vals('powod');
+    if (!picked.length) return showError('Wybierz co najmniej jeden powód zgłoszenia.', $('lk-reasons'));
+    var other = picked.indexOf('Inne') >= 0;
+    if (other) {
+      var txt = $('lk-reason-other').value.trim();
+      if (txt.length < 3) return showError('Opisz, na czym polega problem.', $('lk-reason-other'));
+      picked = picked.filter(function (x) { return x !== 'Inne'; }).concat(['Inne: ' + txt]);
+    }
+    var reason = picked.join('; ');
     var child = f.dziecko.value.trim(), dob = f.dzieckoUr.value;
     if (v.childData) {
       if (child.length < 2) return showError('Podaj imię i nazwisko dziecka.', f.dziecko);
