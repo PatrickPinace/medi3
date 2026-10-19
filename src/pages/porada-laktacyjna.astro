@@ -4,17 +4,27 @@ import PageHero from "../components/PageHero.astro";
 import { site, forms, poradaLaktacyjnaApi } from "../data/site";
 import { url } from "../utils/url";
 import "../styles/m3-form.css";
+import { prefetchJson } from "../utils/prefetch";
+
+// ustawienia, rodzaje wizyt i listy pobrane podczas budowania (terminy dociągają się w przeglądarce)
+const seed = await prefetchJson(poradaLaktacyjnaApi ? poradaLaktacyjnaApi + "?api=1" : "", (d) => !!(d && d.ok && d.settings));
+const initialLactation = seed ? { settings: seed.settings, visits: seed.visits, reasons: seed.reasons, sources: seed.sources } : null;
 ---
 
 <BaseLayout
   title="Porada laktacyjna - rezerwacja wizyty · Medi3"
   description="Zarezerwuj poradę laktacyjną w Mielcu - wybierz rodzaj wizyty i wolny termin, wypełnij krótki formularz. Certyfikowani Doradcy Laktacyjni Medi3."
 >
+  <link slot="head" rel="preconnect" href="https://script.google.com" />
+  <link slot="head" rel="preconnect" href="https://script.googleusercontent.com" crossorigin />
+
   <PageHero
     eyebrow="Porada laktacyjna"
     title="Zarezerwuj poradę laktacyjną"
     subtitle="Wybierz rodzaj wizyty i wolny termin. Po rezerwacji wyślemy potwierdzenie na Twój adres e-mail."
   />
+
+  {initialLactation && <script is:inline type="application/json" id="lk-initial" set:html={JSON.stringify(initialLactation).replace(/</g, "\\u003c")} />}
 
   <section class="container-x py-10 sm:py-16">
     <div
@@ -204,6 +214,12 @@ import "../styles/m3-form.css";
     $('lk-child').hidden = !(v && v.childData);
     if (!v) { wrap.hidden = true; return; }
     wrap.hidden = false;
+    if (v.needsSlot && DATA.slots === null) { // lista terminów dociąga się w tle
+      $('lk-slots').innerHTML = '<p class="m3-loading" style="margin:6px 0;text-align:left">Sprawdzam wolne terminy…</p>';
+      $('lk-slots-info').hidden = true; btn.disabled = true; btn.dataset.wait = '1'; btn.textContent = 'Wczytywanie terminów…';
+      return;
+    }
+    if (btn.dataset.wait) { btn.disabled = false; delete btn.dataset.wait; }
     var slots = DATA.slots || [], html = '', info;
     if (!v.needsSlot) {
       info = 'Termin tej wizyty ustalamy indywidualnie. Po wysłaniu zgłoszenia skontaktujemy się z Tobą.';
@@ -348,6 +364,16 @@ import "../styles/m3-form.css";
       });
   });
 
-  load(false);
+  var seedEl = document.getElementById('lk-initial'), seeded = false;
+  try {
+    var seedData = seedEl ? JSON.parse(seedEl.textContent) : null;
+    if (seedData && seedData.settings && seedData.settings.open && seedData.visits && seedData.visits.length) {
+      DATA = seedData; DATA.slots = null;
+      $('lk-loading').hidden = true;
+      renderStatic(); rendered = true; renderSlots(undefined);
+      $('lk-main').hidden = false; seeded = true;
+    }
+  } catch (e) { seeded = false; }
+  load(seeded);
 })();
 </script>

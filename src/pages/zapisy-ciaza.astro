@@ -4,17 +4,26 @@ import PageHero from "../components/PageHero.astro";
 import { site, forms, zapisyCiazaApi } from "../data/site";
 import { url } from "../utils/url";
 import "../styles/m3-form.css";
+import { prefetchJson } from "../utils/prefetch";
+
+// struktura formularza pobrana podczas budowania: formularz pokazuje się od razu, a odświeża się w tle
+const initialForm = await prefetchJson(zapisyCiazaApi ? zapisyCiazaApi + "?api=structure" : "", (d) => !!(d && d.pages));
 ---
 
 <BaseLayout
   title="Zapisy dla kobiet w ciąży - Szkoła Rodzenia · Medi3"
   description="Zapisz się pod opiekę położnej środowiskowo-rodzinnej (POZ) Medi3 w Mielcu - zajęcia Szkoły Rodzenia i wizyty patronażowe refundowane przez NFZ."
 >
+  <link slot="head" rel="preconnect" href="https://script.google.com" />
+  <link slot="head" rel="preconnect" href="https://script.googleusercontent.com" crossorigin />
+
   <PageHero
     eyebrow="Szkoła Rodzenia"
     title="Zapisy dla kobiet w ciąży"
     subtitle="Zapisz się pod opiekę naszej położnej środowiskowo-rodzinnej (POZ). Zajęcia i wizyty patronażowe są refundowane przez NFZ - bezpłatne dla Ciebie."
   />
+
+  {initialForm && <script is:inline type="application/json" id="m3-initial" set:html={JSON.stringify(initialForm).replace(/</g, "\\u003c")} />}
 
   <section class="container-x py-10 sm:py-16">
     <div
@@ -325,9 +334,20 @@ import "../styles/m3-form.css";
   card.addEventListener('change', onChange);
   card.addEventListener('input', function (e) { if (e.target.classList.contains('m3-other')) autoCheckOther(e.target); });
 
+  var seedEl = document.getElementById('m3-initial'), seed = null;
+  try { seed = seedEl ? JSON.parse(seedEl.textContent) : null; } catch (e) { seed = null; }
+  if (seed && seed.pages) { FORM = seed; render(); }
+
+  function hasAnswers() { return Object.keys(answers).some(function (k) { return !empty(answers[k]); }); }
+
   fetch(M3SR_API + '?api=structure')
     .then(function (r) { return r.json(); })
-    .then(function (data) { FORM = data; render(); })
-    .catch(unavailable);
+    .then(function (data) {
+      if (!data || !data.pages) throw new Error('structure');
+      if (!FORM) { FORM = data; render(); return; }
+      // pytania w Formularzu Google mogły się zmienić od ostatniego budowania strony - podmieniamy, dopóki nikt nie zaczął wypełniać
+      if (JSON.stringify(data) !== JSON.stringify(FORM) && cur === 0 && history.length === 1 && !hasAnswers()) { FORM = data; render(); }
+    })
+    .catch(function () { if (!FORM) unavailable(); });
 })();
 </script>
