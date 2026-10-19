@@ -2,6 +2,7 @@ export type TeamMember = {
   slug: string;
   name: string;
   role: string;
+  badge?: string; // krótka etykieta na zdjęciu (domyślnie: pierwsza część roli przed "·" lub "-")
   specs: string[];
   bio: string;
   bioMore?: string;
@@ -91,7 +92,8 @@ export const team: TeamMember[] = [
   {
     slug: "julia-rodzinka-trybuszek",
     name: "Julia Rodzinka-Trybuszek",
-    role: "Fizjoterapeutka · Instruktor fitness dla kobiet w ciąży",
+    role: "Fizjoterapeutka i instruktor fitness dla kobiet w ciąży",
+    badge: "Fizjoterapeutka",
     specs: ["Fizjoterapia uroginekologiczna", "Prawidłowy rozwój dziecka"],
     bio: "Magister fizjoterapii oraz certyfikowany instruktor fitness Państwowej Akademii Kultury i Sportu. Pasjonatka fizjoterapii uroginekologicznej.",
     bioMore: "Jej zawodowe zainteresowania obejmują kompleksową opiekę nad kobietą na różnych etapach życia, również w ciąży i okresie okołoporodowym oraz prawidłowy rozwój dziecka. W codziennej pracy łączy aktualną wiedzę medyczną, zdobywaną podczas licznych szkoleń, z indywidualnym, pełnym empatii i wsparcia podejściem do pacjentek.",

@@ -40,7 +40,7 @@ const initials = (name: string) =>
               </div>
             )}
             <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-navy-900/70 backdrop-blur px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white/80">
-              {m.role.split(/[·-]/)[0].trim()}
+              {(m.badge ?? m.role.split(/[·-]/)[0]).trim()}
             </div>
           </div>
 
