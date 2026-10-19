@@ -24,7 +24,7 @@ import "../styles/m3-form.css";
       data-phone={site.phone}
       data-tel={site.phoneTel}
       data-rodo={url("/rodo")}
-      data-profilaktyka={forms.profilaktyka}
+      data-profilaktyka={url("/zapisy-profilaktyka")}
       data-fallback={forms.ciaza}
     >
       <div class="m3-wrap">
@@ -80,7 +80,7 @@ import "../styles/m3-form.css";
     return '<div class="m3-info">'
       + '<p>Usługi organizuje Fundacja Medi3 (NIP 8172190396). Dzięki kontraktowi z NFZ zajęcia oraz wizyty patronażowe mogą być refundowane (bezpłatne dla pacjentki).</p>'
       + '<p>Udział jest objęty refundacją przy wyborze położnej środowiskowo-rodzinnej (POZ) w naszej placówce. Położna środowiskowo-rodzinna <b>nie jest położną przyjmującą poród</b> – wspiera Cię przed porodem i przychodzi do domu po porodzie na wizyty patronażowe.</p>'
-      + '<div class="m3-alert">To formularz dla kobiet w ciąży, które chcą być pod naszą opieką okołoporodową. Jeśli chcesz zapisać się tylko na badania profilaktyczne – <a href="' + esc(CFG.profilaktyka) + '" target="_blank" rel="noopener">kliknij tutaj</a>.</div>'
+      + '<div class="m3-alert">To formularz dla kobiet w ciąży, które chcą być pod naszą opieką okołoporodową. Jeśli chcesz zapisać się tylko na badania profilaktyczne – <a href="' + esc(CFG.profilaktyka) + '">kliknij tutaj</a>.</div>'
       + '</div><details><summary>Klauzula RODO</summary>'
       + '<p>Administratorem Pani/Pana danych osobowych jest Fundacja Medi3 z siedzibą przy ul. Leśnej 3/1, 39-300 Mielec, NIP: 817-21-90-396.</p>'
       + '<p>Dane przetwarzamy w związku z realizacją usługi, na podstawie Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych).</p>'

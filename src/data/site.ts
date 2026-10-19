@@ -116,6 +116,9 @@ export const ankietaZespoluApi: string = "https://script.google.com/macros/s/AKf
 // Endpoint /exec Apps Script (medi3/porada-laktacyjna/Kod.gs) obsługujący /porada-laktacyjna - rezerwacja porady laktacyjnej; pusty = strona pokazuje stary formularz Google
 export const poradaLaktacyjnaApi: string = "https://script.google.com/macros/s/AKfycby-6_e8_-1m5dPNwW9UsF9Eu1qDozsWjlIQDjlTui548cGoGViCn9QCo5rbhSFzVtfo/exec";
 
+// Endpoint /exec Apps Script (medi3/zapisy-profilaktyka/Kod.gs) obsługujący /zapisy-profilaktyka - formularz profilaktyka / Moje Zdrowie czytany na żywo z Formularza Google; pusty = strona pokazuje link do formularza Google
+export const zapisyProfilaktykaApi: string = "";
+
 // Endpoint /exec Apps Script (Kod.gs) obsługujący formularz /zapisy-ciaza
 export const zapisyCiazaApi: string = "https://script.google.com/macros/s/AKfycbzPnybEp3Wsrnvhva1a9XqknH2otQMaqc2FiKFhlWDcH0-6Dp0n5XmMFokEev4mZXcA/exec";
 

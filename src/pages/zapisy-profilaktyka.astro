@@ -1,0 +1,330 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site, forms, zapisyProfilaktykaApi } from "../data/site";
+import { url } from "../utils/url";
+import "../styles/m3-form.css";
+---
+
+<BaseLayout
+  title="Zapisy - profilaktyka i Moje Zdrowie · Medi3"
+  description="Zapisy na profilaktykę raka szyjki macicy (HPV), program Moje Zdrowie oraz płatne badania i konsultacje w Medi3 w Mielcu - wypełnij formularz online."
+>
+  <PageHero
+    eyebrow="Profilaktyka"
+    title="Zapisy na profilaktykę i Moje Zdrowie"
+    subtitle="Profilaktyka raka szyjki macicy (HPV), program Moje Zdrowie oraz płatne badania i konsultacje. Wypełnij formularz - skontaktujemy się w sprawie terminu."
+  />
+
+  <section class="container-x py-10 sm:py-16">
+    <div
+      id="m3sr"
+      class="m3form"
+      data-api={zapisyProfilaktykaApi}
+      data-phone={site.phone}
+      data-tel={site.phoneTel}
+      data-rodo={url("/rodo")}
+      data-ciaza={url("/zapisy-ciaza")}
+      data-fallback={forms.ogolny}
+    >
+      <div class="m3-wrap">
+        <div class="m3-card" id="m3-card"><p class="m3-loading">Wczytywanie formularza… to może potrwać kilka sekund.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="relative overflow-hidden rounded-[2.5rem] cta-gradient px-6 py-12 sm:px-14 sm:py-20 text-white dark:text-white/80">
+      <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+      <div class="absolute -left-16 -bottom-24 h-80 w-80 rounded-full bg-white/5 blur-3xl"></div>
+      <div class="relative max-w-3xl mx-auto text-center">
+        <h2 class="font-serif text-3xl sm:text-5xl tracking-tight leading-tight">Masz pytania?</h2>
+        <p class="mt-4 text-white/85 dark:text-white/50 text-base sm:text-lg">Zadzwoń lub napisz - pomożemy w zapisie i odpowiemy na wszystkie pytania.</p>
+        <div class="mt-7 sm:mt-8 flex flex-wrap justify-center gap-3">
+          <a href={`tel:${site.phoneTel}`} class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-salmon-700 px-6 py-3 text-sm font-medium hover:bg-cream-50 transition w-full sm:w-auto dark:bg-white/15 dark:text-white/70 dark:hover:bg-white/25">
+            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+            {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-medium hover:bg-white/10 transition w-full sm:w-auto dark:border-white/20 dark:text-white/60">
+            {site.email}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+(function () {
+  var root = document.getElementById('m3sr');
+  var card = document.getElementById('m3-card');
+  var M3SR_API = root.dataset.api;
+  var CFG = { ciaza: root.dataset.ciaza, rodo: root.dataset.rodo, phone: root.dataset.phone, fallback: root.dataset.fallback };
+  var FORM = null, answers = {}, cur = 0, history = [0];
+
+  var $ = function (s, el) { return (el || root).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || root).querySelectorAll(s)); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var rich = function (s) { return esc(s).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\n/g, '<br>'); };
+  var telHref = 'tel:' + root.dataset.tel;
+  var toTop = function () { root.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+
+  function unavailable() {
+    card.innerHTML = '<p class="m3-loading">Nie udało się wczytać formularza. Odśwież stronę albo zadzwoń: <a href="' + telHref + '">' + esc(CFG.phone) + '</a>'
+      + (CFG.fallback ? '<br>Możesz też skorzystać z <a href="' + esc(CFG.fallback) + '" target="_blank" rel="noopener">formularza w nowej karcie</a>.' : '') + '</p>';
+  }
+
+  if (!M3SR_API) { unavailable(); return; }
+
+  function introHtml() {
+    return '<div class="m3-info">'
+      + '<p>Usługi organizuje Fundacja Medi3 (NIP 8172190396). Formularz dotyczy <b>programów profilaktycznych</b>: profilaktyki raka szyjki macicy (HPV), programu <b>Moje Zdrowie</b> oraz płatnych badań i konsultacji.</p>'
+      + '<p>Programy refundowane przez NFZ są bezpłatne dla pacjenta. Dodatkowe informacje: <a href="' + telHref + '">' + esc(CFG.phone) + '</a>.</p>'
+      + '<div class="m3-alert">Jesteś w ciąży i chcesz być pod naszą opieką okołoporodową? Skorzystaj z <a href="' + esc(CFG.ciaza) + '">formularza dla kobiet w ciąży</a>.</div>'
+      + '</div>'; // klauzula RODO jest pierwszym pytaniem formularza (czytana z Formularza Google)
+  }
+
+  function inputKind(q) {
+    var t = q.title.toLowerCase();
+    if (/e-?mail/.test(t)) return 'email';
+    if (/telefon/.test(t)) return 'tel';
+    if (/pesel/.test(t) && !/data urodzenia|ew\./.test(t)) return 'pesel';
+    return 'text';
+  }
+
+  function optHtml(type, name, value, checked, label, extra) {
+    return '<label class="m3-opt' + (checked ? ' on' : '') + '"><input type="' + type + '" name="' + name + '" value="' + esc(value) + '"' + (checked ? ' checked' : '') + '><span>' + esc(label) + '</span>' + (extra || '') + '</label>';
+  }
+
+  function itemHtml(q) {
+    var v = answers[q.id], name = 'm3q' + q.id, body = '', i;
+    var head = q.type === 'SECTION_HEADER'
+      ? '<div class="m3-sec-title" style="font-size:19px">' + esc(q.title) + '</div>'
+      : (q.title ? '<div class="m3-q-title">' + esc(q.title) + (q.required ? ' <span class="m3-req">*</span>' : '') + '</div>' : '');
+    var help = q.help ? '<div class="m3-q-help">' + rich(q.help) + '</div>' : '';
+    switch (q.type) {
+      case 'TEXT':
+        var k = inputKind(q);
+        var attrs = k === 'email' ? 'type="email" autocomplete="email"'
+          : k === 'tel' ? 'type="tel" inputmode="tel" autocomplete="tel"'
+          : k === 'pesel' ? 'type="text" inputmode="numeric" maxlength="11" autocomplete="off"' : 'type="text"';
+        body = '<input ' + attrs + ' name="' + name + '" value="' + esc(v || '') + '">'; break;
+      case 'PARAGRAPH_TEXT': body = '<textarea name="' + name + '">' + esc(v || '') + '</textarea>'; break;
+      case 'MULTIPLE_CHOICE':
+        var vals = q.choices.map(function (c) { return c.v; });
+        var isOther = typeof v === 'string' && v && vals.indexOf(v) < 0;
+        body = '<div class="m3-opts">' + q.choices.map(function (c) { return optHtml('radio', name, c.v, v === c.v, c.v); }).join('')
+          + (q.other ? optHtml('radio', name, '__other__', isOther, 'Inne:', '<input type="text" class="m3-other" value="' + (isOther ? esc(v) : '') + '">') : '') + '</div>';
+        break;
+      case 'CHECKBOX':
+        var arr = Array.isArray(v) ? v : [];
+        var cv = q.choices.map(function (c) { return c.v; });
+        var ov = arr.filter(function (x) { return cv.indexOf(x) < 0; })[0];
+        body = '<div class="m3-opts">' + q.choices.map(function (c) { return optHtml('checkbox', name, c.v, arr.indexOf(c.v) >= 0, c.v); }).join('')
+          + (q.other ? optHtml('checkbox', name, '__other__', !!ov, 'Inne:', '<input type="text" class="m3-other" value="' + esc(ov || '') + '">') : '') + '</div>';
+        break;
+      case 'LIST':
+        body = '<select name="' + name + '"><option value="">Wybierz…</option>'
+          + q.choices.map(function (c) { return '<option' + (v === c.v ? ' selected' : '') + '>' + esc(c.v) + '</option>'; }).join('') + '</select>';
+        break;
+      case 'DATE': body = '<input type="date" name="' + name + '" value="' + esc(v || '') + '">'; break;
+      case 'DATETIME': body = '<input type="datetime-local" name="' + name + '" value="' + esc(v || '') + '">'; break;
+      case 'TIME': body = '<input type="time" name="' + name + '" value="' + esc(v || '') + '">'; break;
+      case 'SCALE':
+        body = '<div class="m3-scale">' + (q.lowerLabel ? '<span class="m3-lab">' + esc(q.lowerLabel) + '</span>' : '');
+        for (i = q.lower; i <= q.upper; i++)
+          body += '<label>' + i + '<input type="radio" name="' + name + '" value="' + i + '"' + (String(v) === String(i) ? ' checked' : '') + '></label>';
+        body += (q.upperLabel ? '<span class="m3-lab">' + esc(q.upperLabel) + '</span>' : '') + '</div>';
+        break;
+      case 'GRID':
+      case 'CHECKBOX_GRID':
+        var t = q.type === 'GRID' ? 'radio' : 'checkbox', o = v || {};
+        body = '<div class="m3-grid"><table><tr><th></th>' + q.cols.map(function (c) { return '<th>' + esc(c) + '</th>'; }).join('') + '</tr>'
+          + q.rows.map(function (r, ri) {
+              return '<tr><td>' + esc(r) + '</td>' + q.cols.map(function (c) {
+                var on = t === 'radio' ? o[r] === c : (o[r] || []).indexOf(c) >= 0;
+                return '<td><input type="' + t + '" name="' + name + '_' + ri + '" value="' + esc(c) + '"' + (on ? ' checked' : '') + '></td>';
+              }).join('') + '</tr>';
+            }).join('') + '</table></div>';
+        break;
+      case 'IMAGE': return '';
+    }
+    return '<div class="m3-q" data-id="' + q.id + '">' + head + help + body + '<div class="m3-err-msg"></div></div>';
+  }
+
+  function render() {
+    var page = FORM.pages[cur];
+    var pct = Math.round((cur + 1) / FORM.pages.length * 100);
+    card.innerHTML = '<div class="m3-progress"><i style="width:' + pct + '%"></i></div>'
+      + (cur === 0 ? introHtml() : '')
+      + (page.title ? '<div class="m3-sec-title">' + esc(page.title) + '</div>' : '')
+      + (page.help ? '<div class="m3-sec-help">' + rich(page.help) + '</div>' : '')
+      + page.items.map(itemHtml).join('')
+      + '<div class="m3-hp" aria-hidden="true"><input type="text" id="m3-hp" tabindex="-1" autocomplete="off"></div>'
+      + '<div class="m3-nav">' + (history.length > 1 ? '<button class="m3-btn m3-btn-ghost" id="m3-back" type="button">Wstecz</button>' : '')
+      + '<button class="m3-btn m3-btn-main" id="m3-next" type="button"></button></div>'
+      + '<div class="m3-form-err" id="m3-formErr"></div>';
+    $$('.m3-opt .m3-other').forEach(function (inp) { inp.addEventListener('focus', function () { autoCheckOther(inp); }); });
+    $('#m3-next').addEventListener('click', onNext);
+    if ($('#m3-back')) $('#m3-back').addEventListener('click', onBack);
+    updateButton();
+  }
+
+  function autoCheckOther(inp) {
+    var box = inp.closest('.m3-opt').querySelector('input[type=radio],input[type=checkbox]');
+    if (!box.checked) { box.checked = true; onChange({ target: box }); }
+  }
+
+  function onChange(e) {
+    var qEl = e.target.closest && e.target.closest('.m3-q');
+    if (qEl) {
+      $$('.m3-opt', qEl).forEach(function (o) { o.classList.toggle('on', o.querySelector('input').checked); });
+      qEl.classList.remove('has-err');
+    }
+    if (FORM) updateButton();
+  }
+
+  function readPage() {
+    FORM.pages[cur].items.forEach(function (q) {
+      var el = $('.m3-q[data-id="' + q.id + '"]');
+      if (!el) return;
+      var name = 'm3q' + q.id, v, c;
+      switch (q.type) {
+        case 'MULTIPLE_CHOICE':
+        case 'SCALE':
+          c = $('input[name="' + name + '"]:checked', el);
+          v = c ? (c.value === '__other__' ? $('.m3-other', el).value.trim() : c.value) : '';
+          if (c && c.value === '__other__' && !v) v = { otherEmpty: true };
+          break;
+        case 'CHECKBOX':
+          v = $$('input[name="' + name + '"]:checked', el).map(function (x) { return x.value === '__other__' ? $('.m3-other', el).value.trim() : x.value; });
+          if (v.indexOf('') >= 0) v = { otherEmpty: true };
+          break;
+        case 'GRID':
+        case 'CHECKBOX_GRID':
+          v = {};
+          q.rows.forEach(function (r, ri) {
+            var ch = $$('input[name="' + name + '_' + ri + '"]:checked', el).map(function (x) { return x.value; });
+            if (ch.length) v[r] = q.type === 'GRID' ? ch[0] : ch;
+          });
+          break;
+        case 'SECTION_HEADER':
+        case 'IMAGE': return;
+        default:
+          var f = $('[name="' + name + '"]', el);
+          v = f ? f.value.trim() : '';
+      }
+      answers[q.id] = v;
+    });
+  }
+
+  function peselOk(p) {
+    if (!/^\d{11}$/.test(p)) return false;
+    var w = [1,3,7,9,1,3,7,9,1,3], s = 0;
+    for (var i = 0; i < 10; i++) s += w[i] * +p[i];
+    return (10 - s % 10) % 10 === +p[10];
+  }
+
+  function empty(v) {
+    if (v == null) return true;
+    if (Array.isArray(v)) return !v.length;
+    if (typeof v === 'object') return !Object.keys(v).length;
+    return String(v).trim() === '';
+  }
+
+  function validatePage() {
+    var first = null;
+    FORM.pages[cur].items.forEach(function (q) {
+      var el = $('.m3-q[data-id="' + q.id + '"]');
+      if (!el) return;
+      var v = answers[q.id], msg = '';
+      if (v && v.otherEmpty) msg = 'Wpisz odpowiedź w polu „Inne”.';
+      else if (q.required && empty(v)) msg = 'To pole jest wymagane.';
+      else if (q.required && (q.type === 'GRID' || q.type === 'CHECKBOX_GRID') && Object.keys(v).length < q.rows.length) msg = 'Odpowiedz w każdym wierszu.';
+      else if (q.type === 'TEXT' && !empty(v)) {
+        var k = inputKind(q);
+        if (k === 'pesel' && !peselOk(v)) msg = 'Sprawdź PESEL – powinien mieć 11 cyfr i poprawną cyfrę kontrolną.';
+        if (k === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) msg = 'Wpisz poprawny adres e-mail, np. imie@poczta.pl.';
+        if (k === 'tel' && v.replace(/\D/g, '').length < 9) msg = 'Numer telefonu powinien mieć co najmniej 9 cyfr.';
+      }
+      el.classList.toggle('has-err', !!msg);
+      $('.m3-err-msg', el).textContent = msg;
+      if (msg && !first) first = el;
+    });
+    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return !first;
+  }
+
+  function nextOf(p) {
+    var page = FORM.pages[p], nav = null;
+    page.items.forEach(function (q) {
+      if (q.type !== 'MULTIPLE_CHOICE' && q.type !== 'LIST') return;
+      var ch = (q.choices || []).filter(function (c) { return c.v === answers[q.id]; })[0];
+      if (ch && ch.nav && ch.nav.t !== 'CONTINUE') nav = ch.nav;
+    });
+    nav = nav || page.nav || { t: 'CONTINUE' };
+    if (nav.t === 'SUBMIT') return -1;
+    if (nav.t === 'RESTART') return 0;
+    if (nav.t === 'GOTO' && nav.p != null) return nav.p;
+    return p + 1 < FORM.pages.length ? p + 1 : -1;
+  }
+
+  function updateButton() {
+    readPage();
+    $('#m3-next').textContent = nextOf(cur) === -1 ? 'Wyślij zgłoszenie' : 'Dalej';
+  }
+
+  function onBack() {
+    readPage();
+    history.pop();
+    cur = history[history.length - 1];
+    render(); toTop();
+  }
+
+  function onNext() {
+    readPage();
+    if (!validatePage()) return;
+    var n = nextOf(cur);
+    if (n === -1) return submit();
+    if (n === 0) history.length = 0;
+    history.push(n);
+    cur = n;
+    render(); toTop();
+  }
+
+  function submit() {
+    var btn = $('#m3-next');
+    btn.disabled = true;
+    btn.textContent = 'Wysyłanie…';
+    var pages = history.filter(function (x, i, a) { return a.indexOf(x) === i; });
+    var payload = { pages: pages, answers: {}, hp: ($('#m3-hp') || {}).value || '' };
+    pages.forEach(function (i) {
+      FORM.pages[i].items.forEach(function (q) { if (!empty(answers[q.id])) payload.answers[q.id] = answers[q.id]; });
+    });
+    fetch(M3SR_API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.error || '');
+        card.innerHTML = '<div class="m3-done"><div class="m3-tick">✓</div><h2>Zgłoszenie wysłane</h2>'
+          + '<p>Dziękujemy! Skontaktujemy się z Tobą w sprawie terminu badań.</p>'
+          + '<p>W razie pytań zadzwoń: <a href="' + telHref + '">' + esc(CFG.phone) + '</a></p></div>';
+        toTop();
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = 'Wyślij zgłoszenie';
+        var box = $('#m3-formErr');
+        box.style.display = 'block';
+        box.textContent = 'Nie udało się wysłać zgłoszenia. ' + (err && err.message ? err.message : '') + '\nSpróbuj ponownie albo zadzwoń: ' + CFG.phone;
+      });
+  }
+
+  card.addEventListener('change', onChange);
+  card.addEventListener('input', function (e) { if (e.target.classList.contains('m3-other')) autoCheckOther(e.target); });
+
+  fetch(M3SR_API + '?api=structure')
+    .then(function (r) { return r.json(); })
+    .then(function (data) { FORM = data; render(); })
+    .catch(unavailable);
+})();
+</script>
