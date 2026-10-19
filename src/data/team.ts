@@ -91,9 +91,10 @@ export const team: TeamMember[] = [
   {
     slug: "julia-rodzinka-trybuszek",
     name: "Julia Rodzinka-Trybuszek",
-    role: "Fizjoterapeutka",
-    specs: ["Fizjoterapia"],
-    bio: "Fizjoterapeutka w zespole Medi3.",
+    role: "Fizjoterapeutka · Instruktor fitness dla kobiet w ciąży",
+    specs: ["Fizjoterapia uroginekologiczna", "Prawidłowy rozwój dziecka"],
+    bio: "Magister fizjoterapii oraz certyfikowany instruktor fitness Państwowej Akademii Kultury i Sportu. Pasjonatka fizjoterapii uroginekologicznej.",
+    bioMore: "Jej zawodowe zainteresowania obejmują kompleksową opiekę nad kobietą na różnych etapach życia, również w ciąży i okresie okołoporodowym oraz prawidłowy rozwój dziecka. W codziennej pracy łączy aktualną wiedzę medyczną, zdobywaną podczas licznych szkoleń, z indywidualnym, pełnym empatii i wsparcia podejściem do pacjentek.",
     photo: "julia-rodzinka-trybuszek.jpg",
   },
 ];
