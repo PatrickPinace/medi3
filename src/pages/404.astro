@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { site } from "../data/site";
+import { url } from "../utils/url";
+---
+
+<BaseLayout
+  title="Nie znaleziono strony · Medi3"
+  description="Strony, której szukasz, nie ma pod tym adresem."
+  noindex
+>
+  <PageHero
+    eyebrow="Błąd 404"
+    title="Nie znaleziono strony"
+    subtitle="Adres mógł się zmienić albo został wpisany z błędem. Wróć na stronę główną lub zadzwoń - chętnie pomożemy."
+  />
+
+  <section class="container-x py-12 sm:py-16">
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href={url("/")} class="btn-primary">Strona główna</a>
+      <a href={url("/zapisy")} class="btn-ghost">Zapisy</a>
+      <a href={`tel:${site.phoneTel}`} class="btn-ghost">{site.phone}</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -44,3 +44,6 @@ workdirartur/
 *.swp
 *.swo
 *~
+
+# Cloudflare Wrangler
+.wrangler/
